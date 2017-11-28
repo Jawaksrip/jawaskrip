@@ -2,7 +2,7 @@
 
 An Indonesian Version of JavaScript
 
-JawaSkrip addalah versi indonesia dari bahasa pemrograman JavaScript
+JawaSkrip adalah versi indonesia dari bahasa pemrograman JavaScript
 
 # Instalasi
 
