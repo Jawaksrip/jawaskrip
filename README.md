@@ -61,6 +61,10 @@ untuk(var i = 0;i kurangDari 10;i++){
 }
 ```
 
+- aritmatika dasar (masih dapat mengunakan simbol normal)
+```
+tulis(3 ditambah 2 dikurangi 12 ditambah 32 dikali 21 dibagi 2);
+```
 
 ### Tabel Perbedaan
 

@@ -127,10 +127,10 @@ class Tokenizer{
                 else if(word == "salah") tokens.push(this.toke(constant.T_FALSE, null, line));
 
                 // teks operator
-                else if(word == "ditambah") tokens.push(this.toke(constant.T_OR, null, line));
-                else if(word == "dikurangi") tokens.push(this.toke(constant.T_OR, null, line));
-                else if(word == "dikali") tokens.push(this.toke(constant.T_OR, null, line));
-                else if(word == "dibagi") tokens.push(this.toke(constant.T_OR, null, line));
+                else if(word == "ditambah") tokens.push(this.toke(constant.T_PLUS, null, line));
+                else if(word == "dikurangi") tokens.push(this.toke(constant.T_MINUS, null, line));
+                else if(word == "dikali") tokens.push(this.toke(constant.T_TIMES, null, line));
+                else if(word == "dibagi") tokens.push(this.toke(constant.T_DIVIDE, null, line));
                 else if(word == "modulus") tokens.push(this.toke(constant.T_MOD, null, line));
                 else if(word == "kurangdari" || word == "kurangDari") tokens.push(this.toke(constant.T_LESS, null, line));
                 else if(word == "lebihdari" || word == "lebihDari") tokens.push(this.toke(constant.T_GREATER, null, line));
