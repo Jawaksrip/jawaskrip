@@ -33,7 +33,7 @@ Untuk beberapa contoh kamu bisa lihat di [Example](https://github.com/Indmind/Ja
 | untuk(){...}     | for(){...}        |
 | tidak            | !=                |
 | dan              | &&                |
-| atau             | ||                |
+| atau             | &#124;&#124;      |
 | tulis()          | console.log()     |
 | benar            | true              |
 | salah            | false             |
