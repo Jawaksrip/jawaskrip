@@ -13,6 +13,10 @@ JawaSkrip addalah versi indonesia dari bahasa pemrograman JavaScript
 ```
 npm install -g jawaskrip
 ```
+- untuk run 
+```
+jawaskrip <lokasi/nama file>
+```
 
 # Tutorial
 
