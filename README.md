@@ -22,6 +22,46 @@ jawaskrip <lokasi/nama file>
 
 Untuk beberapa contoh kamu bisa lihat di [Example](https://github.com/Indmind/JawaSkrip/tree/master/example)
 
+### Contoh JawaSkrip
+
+- fungsi atau function
+```
+fungsi utama(){
+    tulis("halo dunia");
+}
+utama();
+```
+
+- jika atau if
+```
+var saya = "jelek";
+
+tulis("sekarang saya " + saya);
+
+jika(saya tidak "ganteng"){
+    saya = "ganteng";
+}
+
+tulis("sekarang saya " + saya);
+```
+
+- sementara atau while
+```
+var i = 10;
+sementara(i > 0){
+    i--;
+    tulis(i);
+}
+```
+
+- untuk atau for
+```
+untuk(var i = 0;i kurangDari 10;i++){
+    tulis(i);
+}
+```
+
+
 ### Tabel Perbedaan
 
 | JawaSkrip        | JavaScript        |
