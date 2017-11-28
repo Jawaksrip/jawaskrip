@@ -1,0 +1,3 @@
+for(var i = 0;i kurangDari 10;i++){
+    tulis(i);
+}

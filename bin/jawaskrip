@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+/**
+ * @author indmind <mail.indmind@gmail.com>
+ * @file Tokenize the script
+ * @version 0.0.1
+ * 
+ */
+
+require('../lib/jawaskrip/command').run();

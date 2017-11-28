@@ -1,0 +1,5 @@
+[ { type: 'word', value: 'jika' },
+  { type: 'word', value: 'saya' },
+  { type: 'word', value: 'dia' },
+  { type: 'word', value: 'return' },
+  { type: 'number', value: '1' } ]
