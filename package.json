@@ -16,9 +16,25 @@
     "inquirer": "^4.0.0"
   },
   "directories": {
-    "lib": "lib",
-    "test": "test"
+    "doc": "docs",
+    "example": "example",
+    "lib": "lib"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "an indonesian version of javascript",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Indmind/JawaSkrip.git"
+  },
+  "keywords": [
+    "javacript",
+    "jwsl",
+    "jawascript",
+    "indonesia",
+    "indo"
+  ],
+  "bugs": {
+    "url": "https://github.com/Indmind/JawaSkrip/issues"
+  },
+  "homepage": "https://github.com/Indmind/JawaSkrip#readme"
 }
