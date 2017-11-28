@@ -44,7 +44,7 @@ exports.run = () => {
     }
 
     // run compiled
-    if(action.length <= 0 || action.run){
+    if(Object.keys(action).length <= 0 || action.run){
         program.run(program.compile(filepath));
     }
 };

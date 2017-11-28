@@ -4,7 +4,6 @@
  * @version 0.0.2
  */
 
-const Parser = require("jison").Parser;
 const fs = require("fs");
 const path = require("path");
 const {constant} = require("./variable");

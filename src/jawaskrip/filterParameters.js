@@ -5,6 +5,8 @@
  * 
  */
 
+ const {version} = require("../../package.json");
+
  /**
   * @func filter
   * @returns {Array} - action yang akan dilakukan
@@ -40,7 +42,7 @@ module.exports = (_par) => {
      * log versi jawaskrip
      */
     if(_par.includes("-v")){
-        console.log(process.version);
+        console.log(version);
         data.exit = true;
     }
     // return action

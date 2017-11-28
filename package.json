@@ -1,6 +1,6 @@
 {
   "name": "jawaskrip",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
@@ -31,7 +31,9 @@
     "jwsl",
     "jawascript",
     "indonesia",
-    "indo"
+    "indo",
+    "jawaskrip",
+    "javaskrip"
   ],
   "bugs": {
     "url": "https://github.com/Indmind/JawaSkrip/issues"

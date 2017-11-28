@@ -7,4 +7,4 @@
  * 
  */
 
-require('../lib/jawaskrip/command').run();
+require('../src/jawaskrip/command').run();
