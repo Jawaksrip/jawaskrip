@@ -51,6 +51,7 @@ const constant = {
     T_NEW: 39,
     T_THIS: 40,
     T_RETURN: 41,
+    T_UNKNOWN: 42,
 
     ERROR_CODE: {
         

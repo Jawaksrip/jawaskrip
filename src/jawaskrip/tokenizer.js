@@ -185,7 +185,7 @@ class Tokenizer{
                 tokens.push(this.toke(constant.T_BTICK, "`"+quote+"`", line));
             }
 
-            else this.error(line, "at " + c);
+            else tokens.push(this.toke(constant.T_UNKNOWN, c, line));
             i++;
             if(i == _code.length){
                 _callback(tokens);
