@@ -6,7 +6,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const {constant} = require("./variable");
+const {constant, native} = require("./var");
 
 /**
  * @class Tokenizer - membuat token dari value yang diberikan
@@ -36,7 +36,6 @@ class Tokenizer{
         let tokens = [];
         let line = 1;
         let i = 0;
-        const end_word = new RegExp("[:!,;\.\s\?]");
 
         while(i < _code.length){
 
@@ -48,7 +47,7 @@ class Tokenizer{
             // cek newline
             if(c == "\n") line++;
 
-            else if(c == "." || c == " " || c == String.fromCharCode(13));
+            else if(c == " " || c == String.fromCharCode(13));
 
             // Operator
             // else if(c == "+") tokens.push(this.toke(constant.T_PLUS, null, line));
@@ -58,26 +57,40 @@ class Tokenizer{
                 let fix = c;
                 if(c == _code[i+1]){
                     fix += _code[i+1];
-                    tokens.push({type: fix, value: null, line: line});
+                    tokens.push(this.toke(constant.T_PFIX, fix, line));
                     i++;
+                }else if(_code[i + 1] == "="){
+                    fix +=  _code[i + 1];
+                    token.push(this.toke(constant.T_ASSIGNMENT, fix, line));
                 }else{
-                    tokens.push(this.toke(c == "+"? constant.T_PLUS: constant.T_MINUS, null, line));
+                    tokens.push(this.toke(fix == "+"? constant.T_PLUS: constant.T_MINUS, fix, line));
                 }
             }
 
-            else if(c == "*") tokens.push(this.toke(constant.T_TIMES, null, line));
-            else if(c == "/") tokens.push(this.toke(constant.T_DIVIDE, null, line));
-            else if(c == "%") tokens.push(this.toke(constant.T_MOD, null, line));
-            else if(c == "<") tokens.push(this.toke(constant.T_LESS, null, line));
-            else if(c == ">") tokens.push(this.toke(constant.T_GREATER, null, line));
-            else if(c == "=") tokens.push(this.toke(constant.T_ASSIGN, null, line));
+            else if("*/%".includes(c)){
+                let assignment = c;
+                if(_code[i + 1] == "="){
+                    assignment += _code[i + 1];
+                    tokens.push(this.toke(constant.T_ASSIGNMENT, assignment, line));
+                    i++;
+                }else{
+                    tokens.push(this.toke(constant.T_ARITHMATIC, c, line));
+                }
+            }
+
+            else if(c == "<") tokens.push(this.toke(constant.T_LESS, c, line));
+            else if(c == ">") tokens.push(this.toke(constant.T_GREATER, c, line));
+            else if(c == "=") tokens.push(this.toke(constant.T_ASSIGN, c, line));
 
             // Penutup
-            else if(c == ";") tokens.push(this.toke(constant.T_SCOLON, null, line));
-            else if(c == "(") tokens.push(this.toke(constant.T_LPAREN, null, line));
-            else if(c == ")") tokens.push(this.toke(constant.T_RPAREN, null, line));
-            else if(c == "{") tokens.push(this.toke(constant.T_LBRACE, null, line));
-            else if(c == "}") tokens.push(this.toke(constant.T_RBRACE, null, line));
+            else if(c == ".") tokens.push(this.toke(constant.T_DOT, c, line));
+            else if(c == ",") tokens.push(this.toke(constant.T_COMMA, c, line));
+            else if(c == ":") tokens.push(this.toke(constant.T_COLON, c, line));
+            else if(c == ";") tokens.push(this.toke(constant.T_SCOLON, c, line));
+            else if(c == "(") tokens.push(this.toke(constant.T_LPAREN, c, line));
+            else if(c == ")") tokens.push(this.toke(constant.T_RPAREN, c, line));
+            else if(c == "{") tokens.push(this.toke(constant.T_LBRACE, c, line));
+            else if(c == "}") tokens.push(this.toke(constant.T_RBRACE, c, line));
 
             // Integer
             else if(!c.isEmpty() && !isNaN(c)){
@@ -87,7 +100,7 @@ class Tokenizer{
                     i++;
                 }
                 i--; 
-                tokens.push({type: num, value: null, line: line});
+                tokens.push(this.toke(constant.T_NUM, num, line));
             }
 
             //Kata dan Keyword
@@ -102,34 +115,35 @@ class Tokenizer{
                 // }
                 i--;
 
-                if(word == "adalah") tokens.push(this.toke(constant.T_IS, null, line));
-                else if(word == "var") tokens.push(this.toke(constant.T_VAR, null, line));
-                else if(word == "fungsi") tokens.push(this.toke(constant.T_FUNCTION, null, line));
-                else if(word == "jika") tokens.push(this.toke(constant.T_IF, null, line));
-                else if(word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, null, line));
-                else if(word == "sementara") tokens.push(this.toke(constant.T_WHILE, null, line));
-                else if(word == "untuk") tokens.push(this.toke(constant.T_FOR, null, line));
-                else if(word == "tidak") tokens.push(this.toke(constant.T_NOT, null, line));
-                else if(word == "dan") tokens.push(this.toke(constant.T_AND, null, line));
-                else if(word == "atau") tokens.push(this.toke(constant.T_OR, null, line));
-                else if(word == "tulis" || word == "tampilkan") tokens.push(this.toke(constant.T_PRINT, null, line));
-                else if(word == "masukan") tokens.push(this.toke(constant.T_INPUT, null, line));
-                else if(word == "benar") tokens.push(this.toke(constant.T_TRUE, null, line));
-                else if(word == "salah") tokens.push(this.toke(constant.T_FALSE, null, line));
+                if(word == "adalah") tokens.push(this.toke(constant.T_IS, native.IS, line));
+                else if(word == "var") tokens.push(this.toke(constant.T_VAR, native.VAR, line));
+                else if(word == "fungsi") tokens.push(this.toke(constant.T_FUNCTION, native.FUNCTION, line));
+                else if(word == "jika") tokens.push(this.toke(constant.T_IF, native.IF, line));
+                else if(word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, native.ELSE, line));
+                else if(word == "sementara") tokens.push(this.toke(constant.T_WHILE, native.WHILE, line));
+                else if(word == "untuk") tokens.push(this.toke(constant.T_FOR, native.FOR, line));
+                else if(word == "tidak") tokens.push(this.toke(constant.T_NOT, native.NOT, line));
+                else if(word == "dan") tokens.push(this.toke(constant.T_AND, native.AND, line));
+                else if(word == "atau") tokens.push(this.toke(constant.T_OR, native.OR, line));
+                else if(word == "tulis" || word == "tampilkan") tokens.push(this.toke(constant.T_PRINT, native.PRINT, line));
+                else if(word == "masukan") tokens.push(this.toke(constant.T_INPUT, native.INPUT, line));
+                else if(word == "benar") tokens.push(this.toke(constant.T_TRUE, native.TRUE, line));
+                else if(word == "salah") tokens.push(this.toke(constant.T_FALSE, native.FALSE, line));
 
                 // teks operator
-                else if(word == "ditambah") tokens.push(this.toke(constant.T_PLUS, null, line));
-                else if(word == "dikurangi") tokens.push(this.toke(constant.T_MINUS, null, line));
-                else if(word == "dikali") tokens.push(this.toke(constant.T_TIMES, null, line));
-                else if(word == "dibagi") tokens.push(this.toke(constant.T_DIVIDE, null, line));
-                else if(word == "modulus") tokens.push(this.toke(constant.T_MOD, null, line));
-                else if(word == "kurangdari" || word == "kurangDari") tokens.push(this.toke(constant.T_LESS, null, line));
-                else if(word == "lebihdari" || word == "lebihDari") tokens.push(this.toke(constant.T_GREATER, null, line));
+                else if(word == "ditambah") tokens.push(this.toke(constant.T_PLUS, native.PLUS, line));
+                else if(word == "dikurangi") tokens.push(this.toke(constant.T_MINUS, native.MINUS, line));
+                else if(word == "dikali") tokens.push(this.toke(constant.T_TIMES, native.TIMES, line));
+                else if(word == "dibagi") tokens.push(this.toke(constant.T_DIVIDE, native.DIVIDE, line));
+                else if(word == "modulus") tokens.push(this.toke(constant.T_MOD, native.MOD, line));
+                else if(word == "kurangdari" || word == "kurangDari") tokens.push(this.toke(constant.T_LESS, native.LESS, line));
+                else if(word == "lebihdari" || word == "lebihDari") tokens.push(this.toke(constant.T_GREATER, native.GREATER, line));
 
                 // bukan keyword kemungkinan nama variabel
-                else tokens.push({type: word, value: null, line: line});
+                else tokens.push(this.toke(constant.T_VARNAME, word, line));
             }
 
+            // double quote
             else if(c == '"'){
                 i++;
                 let quote = "";
@@ -138,7 +152,29 @@ class Tokenizer{
                     i++;
                     if(i >= _code.length) this.error(line, "Tanda Kutip Tidak Terselesaikan");
                 }
-                tokens.push({type: `"${quote}"`, value: null, line: line});
+                tokens.push(this.toke(constant.T_DQUOTE, `"${quote}"`, line));
+            }
+            // single quote
+            else if(c == "'"){
+                i++;
+                let quote = "";
+                while(_code[i] != "'"){
+                    quote += _code[i];
+                    i++;
+                    if(i >= _code.length) this.error(line, "Tanda Kutip Tidak Terselesaikan");
+                }
+                tokens.push(this.toke(constant.T_QUOTE, `'${quote}'`, line));
+            }
+            // backtick
+            else if(c == '`'){
+                i++;
+                let quote = "";
+                while(_code[i] != '`'){
+                    quote += _code[i];
+                    i++;
+                    if(i >= _code.length) this.error(line, "Tanda Kutip Tidak Terselesaikan");
+                }
+                tokens.push(this.toke(constant.T_BTICK, "`"+quote+"`", line));
             }
 
             else this.error(line, "Syntax Error");
@@ -156,7 +192,7 @@ class Tokenizer{
      */
     error(_line, _mess){
         //console.log(global.userFilePath)
-        throw new Error(`Error: ${global.userFilePath} (${_line}):\n${_mess}`);
+        throw `Error: ${global.userFilePath} (${_line}):\n${_mess}`;
     }
 }
 
@@ -170,7 +206,7 @@ exports.lex = (_filepath, _callback) => {
     //     console.log(lexer(line));
     //     //console.log('Line from file:', line);
     // });
-    const file = fs.readFileSync(_filepath, "utf8").toLowerCase();
+    const file = fs.readFileSync(_filepath, "utf8");
     const Tokenize = new Tokenizer();
     Tokenize.tokenize(file, (res) => {
         _callback(res);

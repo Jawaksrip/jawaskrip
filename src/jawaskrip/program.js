@@ -9,13 +9,14 @@ const parser = require("./parser");
 const fs = require("fs");
 const childProcess = require('child_process');
 const path = require("path");
+const beautify = require('js-beautify').js_beautify;
 
 const tempDir = "/../../temp/";
 
 exports.compile = (_filepath, _callback) => {
     tokenizer.lex(_filepath, (_token) => {
         parser.parse(_token, (parsed) => {
-            _callback(parsed);
+            _callback(beautify(parsed, {indent_size: 4}));
         });
     });
 };
@@ -43,14 +44,14 @@ exports.clean = _callback => {
 
 exports.run = (parsed, callback) => {
     const tempFile = path.join(__dirname, tempDir, generateName());
-    fs.writeFile(tempFile, parsed, (err) => {
+    fs.writeFile(tempFile, beautify(parsed, {indent_size: 4}), (err) => {
         if(err) throw err;
         runScript(tempFile, code => {
             if(code) throw code;
-            fs.unlink(tempFile, _err => {
-                if(_err) throw _err;
-                callback();
-            });
+            // fs.unlink(tempFile, _err => {
+            //     if(_err) throw _err;
+            //     callback();
+            // });
         });
     });
 };

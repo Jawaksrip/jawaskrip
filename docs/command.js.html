@@ -29,52 +29,133 @@
             <pre class="prettyprint source linenums"><code>/**
  * @author indmind &lt;mail.indmind@gmail.com>
  * @file Process user input
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 const filterParameters = require("./filterParameters");
 const program = require("./program");
 const path = require("path");
 const fs = require('fs');
+const app = require("commander");
+const {version, description} = require("../../package.json");
 
-exports.run = () => {
-    /**
-     * @const filepath - path file yang akan dicompile
-     */
-    const filepath = path.resolve(process.cwd(), process.argv[2]);
-    // cek jika file ada
-    if(!fs.existsSync(filepath)){
-        console.log("Invalid file specified");
-        process.exit();
-    }
-    /**
-     * @var parameters - list parameter yang diberikan user
-     */
-    let parameters = [];
-    // mendapat parameter
-    process.argv.forEach(parameter => {
-        if(parameter.charAt(0) == "-"){
-            parameters.push(parameter);
+exports.run = _execDone => {
+
+    app.version(version).description(description);
+
+    app
+        .command("r &lt;file>")
+        .alias("run")
+        .description("Run jawaskrip file")
+        .action((filepath) => {
+            global.userFilePath = filepath;
+            program.compile(getRealPath(filepath), _compiled => {
+                program.run(_compiled, () => _execDone());
+            });
+        });
+
+    app
+        .command("t &lt;file>")
+        .alias("token")
+        .description("Generate token / lex")
+        .action((filepath) => {
+            global.userFilePath = filepath;
+            program.token(getRealPath(filepath), _token => {
+                console.log(_token);
+                _execDone();
+            });
+        });
+
+    app
+        .command("clean")
+        .description("clean temp file")
+        .action(() => {
+            program.clean((_mess) => {
+                console.log(_mess);
+                _execDone();
+            });
+        })
+
+    app
+        .command("c &lt;file>")
+        .alias("compile")
+        .description(`Compile jawaskrip to javascript and print out to stdout`)
+        .action((filepath) => {
+            global.userFilePath = filepath;
+            program.compile(getRealPath(filepath), _compiled => {
+                console.log(_compiled);
+                _execDone();
+            });
+        });
+
+    app
+        .command("o &lt;file> &lt;output>")
+        .alias("output")
+        .description("Compile and create javascript file")
+        .action((filepath, _output) => {
+            global.userFilePath = filepath;
+            program.compile(getRealPath(filepath), _compiled => {
+                fs.writeFile(path.join(process.cwd(), _output), _compiled, err => {
+                    if(err) throw err;
+                    _execDone();
+                });
+            });
+        });
+
+
+    app.parse(process.argv);
+
+
+
+    function getRealPath(_path){
+        if(fs.existsSync(_path)){
+            return _path;
+        }else if(fs.existsSync(path.resolve(process.cwd(), _path))){
+            return path.resolve(process.cwd(), _path);
+        }else{
+            console.log("Invalid file specified");
+            process.exit();
         }
-    });
-
-    /**
-     * @const action - aksi selanjutnya setelah parameters difilter
-     */
-    const action = filterParameters(parameters);
-
-    // exit proses jika action['exit'] == true
-    if(action.exit) process.exit();
-
-    // compile file yang diberikan
-    if(action.compile){
-        console.log(program.compile(filepath));
     }
 
-    // run compiled
-    if(action.length &lt;= 0 || action.run){
-        program.run(program.compile(filepath));
-    }
+
+    // /** 
+    //  * @const filepath - path file yang akan dicompile
+    //  */
+    // const filepath = path.resolve(process.cwd(), process.argv[2]);
+    // // cek jika file ada
+    // if(!fs.existsSync(filepath)){
+    //     console.log("Invalid file specified");
+    //     process.exit();
+    // }
+    // /**
+    //  * @var parameters - list parameter yang diberikan user
+    //  */
+    // let parameters = [];
+    // // mendapat parameter
+    // process.argv.forEach(parameter => {
+    //     if(parameter.charAt(0) == "-"){
+    //         parameters.push(parameter);
+    //     }
+    // });
+
+    // /**
+    //  * @const action - aksi selanjutnya setelah parameters difilter
+    //  */
+    // const action = filterParameters(parameters);
+
+    // // exit proses jika action['exit'] == true
+    // if(action.exit) process.exit();
+
+    // // compile file yang diberikan
+    // if(action.compile){
+    //     console.log(program.compile(filepath));
+    // }
+
+    // // run compiled
+    // if(Object.keys(action).length &lt;= 0 || action.run){
+    //     program.run(program.compile(filepath));
+    // }
 };
 </code></pre>
         </article>
@@ -86,13 +167,13 @@ exports.run = () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Tokenizer.html">Tokenizer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#action">action</a></li><li><a href="global.html#c">c</a></li><li><a href="global.html#filepath">filepath</a></li><li><a href="global.html#filter">filter</a></li><li><a href="global.html#line">line</a></li><li><a href="global.html#parameters">parameters</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Tokenizer.html">Tokenizer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#c">c</a></li><li><a href="global.html#filter">filter</a></li><li><a href="global.html#line">line</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Nov 28 2017 14:50:17 GMT+0700 (SE Asia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Nov 29 2017 10:21:15 GMT+0700 (SE Asia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

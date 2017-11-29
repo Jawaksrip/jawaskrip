@@ -1,3 +1,13 @@
-untuk(var i = 0;i kurangDari 10;i++){
+var a = 1;
+
+untuk(var i = 1;i kurangDari 10;i++){
+    a *= i;
     tulis(i);
 }
+
+var manusia = {
+    nama: "dinda",
+    uang: "Rp" + a
+}
+
+tulis(manusia.nama + " mempunyai uang sebanyak " + manusia.uang);

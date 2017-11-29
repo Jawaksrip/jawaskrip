@@ -39,12 +39,60 @@ const constant = {
     T_WHILE: 27,
     T_FOR: 28,
     T_INPUT: 29,
+    T_ASSIGNMENT: 30,
+    T_PFIX: 31,
+    T_ARITHMATIC: 32,
+    T_VARNAME: 33,
+    T_DOT: 34,
+    T_COMMA: 35,
+    T_COLON: 36,
+    T_DQUOTE: 37,
+    T_BTICK: 38,
 
     ERROR_CODE: {
         
     }
 };
 
+const native = {
+    END: -1,
+    PLUS: "+", // +
+    MINUS: "-", // -
+    TIMES: "*", // *
+    DIVIDE: "/", // /
+    MOD: "%", // %
+    LESS: "<", // <
+    GREATER: ">", // >
+    ASSIGN: "=",
+    SCOLON: ";", // ;
+    LPAREN: "(", // (
+    RPAREN: ")", // )
+    LBRACE: "{", // {
+    RBRACE: "}", // }
+    IS: "==", // ==
+    IF: "if", 
+    ELSE: "else if",
+    
+    TRUE: "true",
+    FALSE: "false",
+    AND: "&&", // &&
+    OR: "||", // ||
+    NOT: "!=", // !
+    
+    FUNCTION: "function",
+    VAR: "var",
+    WORD: "variable",
+    NUM: "number",
+    QUOTE: "'", // String
+    
+    PRINT: "console.log", // console.log
+    WHILE: "while",
+    FOR: "for",
+    DQUOTE: '"',
+    BTICK: "`"
+}
+
 module.exports = {
-    constant: constant
+    constant: constant,
+    native: native
 };

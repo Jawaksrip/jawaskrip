@@ -16,20 +16,22 @@ exports.run = _execDone => {
     app.version(version).description(description);
 
     app
-        .command("r <_file>")
+        .command("r <file>")
         .alias("run")
         .description("Run jawaskrip file")
         .action((filepath) => {
+            global.userFilePath = filepath;
             program.compile(getRealPath(filepath), _compiled => {
                 program.run(_compiled, () => _execDone());
             });
         });
 
     app
-        .command("t <_file>")
+        .command("t <file>")
         .alias("token")
         .description("Generate token / lex")
         .action((filepath) => {
+            global.userFilePath = filepath;
             program.token(getRealPath(filepath), _token => {
                 console.log(_token);
                 _execDone();
@@ -47,13 +49,28 @@ exports.run = _execDone => {
         })
 
     app
-        .command("c <_file>")
+        .command("c <file>")
         .alias("compile")
-        .description(`Compile JawaSkrip to JavaScript and print out to stdout. to create output file use "jawaskrip c <file> > output.js`)
+        .description(`Compile jawaskrip to javascript and print out to stdout`)
         .action((filepath) => {
+            global.userFilePath = filepath;
             program.compile(getRealPath(filepath), _compiled => {
                 console.log(_compiled);
                 _execDone();
+            });
+        });
+
+    app
+        .command("o <file> <output>")
+        .alias("output")
+        .description("Compile and create javascript file")
+        .action((filepath, _output) => {
+            global.userFilePath = filepath;
+            program.compile(getRealPath(filepath), _compiled => {
+                fs.writeFile(path.join(process.cwd(), _output), _compiled, err => {
+                    if(err) throw err;
+                    _execDone();
+                });
             });
         });
 

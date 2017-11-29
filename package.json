@@ -1,6 +1,6 @@
 {
   "name": "jawaskrip",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
@@ -12,7 +12,8 @@
   "author": "Indmind",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.11.0"
+    "commander": "^2.11.0",
+    "js-beautify": "^1.7.4"
   },
   "directories": {
     "doc": "docs",
