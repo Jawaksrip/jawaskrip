@@ -47,11 +47,12 @@ exports.run = (parsed, callback) => {
     fs.writeFile(tempFile, beautify(parsed, {indent_size: 4}), (err) => {
         if(err) throw err;
         runScript(tempFile, code => {
-            if(code) throw code;
-            fs.unlink(tempFile, _err => {
-                if(_err) throw _err;
+            try{
+                if(code) throw code;
+            }finally{
+                this.clean();
                 callback();
-            });
+            }
         });
     });
 };

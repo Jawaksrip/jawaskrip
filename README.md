@@ -91,6 +91,28 @@ tulis(manusia.nama + " mempunyai uang sebanyak " + manusia.uang);
 tulis(3 ditambah 2 dikurangi 12 ditambah 32 dikali 21 dibagi 2);
 ```
 
+- Pyramid
+```cs
+var baris = 5;
+var k = 0;
+var i = 1;
+var j = 1;
+
+selama(i <= baris){
+    var hasil = "";
+    untuk(j = 1; j <= baris dikurangi i; j++){
+        hasil += " ";
+    }
+    selama(k bukan 2 dikali i dikurangi 1){
+        hasil += "*";
+        k++;
+    }
+    tulis(hasil);
+    i++;
+    k = 0;
+}
+```
+
 ### Tabel Perbedaan
 
 | JawaSkrip        | JavaScript        |

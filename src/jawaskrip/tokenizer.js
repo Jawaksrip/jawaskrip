@@ -50,6 +50,10 @@ class Tokenizer{
              * @const {String} c - huruf jaman now
              */
             const c = _code[i];
+            const lastKey = tokens[tokens.length - 1];
+            let lastTokenIsKeyword = false;
+            if(lastKey != undefined && Object.keys(keyword).includes(tokens[tokens.length - 1].value.toUpperCase()))
+                lastTokenIsKeyword = true;
 
             // cek newline
             if(c == "\n") line++;
@@ -82,7 +86,7 @@ class Tokenizer{
                 if(word == "adalah") tokens.push(this.toke(constant.T_IS, keyword.IS, line));
                 
                 // cek jika token terakhir bukan keyword
-                else if(word == "ulangi" && tokens[tokens.length - 1] != undefined && !Object.keys(keyword).includes(tokens[tokens.length - 1].value.toUpperCase())){
+                else if(word == "ulangi" && !lastTokenIsKeyword){
                     // console.log(i);
                     //console.log(tokens[tokens.length - 1]);
                     let key = word;
@@ -103,7 +107,7 @@ class Tokenizer{
                 else if(word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, keyword.ELSE, line));
                 else if(word == "selama") tokens.push(this.toke(constant.T_WHILE, keyword.WHILE, line));
                 else if(word == "untuk") tokens.push(this.toke(constant.T_FOR, keyword.FOR, line));
-                else if(word == "tidak") tokens.push(this.toke(constant.T_NOT, keyword.NOT, line));
+                else if(word == "tidak" || word == "bukan") tokens.push(this.toke(constant.T_NOT, keyword.NOT, line));
                 else if(word == "dan") tokens.push(this.toke(constant.T_AND, keyword.AND, line));
                 else if(word == "atau") tokens.push(this.toke(constant.T_OR, keyword.OR, line));
                 else if(word == "tulis" || word == "tampilkan") tokens.push(this.toke(constant.T_PRINT, keyword.PRINT, line));
@@ -152,9 +156,14 @@ class Tokenizer{
                     tokens.push(this.toke(constant.T_ARITHMATIC, c, line));
                 }
             }
-
-            else if(c == "<") tokens.push(this.toke(constant.T_LESS, c, line));
-            else if(c == ">") tokens.push(this.toke(constant.T_GREATER, c, line));
+            else if(c == "<" || c == ">"){
+                if(_code[i + 1] == "="){
+                    tokens.push(this.toke(c == ">" ? constant.T_GTOQ: constant.T_LTOQ, c + "=", line));
+                    i++;
+                }
+                else if(c == "<") tokens.push(this.toke(constant.T_LESS, c, line));
+                else tokens.push(this.toke(constant.T_GREATER, c, line));
+            }
 
             // cek jika = bukan bagian dari pfix
             else if(c == "="){
