@@ -1,5 +1,5 @@
 var i = 10;
-sementara(i > 0){
+selama(i > 0){
     i--;
     tulis(i);
 }

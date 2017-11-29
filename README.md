@@ -52,10 +52,10 @@ ulangi(var i sebanyak 20 kali){
 }
 ```
 
-- sementara atau while
+- selama atau while
 ```cs
 var i = 10;
-sementara(i > 0){
+selama(i > 0){
     i--;
     tulis(i);
 }
@@ -98,7 +98,7 @@ tulis(3 ditambah 2 dikurangi 12 ditambah 32 dikali 21 dibagi 2);
 | jika(){...}      | if(){...}         |
 | jikaTidak(){...} | else if(){...}    |
 | fungsi n(){...}  | function n(){...} |
-| sementara(){...} | while(){...}      |
+| selama(){...} | while(){...}      |
 | untuk(){...}     | for(){...}        |
 | tidak            | !=                |
 | dan              | &&                |

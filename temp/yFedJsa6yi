@@ -1,0 +1,5 @@
+var i = 10;
+sementara(i > 0) {
+    i--;
+    console.log(i);
+}
