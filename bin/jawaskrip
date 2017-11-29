@@ -8,4 +8,8 @@
  */
 
 console.time("execution time");
-require('../src/jawaskrip/command').run(() => console.timeEnd("execution time"));
+console.log();
+require('../src/jawaskrip/command').run(() =>{
+    console.log();
+    console.timeEnd("execution time")
+});

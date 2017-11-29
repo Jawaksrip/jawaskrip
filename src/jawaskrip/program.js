@@ -48,10 +48,10 @@ exports.run = (parsed, callback) => {
         if(err) throw err;
         runScript(tempFile, code => {
             if(code) throw code;
-            // fs.unlink(tempFile, _err => {
-            //     if(_err) throw _err;
-            //     callback();
-            // });
+            fs.unlink(tempFile, _err => {
+                if(_err) throw _err;
+                callback();
+            });
         });
     });
 };

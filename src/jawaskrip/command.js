@@ -11,20 +11,37 @@ const fs = require('fs');
 const app = require("commander");
 const {version, description} = require("../../package.json");
 
+
+function run(filepath, callback){
+    global.userFilePath = filepath;
+    program.compile(getRealPath(filepath), _compiled => {
+        program.run(_compiled, callback);
+    });
+}
+
+function getRealPath(_path){
+    if(fs.existsSync(_path)){
+        return _path;
+    }else if(fs.existsSync(path.resolve(process.cwd(), _path))){
+        return path.resolve(process.cwd(), _path);
+    }else{
+        console.log("Invalid file specified");
+        process.exit();
+    }
+}
+
 exports.run = _execDone => {
+
+    // if the first argumet is file, autorun
+    if(fs.existsSync(path.resolve(process.cwd(), process.argv[2]))) run(process.argv[2], _execDone);
 
     app.version(version).description(description);
 
     app
         .command("r <file>")
         .alias("run")
-        .description("Run jawaskrip file")
-        .action((filepath) => {
-            global.userFilePath = filepath;
-            program.compile(getRealPath(filepath), _compiled => {
-                program.run(_compiled, () => _execDone());
-            });
-        });
+        .description("Run jawaskrip file, 'r' is default 'jawaskrip file.jwsl' will run the script")
+        .action(filepath => run(filepath, _execDone));
 
     app
         .command("t <file>")
@@ -76,19 +93,6 @@ exports.run = _execDone => {
 
 
     app.parse(process.argv);
-
-
-
-    function getRealPath(_path){
-        if(fs.existsSync(_path)){
-            return _path;
-        }else if(fs.existsSync(path.resolve(process.cwd(), _path))){
-            return path.resolve(process.cwd(), _path);
-        }else{
-            console.log("Invalid file specified");
-            process.exit();
-        }
-    }
 
 
     // /** 
