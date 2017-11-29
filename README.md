@@ -73,7 +73,7 @@ tulis(3 ditambah 2 dikurangi 12 ditambah 32 dikali 21 dibagi 2);
 | jika(){...}      | if(){...}         |
 | jikaTidak(){...} | else if(){...}    |
 | fungsi n(){...}  | function n(){...} |
-| sementara(){...} | while(){...}  |
+| sementara(){...} | while(){...}      |
 | untuk(){...}     | for(){...}        |
 | tidak            | !=                |
 | dan              | &&                |
