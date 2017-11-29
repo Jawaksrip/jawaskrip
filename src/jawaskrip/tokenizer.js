@@ -6,7 +6,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const {constant, native} = require("./var");
+const {constant, symbol, handler, keyword} = require("./var");
 
 /**
  * @class Tokenizer - membuat token dari value yang diberikan
@@ -38,6 +38,13 @@ class Tokenizer{
         let i = 0;
 
         while(i < _code.length){
+            // console.log(tokensIndex);
+            //console.log(tokens[Object.keys(tokens)[tokensIndex]]);
+            //console.log(tokens[1]);
+            //if(tokens[tokensIndex] != undefined)
+            // console.log(num);
+            // console.log(tokens[tokens.length - 1]);
+            //console.log(Object.keys(keyword).includes("WORD"));
 
             /**
              * @const {String} c - huruf jaman now
@@ -48,6 +55,74 @@ class Tokenizer{
             if(c == "\n") line++;
 
             else if(c == " " || c == String.fromCharCode(13));
+
+            // Integer
+            else if(!c.isEmpty() && !isNaN(c)){
+                let num = "";
+                while(!isNaN(_code[i])){
+                    num += _code[i];
+                    i++;
+                }
+                i--; 
+                tokens.push(this.toke(constant.T_NUM, num, line));
+            }
+
+            //Kata dan Keyword
+            else if(c.isAlphaNumeric()){
+                let word = '';
+                while(i < _code.length && (_code[i].isAlphaNumeric() || _code[i] == "")){
+                    word += _code[i];
+                    i++;
+                }
+                // if(i < _code.length && !/[:!,;.s?]/.test(_code[i])){
+                //     this.error(line, "noword");
+                // }
+                i--;
+
+                if(word == "adalah") tokens.push(this.toke(constant.T_IS, keyword.IS, line));
+                
+                // cek jika token terakhir bukan keyword
+                else if(word == "ulangi" && tokens[tokens.length - 1] != undefined && !Object.keys(keyword).includes(tokens[tokens.length - 1].value.toUpperCase())){
+                    // console.log(i);
+                    //console.log(tokens[tokens.length - 1]);
+                    let key = word;
+                    while(_code[i] != ")"){
+                        i++;
+                        key += _code[i];
+                    }
+                    tokens.push(this.toke(handler.H_ULANGI, key, line));
+                }
+
+
+                else if(word == "var") tokens.push(this.toke(constant.T_VAR, keyword.VAR, line));
+                else if(word == "fungsi") tokens.push(this.toke(constant.T_FUNCTION, keyword.FUNCTION, line));
+                else if(word == "buat") tokens.push(this.toke(constant.T_NEW, keyword.NEW, line));
+                else if(word == "ini") tokens.push(this.toke(constant.T_THIS, keyword.THIS, line));
+                else if(word == "kembalikan") tokens.push(this.toke(constant.T_RETURN, keyword.RETURN, line));
+                else if(word == "jika") tokens.push(this.toke(constant.T_IF, keyword.IF, line));
+                else if(word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, keyword.ELSE, line));
+                else if(word == "sementara") tokens.push(this.toke(constant.T_WHILE, keyword.WHILE, line));
+                else if(word == "untuk") tokens.push(this.toke(constant.T_FOR, keyword.FOR, line));
+                else if(word == "tidak") tokens.push(this.toke(constant.T_NOT, keyword.NOT, line));
+                else if(word == "dan") tokens.push(this.toke(constant.T_AND, keyword.AND, line));
+                else if(word == "atau") tokens.push(this.toke(constant.T_OR, keyword.OR, line));
+                else if(word == "tulis" || word == "tampilkan") tokens.push(this.toke(constant.T_PRINT, keyword.PRINT, line));
+                else if(word == "masukan") tokens.push(this.toke(constant.T_INPUT, keyword.INPUT, line));
+                else if(word == "benar") tokens.push(this.toke(constant.T_TRUE, keyword.TRUE, line));
+                else if(word == "salah") tokens.push(this.toke(constant.T_FALSE, keyword.FALSE, line));
+
+                // teks operator
+                else if(word == "ditambah") tokens.push(this.toke(constant.T_PLUS, symbol.PLUS, line));
+                else if(word == "dikurangi") tokens.push(this.toke(constant.T_MINUS, symbol.MINUS, line));
+                else if(word == "dikali") tokens.push(this.toke(constant.T_TIMES, symbol.TIMES, line));
+                else if(word == "dibagi") tokens.push(this.toke(constant.T_DIVIDE, symbol.DIVIDE, line));
+                else if(word == "modulus") tokens.push(this.toke(constant.T_MOD, symbol.MOD, line));
+                else if(word == "kurangdari" || word == "kurangDari") tokens.push(this.toke(constant.T_LESS, symbol.LESS, line));
+                else if(word == "lebihdari" || word == "lebihDari") tokens.push(this.toke(constant.T_GREATER, symbol.GREATER, line));
+
+                // bukan keyword kemungkinan nama variabel
+                else tokens.push(this.toke(constant.T_VARNAME, word, line));
+            }
 
             // Operator
             // else if(c == "+") tokens.push(this.toke(constant.T_PLUS, null, line));
@@ -97,59 +172,6 @@ class Tokenizer{
             else if(c == "{") tokens.push(this.toke(constant.T_LBRACE, c, line));
             else if(c == "}") tokens.push(this.toke(constant.T_RBRACE, c, line));
 
-            // Integer
-            else if(!c.isEmpty() && !isNaN(c)){
-                let num = "";
-                while(!isNaN(_code[i])){
-                    num += _code[i];
-                    i++;
-                }
-                i--; 
-                tokens.push(this.toke(constant.T_NUM, num, line));
-            }
-
-            //Kata dan Keyword
-            else if(c.isAlphaNumeric()){
-                let word = '';
-                while(i < _code.length && (_code[i].isAlphaNumeric() || _code[i] == "")){
-                    word += _code[i];
-                    i++;
-                }
-                // if(i < _code.length && !/[:!,;.s?]/.test(_code[i])){
-                //     this.error(line, "noword");
-                // }
-                i--;
-
-                if(word == "adalah") tokens.push(this.toke(constant.T_IS, native.IS, line));
-                else if(word == "var") tokens.push(this.toke(constant.T_VAR, native.VAR, line));
-                else if(word == "fungsi") tokens.push(this.toke(constant.T_FUNCTION, native.FUNCTION, line));
-                else if(word == "buat") tokens.push(this.toke(constant.T_NEW, native.NEW, line));
-                else if(word == "ini") tokens.push(this.toke(constant.T_THIS, native.THIS, line));
-                else if(word == "kembalikan") tokens.push(this.toke(constant.T_RETURN, native.RETURN, line));
-                else if(word == "jika") tokens.push(this.toke(constant.T_IF, native.IF, line));
-                else if(word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, native.ELSE, line));
-                else if(word == "sementara") tokens.push(this.toke(constant.T_WHILE, native.WHILE, line));
-                else if(word == "untuk") tokens.push(this.toke(constant.T_FOR, native.FOR, line));
-                else if(word == "tidak") tokens.push(this.toke(constant.T_NOT, native.NOT, line));
-                else if(word == "dan") tokens.push(this.toke(constant.T_AND, native.AND, line));
-                else if(word == "atau") tokens.push(this.toke(constant.T_OR, native.OR, line));
-                else if(word == "tulis" || word == "tampilkan") tokens.push(this.toke(constant.T_PRINT, native.PRINT, line));
-                else if(word == "masukan") tokens.push(this.toke(constant.T_INPUT, native.INPUT, line));
-                else if(word == "benar") tokens.push(this.toke(constant.T_TRUE, native.TRUE, line));
-                else if(word == "salah") tokens.push(this.toke(constant.T_FALSE, native.FALSE, line));
-
-                // teks operator
-                else if(word == "ditambah") tokens.push(this.toke(constant.T_PLUS, native.PLUS, line));
-                else if(word == "dikurangi") tokens.push(this.toke(constant.T_MINUS, native.MINUS, line));
-                else if(word == "dikali") tokens.push(this.toke(constant.T_TIMES, native.TIMES, line));
-                else if(word == "dibagi") tokens.push(this.toke(constant.T_DIVIDE, native.DIVIDE, line));
-                else if(word == "modulus") tokens.push(this.toke(constant.T_MOD, native.MOD, line));
-                else if(word == "kurangdari" || word == "kurangDari") tokens.push(this.toke(constant.T_LESS, native.LESS, line));
-                else if(word == "lebihdari" || word == "lebihDari") tokens.push(this.toke(constant.T_GREATER, native.GREATER, line));
-
-                // bukan keyword kemungkinan nama variabel
-                else tokens.push(this.toke(constant.T_VARNAME, word, line));
-            }
 
             // double quote
             else if(c == '"'){

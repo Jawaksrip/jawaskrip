@@ -57,10 +57,87 @@
 //     }
 // }
 
+let addition = {};
+
 exports.parse = (_tokens, _callback) => {
+
+    const token_handler = {
+        ULANGI: ulangi_handler
+    };
+
     let resultJS = ``;
+    let keyProcessed = 0;
     _tokens.forEach(_token => {
-        resultJS += _token.value + " ";
+        // cek jika ada fungsi untuk handel token
+        if(Object.keys(token_handler).includes(_token.type)){
+            resultJS += token_handler[_token.type](_token);
+        }else{
+            resultJS += _token.value + " ";
+        }
+        keyProcessed++;
+        if(keyProcessed == _tokens.length){
+            let allResult = "";
+            let allProcessed = 0;
+            if(Object.keys(addition).length <= 0) _callback(resultJS);
+            Object.keys(addition).forEach(a => {
+                allResult += addition[a];
+                allProcessed++;
+                if(allProcessed == Object.keys(addition).length)
+                    _callback(allResult + resultJS);
+            });
+        }
     });
-    _callback(resultJS);
 };
+
+// addition string
+
+const range = `function range(len){
+    return [...Array(len).keys()];
+}`;
+
+// handler untuk fungsi kustom
+
+/**
+ * Parsing ulangi menjadi for loop
+ * @param {Object} token 
+ */
+function ulangi_handler(token){
+    let valArr = token.value.split(" ");
+    if(valArr.length < 5){
+        triggerError("Syntax 'ulangi' error", token.line);
+        process.exit();
+    }
+
+    // cek jika ada addition function range
+    if(addition.range == undefined) addition.range = range;
+
+    // jika input ulangi(var i sebanyak 10 kali);
+    // result harus for(var i in range(10));
+    // dan sudah terdapat fungsi range();
+    var parsedJS = `for(${valArr[0].split('(')[1]} ${valArr[1]} in range(${valArr[3]}))`;
+    return parsedJS;
+
+}
+
+function createAddition(id, data){
+    return {id: id, data: data};
+}
+
+function triggerError(mess, line){
+    throw `Error pada baris ${line}: "${mess}"`;
+}
+
+
+// exec function by name
+/**
+ * @tutorial https://stackoverflow.com/questions/359788/how-to-execute-a-javascript-function-when-i-have-its-name-as-a-string
+ */
+function executeFunctionByName(functionName, context /*, args */) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    var namespaces = functionName.split(".");
+    var func = namespaces.pop();
+    for (var i = 0; i < namespaces.length; i++) {
+        context = context[namespaces[i]];
+    }
+    return context[func].apply(context, args);
+}

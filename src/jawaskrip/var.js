@@ -58,7 +58,7 @@ const constant = {
     }
 };
 
-const native = {
+const symbol = {
     END: -1,
     PLUS: "+", // +
     MINUS: "-", // -
@@ -74,6 +74,12 @@ const native = {
     LBRACE: "{", // {
     RBRACE: "}", // }
     IS: "==", // ==
+    
+    DQUOTE: '"',
+    BTICK: "`"
+}
+
+const keyword = {
     IF: "if", 
     ELSE: "else if",
     
@@ -90,16 +96,21 @@ const native = {
     VAR: "var",
     WORD: "variable",
     NUM: "number",
-    QUOTE: "'", // String
     
     PRINT: "console.log", // console.log
     WHILE: "while",
-    FOR: "for",
-    DQUOTE: '"',
-    BTICK: "`"
-}
+    FOR: "for"
+};
+
+
+const handler = {
+    H_ULANGI: "ULANGI",
+};
+
 
 module.exports = {
     constant: constant,
-    native: native
+    symbol: symbol,
+    handler: handler,
+    keyword: keyword
 };

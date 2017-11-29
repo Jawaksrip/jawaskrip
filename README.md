@@ -25,7 +25,7 @@ Untuk beberapa contoh kamu bisa lihat di [Example](https://github.com/Indmind/Ja
 ### Contoh JawaSkrip
 
 - fungsi atau function
-```
+```cs
 fungsi utama(){
     tulis("halo dunia");
 }
@@ -33,7 +33,7 @@ utama();
 ```
 
 - jika atau if
-```
+```cs
 var saya = "jelek";
 
 tulis("sekarang saya " + saya);
@@ -45,8 +45,15 @@ jika(saya tidak "ganteng"){
 tulis("sekarang saya " + saya);
 ```
 
-- sementara atau while
+- ulangi
+```cs
+ulangi(var i sebanyak 20 kali){
+    tulis(i);
+}
 ```
+
+- sementara atau while
+```cs
 var i = 10;
 sementara(i > 0){
     i--;
@@ -55,14 +62,14 @@ sementara(i > 0){
 ```
 
 - untuk atau for
-```
+```cs
 untuk(var i = 0;i kurangDari 10;i++){
     tulis(i);
 }
 ```
 
 - perulangan dan objek
-```
+```cs
 var a = 1;
 
 untuk(var i = 1;i kurangDari 10;i++){
@@ -80,7 +87,7 @@ tulis(manusia.nama + " mempunyai uang sebanyak " + manusia.uang);
 
 
 - aritmatika dasar (masih dapat mengunakan simbol normal)
-```
+```cs
 tulis(3 ditambah 2 dikurangi 12 ditambah 32 dikali 21 dibagi 2);
 ```
 
