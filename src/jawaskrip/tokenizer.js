@@ -123,6 +123,9 @@ class Tokenizer{
                 if(word == "adalah") tokens.push(this.toke(constant.T_IS, native.IS, line));
                 else if(word == "var") tokens.push(this.toke(constant.T_VAR, native.VAR, line));
                 else if(word == "fungsi") tokens.push(this.toke(constant.T_FUNCTION, native.FUNCTION, line));
+                else if(word == "buat") tokens.push(this.toke(constant.T_NEW, native.NEW, line));
+                else if(word == "ini") tokens.push(this.toke(constant.T_THIS, native.THIS, line));
+                else if(word == "kembalikan") tokens.push(this.toke(constant.T_RETURN, native.RETURN, line));
                 else if(word == "jika") tokens.push(this.toke(constant.T_IF, native.IF, line));
                 else if(word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, native.ELSE, line));
                 else if(word == "sementara") tokens.push(this.toke(constant.T_WHILE, native.WHILE, line));

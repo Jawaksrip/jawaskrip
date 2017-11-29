@@ -48,6 +48,9 @@ const constant = {
     T_COLON: 36,
     T_DQUOTE: 37,
     T_BTICK: 38,
+    T_NEW: 39,
+    T_THIS: 40,
+    T_RETURN: 41,
 
     ERROR_CODE: {
         
@@ -80,6 +83,9 @@ const native = {
     NOT: "!=", // !
     
     FUNCTION: "function",
+    NEW: "new",
+    RETURN: "return",
+    THIS: "this",
     VAR: "var",
     WORD: "variable",
     NUM: "number",
