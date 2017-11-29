@@ -61,6 +61,24 @@ untuk(var i = 0;i kurangDari 10;i++){
 }
 ```
 
+- perulangan dan objek
+```
+var a = 1;
+
+untuk(var i = 1;i kurangDari 10;i++){
+    a *= i;
+    tulis(i);
+}
+
+var manusia = {
+    nama: "dinda",
+    uang: "Rp" + a
+}
+
+tulis(manusia.nama + " mempunyai uang sebanyak " + manusia.uang);
+```
+
+
 - aritmatika dasar (masih dapat mengunakan simbol normal)
 ```
 tulis(3 ditambah 2 dikurangi 12 ditambah 32 dikali 21 dibagi 2);
