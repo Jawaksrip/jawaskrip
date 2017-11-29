@@ -8,22 +8,48 @@ const tokenizer = require("./tokenizer");
 const parser = require("./parser");
 const fs = require("fs");
 const childProcess = require('child_process');
+const path = require("path");
 
-exports.compile = _filepath => {
-    global.userFilePath = _filepath;
-    const token = tokenizer.lex(_filepath);
-    const parsed = parser.parse(token);
-    return parsed;
+const tempDir = "/../../temp/";
+
+exports.compile = (_filepath, _callback) => {
+    tokenizer.lex(_filepath, (_token) => {
+        parser.parse(_token, (parsed) => {
+            _callback(parsed);
+        });
+    });
 };
 
-exports.run = parsed => {
-    const tempFile = __dirname + "/../../temp/" + generateName();
+exports.token = (_filepath, _callback) => {
+    tokenizer.lex(_filepath, (_token) => {
+        _callback(_token);
+    });
+};
+
+exports.clean = _callback => {
+    let fileRemoved = 0;
+    fs.readdir(path.join(__dirname, tempDir), (err, files) => {
+        if(err) throw err;
+        if(files.length <= 0) _callback("No file on temp directory");
+        files.forEach((_file) => {
+            fs.unlink(path.join(__dirname, tempDir, _file), _err => {
+                if(_err) throw _err;
+                fileRemoved++;
+            });
+            if(fileRemoved == files.length) _callback("All file cleaned");
+        });
+    });
+};
+
+exports.run = (parsed, callback) => {
+    const tempFile = path.join(__dirname, tempDir, generateName());
     fs.writeFile(tempFile, parsed, (err) => {
         if(err) throw err;
         runScript(tempFile, code => {
             if(code) throw code;
             fs.unlink(tempFile, _err => {
                 if(_err) throw _err;
+                callback();
             });
         });
     });

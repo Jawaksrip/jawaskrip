@@ -57,10 +57,10 @@
 //     }
 // }
 
-exports.parse = (_tokens) => {
+exports.parse = (_tokens, _callback) => {
     let resultJS = ``;
     _tokens.forEach(_token => {
         resultJS += _token.type + " ";
     });
-    return resultJS;
+    _callback(resultJS);
 };

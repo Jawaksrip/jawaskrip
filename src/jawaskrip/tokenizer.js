@@ -26,18 +26,9 @@ class Tokenizer{
     /**
      * membuat token dari value yang diberikan
      * @param {String} _code - teks code yang aka di tokenize
-     * @return {Object} - hasil tokenize
+     * @return {Function} - callback
      */
-    tokenize(_code){
-        //const tokens = this.second_step(this.generate_token(_code));
-        return this.generate_token(_code);
-    }
-
-    /**
-     * step pertama tokenizer
-     * @param {String} _code - teks kode
-     */
-    generate_token(_code){
+    tokenize(_code, _callback){
         /**
          * @var tokens {Object} - hasil tokenize
          * @var line {Number} - jumlah baris code
@@ -152,8 +143,10 @@ class Tokenizer{
 
             else this.error(line, "Syntax Error");
             i++;
+            if(i == _code.length){
+                _callback(tokens);
+            }
         }
-        return tokens;
     }
     /**
      * Fungsi untuk menampilkan error programm
@@ -167,7 +160,7 @@ class Tokenizer{
     }
 }
 
-exports.lex = (_filepath) => {
+exports.lex = (_filepath, _callback) => {
     // const lineReader = require('readline').createInterface({
     //     input: fs.createReadStream(_filepath)
     // });
@@ -179,7 +172,9 @@ exports.lex = (_filepath) => {
     // });
     const file = fs.readFileSync(_filepath, "utf8").toLowerCase();
     const Tokenize = new Tokenizer();
-    return Tokenize.tokenize(file);
+    Tokenize.tokenize(file, (res) => {
+        _callback(res);
+    });
 };
 
 // array cleaner

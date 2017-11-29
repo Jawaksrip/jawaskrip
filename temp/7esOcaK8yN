@@ -1,1 +1,0 @@
-for ( var i = number ; i < number ; i + + ) { console.log ( i ) ; } 

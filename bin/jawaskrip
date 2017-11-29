@@ -7,4 +7,5 @@
  * 
  */
 
-require('../src/jawaskrip/command').run();
+console.time("execution time");
+require('../src/jawaskrip/command').run(() => console.timeEnd("execution time"));
