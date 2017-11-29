@@ -4,7 +4,7 @@ An Indonesian Version of JavaScript
 
 JawaSkrip addalah versi indonesia dari bahasa pemrograman JavaScript
 
-# Instalasi
+## Instalasi
 
 - pastikan sudah terinstall NodeJs di pc-mu, jika belum [Download NodeJs](https://nodejs.org/en/)
 - buka terminal / cmd / powershell / git bash / lainya
@@ -18,7 +18,7 @@ npm install -g jawaskrip
 jawaskrip <lokasi/nama file>
 ```
 
-# Tutorial
+## Tutorial
 
 Untuk beberapa contoh kamu bisa lihat di [Example](https://github.com/Indmind/JawaSkrip/tree/master/example)
 

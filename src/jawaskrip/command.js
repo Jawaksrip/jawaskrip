@@ -63,7 +63,7 @@ exports.run = _execDone => {
                 console.log(_mess);
                 _execDone();
             });
-        })
+        });
 
     app
         .command("c <file>")

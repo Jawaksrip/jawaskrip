@@ -61,7 +61,7 @@ class Tokenizer{
                     i++;
                 }else if(_code[i + 1] == "="){
                     fix +=  _code[i + 1];
-                    token.push(this.toke(constant.T_ASSIGNMENT, fix, line));
+                    tokens.push(this.toke(constant.T_ASSIGNMENT, fix, line));
                 }else{
                     tokens.push(this.toke(fix == "+"? constant.T_PLUS: constant.T_MINUS, fix, line));
                 }
@@ -80,7 +80,12 @@ class Tokenizer{
 
             else if(c == "<") tokens.push(this.toke(constant.T_LESS, c, line));
             else if(c == ">") tokens.push(this.toke(constant.T_GREATER, c, line));
-            else if(c == "=") tokens.push(this.toke(constant.T_ASSIGN, c, line));
+
+            // cek jika = bukan bagian dari pfix
+            else if(c == "="){
+                if(!"-+*/%".includes(_code[i - 1])) tokens.push(this.toke(constant.T_ASSIGN, c, line));
+                else i++;
+            }
 
             // Penutup
             else if(c == ".") tokens.push(this.toke(constant.T_DOT, c, line));
@@ -177,7 +182,7 @@ class Tokenizer{
                 tokens.push(this.toke(constant.T_BTICK, "`"+quote+"`", line));
             }
 
-            else this.error(line, "Syntax Error");
+            else this.error(line, "at " + c);
             i++;
             if(i == _code.length){
                 _callback(tokens);
