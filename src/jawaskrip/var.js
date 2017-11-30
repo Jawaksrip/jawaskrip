@@ -85,6 +85,7 @@ const keyword = {
     
     TRUE: "true",
     FALSE: "false",
+    IS: "==", // ==
     AND: "&&", // &&
     OR: "||", // ||
     NOT: "!=", // !
@@ -103,9 +104,9 @@ const keyword = {
 };
 
 
-const handler = {
-    H_ULANGI: "ULANGI",
-};
+const handler = [
+    "ulangi", "setiap"
+];
 
 
 module.exports = {

@@ -56,13 +56,15 @@
 //         return this.getValueFromWord(this.tokens);
 //     }
 // }
+const beautify = require('js-beautify').js_beautify;
 
 let addition = {};
 
 exports.parse = (_tokens, _callback) => {
 
     const token_handler = {
-        ULANGI: ulangi_handler
+        ULANGI: ulangi_handler,
+        SETIAP: setiap_handler
     };
 
     let resultJS = ``;
@@ -98,11 +100,14 @@ const range = `function range(len){
 // handler untuk fungsi kustom
 
 /**
- * Parsing ulangi menjadi for loop
+ * transform ulangi menjadi for loop
  * @param {Object} token 
+ * jika input ulangi(var i sebanyak 10 kali);
+ * result harus for(var i in range(10));
+ * dan sudah terdapat fungsi range();
  */
 function ulangi_handler(token){
-    let valArr = token.value.split(" ");
+    let valArr = beautify(token.value, {indent_level:4}).split(" ");
     if(valArr.length < 5){
         triggerError("Syntax 'ulangi' error", token.line);
         process.exit();
@@ -111,12 +116,19 @@ function ulangi_handler(token){
     // cek jika ada addition function range
     if(addition.range == undefined) addition.range = range;
 
-    // jika input ulangi(var i sebanyak 10 kali);
-    // result harus for(var i in range(10));
-    // dan sudah terdapat fungsi range();
     var parsedJS = `for(${valArr[0].split('(')[1]} ${valArr[1]} in range(${valArr[3]}))`;
     return parsedJS;
 
+}
+
+
+/**
+ * transform setiap menjadi forEach
+ * @param {Object} token 
+ */
+function setiap_handler(token){
+    let val = beautify(token.value, {indent_level:4}).split(" ");
+    return parsedJS = `for(var ${val[2].slice(0, -1)} of ${val[0].split("(")[1]})`;
 }
 
 function createAddition(id, data){

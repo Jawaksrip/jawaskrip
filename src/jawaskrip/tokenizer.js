@@ -52,8 +52,11 @@ class Tokenizer{
             const c = _code[i];
             const lastKey = tokens[tokens.length - 1];
             let lastTokenIsKeyword = false;
-            if(lastKey != undefined && Object.keys(keyword).includes(tokens[tokens.length - 1].value.toUpperCase()))
-                lastTokenIsKeyword = true;
+            if(lastKey != undefined){
+                if(Object.keys(keyword)
+                    .includes(tokens[tokens.length - 1].value.toUpperCase()))
+                    lastTokenIsKeyword = true;
+            }
 
             // cek newline
             if(c == "\n") line++;
@@ -86,7 +89,7 @@ class Tokenizer{
                 if(word == "adalah") tokens.push(this.toke(constant.T_IS, keyword.IS, line));
                 
                 // cek jika token terakhir bukan keyword
-                else if(word == "ulangi" && !lastTokenIsKeyword){
+                else if(handler.includes(word) && !lastTokenIsKeyword){
                     // console.log(i);
                     //console.log(tokens[tokens.length - 1]);
                     let key = word;
@@ -94,7 +97,7 @@ class Tokenizer{
                         i++;
                         key += _code[i];
                     }
-                    tokens.push(this.toke(handler.H_ULANGI, key, line));
+                    tokens.push(this.toke(word.toUpperCase(), key, line));
                 }
 
 
