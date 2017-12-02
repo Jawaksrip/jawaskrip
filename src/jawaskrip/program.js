@@ -11,7 +11,7 @@ const childProcess = require('child_process');
 const path = require("path");
 const beautify = require('js-beautify').js_beautify;
 
-const tempDir = "/../../";
+const tempDir = "/../../temp/";
 
 exports.compile = (_filepath, _callback) => {
     tokenizer.lex(_filepath, (_token) => {
@@ -33,6 +33,7 @@ exports.clean = _callback => {
         if(err) throw err;
         if(files.length <= 0) _callback("No file on temp directory");
         files.forEach((_file) => {
+	    if(_file == "temp") return;
             fs.unlink(path.join(__dirname, tempDir, _file), _err => {
                 if(_err) throw _err;
                 fileRemoved++;
