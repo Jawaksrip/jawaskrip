@@ -11,7 +11,7 @@ const childProcess = require('child_process');
 const path = require("path");
 const beautify = require('js-beautify').js_beautify;
 
-const tempDir = "/../../temp/";
+const tempDir = "/../../";
 
 exports.compile = (_filepath, _callback) => {
     tokenizer.lex(_filepath, (_token) => {
