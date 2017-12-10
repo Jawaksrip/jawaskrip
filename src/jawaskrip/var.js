@@ -54,6 +54,8 @@ const constant = {
     T_CONSTRUCT: 44,
     T_EXTENDS: 45,
     T_COMMENT: 46,
+    T_GTOQ: 47,
+    T_LTOQ: 48,
 
     ERROR_CODE: {
         
