@@ -1,10 +1,11 @@
 {
   "name": "jawaskrip",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
-    "jawaskrip": "bin/jawaskrip"
+    "jawaskrip": "bin/jawaskrip",
+    "jw": "bin/jawaskrip"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.11.0",
-    "js-beautify": "^1.7.4"
+    "js-beautify": "^1.7.4",
+    "readline-sync": "^1.4.7"
   },
   "directories": {
     "doc": "docs",

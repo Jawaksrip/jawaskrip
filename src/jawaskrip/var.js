@@ -46,12 +46,14 @@ const constant = {
     T_DOT: 34,
     T_COMMA: 35,
     T_COLON: 36,
-    T_DQUOTE: 37,
-    T_BTICK: 38,
     T_NEW: 39,
     T_THIS: 40,
     T_RETURN: 41,
     T_UNKNOWN: 42,
+    T_CLASS: 43,
+    T_CONSTRUCT: 44,
+    T_EXTENDS: 45,
+    T_COMMENT: 46,
 
     ERROR_CODE: {
         
@@ -74,9 +76,7 @@ const symbol = {
     LBRACE: "{", // {
     RBRACE: "}", // }
     IS: "==", // ==
-    
-    DQUOTE: '"',
-    BTICK: "`"
+    COMMENT: "//",
 }
 
 const keyword = {
@@ -100,7 +100,11 @@ const keyword = {
     
     PRINT: "console.log", // console.log
     WHILE: "while",
-    FOR: "for"
+    FOR: "for",
+    CLASS: "class",
+    EXTENDS: "extends",
+    CONSTRUCT: "constructor",
+    INPUT: "readlineSync.question"
 };
 
 

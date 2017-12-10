@@ -1,0 +1,17 @@
+kelas Manusia{
+    konstruksi(){
+        ini.tangan = 2;
+        ini.kaki = 2;
+        ini.mata = 2;
+    }
+}
+
+kelas Laki turunan Manusia{
+    konstruksi(){
+        // selalu panggil fungsi super() untuk mengunakan variabel induk
+        super();
+        tulis(ini.mata);
+    }
+}
+
+var saya = buat Laki();

@@ -1,0 +1,17 @@
+var b = [];
+ulangi(var a sebanyak 5 kali){
+    b[a] = masukan(`b[${a}] = `)
+}
+
+tulis(b);
+
+var lanjut = benar;
+
+selama(lanjut){
+    tulis("berlanjut...");
+    lanjut = salah;
+    var jawaban = masukan("mau lanjut? (iya/tidak) ");
+    jika(jawaban adalah "iya"){
+        lanjut = benar;
+    }
+}
