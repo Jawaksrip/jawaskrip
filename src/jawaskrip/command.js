@@ -16,7 +16,7 @@ const {
 
 function run(filepath, callback) {
     program.compile(getRealPath(filepath), _compiled => {
-        program.run(_compiled, callback);
+        program.runLocal(_compiled, callback);
     });
 }
 

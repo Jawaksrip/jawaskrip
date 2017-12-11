@@ -56,6 +56,8 @@ const constant = {
     T_COMMENT: 46,
     T_GTOQ: 47,
     T_LTOQ: 48,
+    T_ARROW: 49,
+    T_NEWLINE: 50,
 
     ERROR_CODE: {
 

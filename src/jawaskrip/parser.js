@@ -16,7 +16,8 @@ exports.parse = (_tokens, _callback) => {
 
     const token_handler = {
         ULANGI: ulangi_handler,
-        SETIAP: setiap_handler
+        SETIAP: setiap_handler,
+        IMPOR: impor_handler,
     };
     token_handler[constant.T_INPUT] = masukan_handler;
 
@@ -91,6 +92,18 @@ function masukan_handler(token) {
     return token.value;
 }
 
+/**
+ * input = impor x from 'y';
+ * output = const x = require('y');
+ */
+function impor_handler(token) {
+    const parsedJS = token.value
+        .replace("impor", "const")
+        .replace("dari", "=");
+    let packageName = (parsedJS.match(/'([^']+)'/) || parsedJS.match(/(?:"[^"]*"|^[^"]*$)/))[0];
+    return parsedJS.replaceLast(packageName, `require(${packageName})`);
+}
+
 function createAddition(id, data) {
     return {
         id: id,
@@ -116,3 +129,20 @@ function executeFunctionByName(functionName, context /*, args */ ) {
     }
     return context[func].apply(context, args);
 }
+
+function getFirstWord(str) {
+    let spacePosition = str.indexOf(' ');
+    if (spacePosition === -1)
+        return str;
+    else
+        return str.substr(0, spacePosition);
+};
+
+String.prototype.replaceLast = function (what, replacement) {
+    return this.split(' ').reverse().join(' ').replace(new RegExp(what), replacement).split(' ').reverse().join(' ');
+};
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};

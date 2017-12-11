@@ -6,6 +6,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const beautify = require('js-beautify').js_beautify;
 const {
     constant,
     symbol,
@@ -60,7 +61,10 @@ class Tokenizer {
             }
 
             // cek newline
-            if (c == "\n") line++;
+            if (c == "\n"){
+                tokens.push(this.toke(constant.T_NEWLINE, c, line));
+                line++
+            }
 
             else if (c == " " || c == String.fromCharCode(13));
 
@@ -76,25 +80,33 @@ class Tokenizer {
             }
 
             //Kata dan Keyword
-            else if (c.isAlphaNumeric()) {
+            else if (c.isAlphaNumeric() || c == "_") {
                 let word = '';
-                while (i < _code.length && (_code[i].isAlphaNumeric() || _code[i] == "")) {
+                while (i < _code.length && (_code[i].isAlphaNumeric() || _code[i] == "" || _code[i] == "_")) {
                     word += _code[i];
                     i++;
                 }
                 i--;
 
-                if (word == "adalah") tokens.push(this.toke(constant.T_IS, keyword.IS, line));
-
                 // cek jika token terakhir bukan keyword
-                else if (handler.includes(word) && !lastTokenIsKeyword) {
+                if (handler.includes(word) && !lastTokenIsKeyword) {
                     let key = word;
                     while (_code[i] != ")") {
                         i++;
                         key += _code[i];
                     }
                     tokens.push(this.toke(word.toUpperCase(), key, line));
-                } else if (word == "var") tokens.push(this.toke(constant.T_VAR, keyword.VAR, line));
+                }
+                else if (word == "impor" && !lastTokenIsKeyword){
+                    let allSyntax = word;
+                    while (_code[i] != ";") {
+                        i++;
+                        allSyntax += _code[i];
+                    }
+                    tokens.push(this.toke(word.toUpperCase(), allSyntax, line));
+                }
+                else if (word == "adalah") tokens.push(this.toke(constant.T_IS, keyword.IS, line));
+                else if (word == "var") tokens.push(this.toke(constant.T_VAR, keyword.VAR, line));
                 else if (word == "masukan") tokens.push(this.toke(constant.T_INPUT, keyword.INPUT, line));
                 else if (word == "fungsi") tokens.push(this.toke(constant.T_FUNCTION, keyword.FUNCTION, line));
                 else if (word == "kelas") tokens.push(this.toke(constant.T_CLASS, keyword.CLASS, line));
@@ -173,6 +185,9 @@ class Tokenizer {
             else if (c == "=") {
                 if ("-+*/%".includes(_code[i - 1])) {
                     i++;
+                }else if(_code[i + 1] == ">") {
+                    tokens.push(this.toke(constant.T_ARROW, c + _code[i + 1], line));
+                    i++;
                 }else if(_code[i + 1] == "=") {
                     tokens.push(this.toke(constant.T_IS, keyword.IS, line));
                     i++;
@@ -222,7 +237,7 @@ class Tokenizer {
 }
 
 exports.lex = (_filepath, _callback) => {
-    const file = fs.readFileSync(_filepath, "utf8");
+    const file = beautify(fs.readFileSync(_filepath, "utf8"), {end_with_newline: true});
     const Tokenize = new Tokenizer();
     Tokenize.tokenize(file, (res) => {
         _callback(res);
