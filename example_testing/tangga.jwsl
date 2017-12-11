@@ -1,0 +1,7 @@
+untuk(var i = 0; i kurangDari 5; i++){
+    var baris = '';
+    untuk(var j = 0; j <= i; j++){
+        baris += '*'
+    }
+    tulis(baris);
+}

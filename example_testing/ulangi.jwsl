@@ -1,0 +1,3 @@
+ulangi(var i sebanyak 20 kali){
+    tulis(i);
+}

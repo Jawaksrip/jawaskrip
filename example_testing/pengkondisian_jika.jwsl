@@ -1,0 +1,9 @@
+var saya = "jelek";
+
+tulis("sekarang saya " + saya);
+
+jika(saya tidak "ganteng"){
+    saya = "ganteng";
+}
+
+tulis("sekarang saya " + saya);
