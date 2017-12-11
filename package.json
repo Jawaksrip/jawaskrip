@@ -8,7 +8,7 @@
     "jw": "bin/jawaskrip"
   },
   "scripts": {
-    "test": "./test.sh"
+    "test": "sudo ./test.sh"
   },
   "author": "Indmind",
   "license": "MIT",
