@@ -6,8 +6,8 @@ JawaSkrip adalah versi indonesia dari bahasa pemrograman JavaScript
 
 ## Instalasi
 
-- pastikan sudah terinstall NodeJs di pc-mu, jika belum [Download NodeJs](https://nodejs.org/en/)
-- buka terminal / cmd / powershell / git bash / lainya
+- Install [NodeJs](https://nodejs.org/en/)
+- buka terminal / cmd
 - install secara globall menggunakan NPM
 
 ```
@@ -20,7 +20,7 @@ jawaskrip <lokasi/nama file>
 
 ## Tutorial
 
-Untuk beberapa contoh kamu bisa lihat di [Example](https://github.com/Indmind/JawaSkrip/tree/master/example)
+[Example](https://github.com/Indmind/JawaSkrip/tree/master/example)
 
 ### Contoh JawaSkrip
 
@@ -162,11 +162,14 @@ selama(i <= baris){
 | jika(){...}      | if(){...}         |
 | jikaTidak(){...} | else if(){...}    |
 | fungsi n(){...}  | function n(){...} |
-| selama(){...} | while(){...}      |
+| selama(){...}    | while(){...}      |
 | untuk(){...}     | for(){...}        |
 | tidak            | !=                |
 | dan              | &&                |
 | atau             | &#124;&#124;      |
 | tulis()          | console.log()     |
+| kelas{}          | class             |
+| extends          | turunan           |
+| masukan()        | ~~~               |
 | benar            | true              |
 | salah            | false             |
