@@ -20,15 +20,15 @@ const constant = {
     T_LBRACE: 11, // {
     T_RBRACE: 12, // }
     T_IS: 13, // ==
-    T_IF: 14, 
+    T_IF: 14,
     T_ELSE: 15,
-    
+
     T_TRUE: 16,
     T_FALSE: 17,
     T_AND: 18, // &&
     T_OR: 19, // ||
     T_NOT: 20, // !
-    
+
     T_FUNCTION:21,
     T_VAR: 22,
     T_WORD: 23,
@@ -58,7 +58,7 @@ const constant = {
     T_LTOQ: 48,
 
     ERROR_CODE: {
-        
+
     }
 };
 
@@ -82,16 +82,16 @@ const symbol = {
 }
 
 const keyword = {
-    IF: "if", 
+    IF: "if",
     ELSE: "else if",
-    
+
     TRUE: "true",
     FALSE: "false",
     IS: "==", // ==
     AND: "&&", // &&
     OR: "||", // ||
     NOT: "!=", // !
-    
+
     FUNCTION: "function",
     NEW: "new",
     RETURN: "return",
@@ -99,7 +99,7 @@ const keyword = {
     VAR: "var",
     WORD: "variable",
     NUM: "number",
-    
+
     PRINT: "console.log", // console.log
     WHILE: "while",
     FOR: "for",

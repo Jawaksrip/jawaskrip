@@ -1,0 +1,14 @@
+var tinggi = masukan("Masukan tinggi: ");
+var lebar = masukan("Masukan lebar: ");
+ulangi(var i sebanyak tinggi kali){
+    var j = 0;
+    var baris = "";
+    selama(j < lebar){
+        if(j % Math.floor(Math.random()*10) adalah 0){
+            baris += "*";
+        }
+        baris += " ";
+        j++;
+    }
+    tulis(baris);
+}

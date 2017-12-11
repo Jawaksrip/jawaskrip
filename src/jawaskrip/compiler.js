@@ -47,14 +47,6 @@ class Tokenizer {
         let i = 0;
 
         while (i < _code.length) {
-            // console.log(tokensIndex);
-            //console.log(tokens[Object.keys(tokens)[tokensIndex]]);
-            //console.log(tokens[1]);
-            //if(tokens[tokensIndex] != undefined)
-            // console.log(num);
-            // console.log(tokens[tokens.length - 1]);
-            //console.log(Object.keys(keyword).includes("WORD"));
-
             /**
              * @const {String} c - huruf jaman now
              */
@@ -90,17 +82,12 @@ class Tokenizer {
                     word += _code[i];
                     i++;
                 }
-                // if(i < _code.length && !/[:!,;.s?]/.test(_code[i])){
-                //     this.error(line, "noword");
-                // }
                 i--;
 
                 if (word == "adalah") tokens.push(this.toke(constant.T_IS, keyword.IS, line));
 
                 // cek jika token terakhir bukan keyword
                 else if (handler.includes(word) && !lastTokenIsKeyword) {
-                    // console.log(i);
-                    //console.log(tokens[tokens.length - 1]);
                     let key = word;
                     while (_code[i] != ")") {
                         i++;
@@ -149,12 +136,9 @@ class Tokenizer {
                     i++
                 }
 
-                tokens.push(this.toke(constant.T_COMMENT,`\n${comment}\n`, line))
+                tokens.push(this.toke(constant.T_COMMENT, `\n${comment}\n`, line))
             }
 
-            // Operator
-            // else if(c == "+") tokens.push(this.toke(constant.T_PLUS, null, line));
-            // else if(c == "-") tokens.push(this.toke(constant.T_MINUS, null, line));
             else if (c == "+" || c == "-") {
                 // postfix or prefix
                 let fix = c;
@@ -185,10 +169,16 @@ class Tokenizer {
                 else tokens.push(this.toke(constant.T_GREATER, c, line));
             }
 
-            // cek jika = bukan bagian dari pfix
+            // cek jika = bagian dari pfix
             else if (c == "=") {
-                if (!"-+*/%".includes(_code[i - 1])) tokens.push(this.toke(constant.T_ASSIGN, c, line));
-                else i++;
+                if ("-+*/%".includes(_code[i - 1])) {
+                    i++;
+                }else if(_code[i + 1] == "=") {
+                    tokens.push(this.toke(constant.T_IS, keyword.IS, line));
+                    i++;
+                }else{
+                    tokens.push(this.toke(constant.T_ASSIGN, c, line));
+                }
             }
 
             // Penutup
@@ -232,15 +222,6 @@ class Tokenizer {
 }
 
 exports.lex = (_filepath, _callback) => {
-    // const lineReader = require('readline').createInterface({
-    //     input: fs.createReadStream(_filepath)
-    // });
-
-    // // membaca file baris perbaris
-    // lineReader.on('line', function (line) {
-    //     console.log(lexer(line));
-    //     //console.log('Line from file:', line);
-    // });
     const file = fs.readFileSync(_filepath, "utf8");
     const Tokenize = new Tokenizer();
     Tokenize.tokenize(file, (res) => {
@@ -278,45 +259,3 @@ String.prototype.isAlphaNumeric = function () {
 String.prototype.isSpace = function () {
     return !this || /^ *$/.test(this);
 };
-
-// percobaan ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-
-// function lexer(code){
-//     return code.split(/\W+/)
-//         .filter(function (t) { return t.length > 0 })
-//         .map(function (t, i) {
-//             return isNaN(t)
-//                 ? {type: 'word', value: t}
-//                 : {type: 'number', value: t};
-//         })
-// }
-
-// function lexer(_text) {
-//     let splited = [];
-//     let word = '';
-//     let Strings = 0;
-//     for (i in _text) {
-//         // skip spasi
-//         if (/\s/.test(_text[i])) continue;
-//         if (/\w/.test(_text[i])) {
-//             word += _text[i];
-//             console.log(word)
-//         } else {
-//             Strings++;
-//             splited.push(_text[i] == "'" && _text[i - word.length] == "'"
-//                 ? 
-//                 {
-//                     type: "String",
-//                     val: "s"
-//                 }
-//                 :
-//                 {
-//                     type:"key", 
-//                     val:_text[i]
-//                 });
-//             word = '';
-//         }
-//     }
-//     console.log(Strings);
-//     return splited.clean('');
-// }

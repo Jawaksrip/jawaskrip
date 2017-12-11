@@ -1,6 +1,6 @@
 {
   "name": "jawaskrip",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
@@ -15,6 +15,7 @@
   "dependencies": {
     "commander": "^2.11.0",
     "js-beautify": "^1.7.4",
+    "ncp": "^2.0.0",
     "readline-sync": "^1.4.7"
   },
   "directories": {

@@ -7,7 +7,7 @@ untuk(var i = 1;i kurangDari 10;i++){
 
 var manusia = {
     nama: "dinda",
-    uang: "Rp" + a
+    uang: "Rp. " + a
 }
 
 tulis(manusia.nama + " mempunyai uang sebanyak " + manusia.uang);

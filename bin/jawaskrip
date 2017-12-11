@@ -7,9 +7,14 @@
  * 
  */
 
+// start time
 console.time("execution time");
+// newline
 console.log();
+// run
 require('../src/jawaskrip/command').run(() =>{
+    // newline
     console.log();
-    console.timeEnd("execution time")
+    // stop time
+    console.timeEnd("execution time");
 });

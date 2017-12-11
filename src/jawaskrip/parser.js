@@ -2,7 +2,7 @@
  * @author indmind <mail.indmind@gmail.com>
  * @file parsing process
  * @version 0.0.2
- * 
+ *
  */
 
 const beautify = require('js-beautify').js_beautify;
@@ -55,7 +55,7 @@ const INPUT = `const readlineSync = require('readline-sync');`
 
 /**
  * transform ulangi menjadi for loop
- * @param {Object} token 
+ * @param {Object} token
  * jika input ulangi(var i sebanyak 10 kali);
  * result harus for(var i in range(10));
  * dan sudah terdapat fungsi range();
@@ -69,16 +69,15 @@ function ulangi_handler(token) {
         process.exit();
     }
 
-    addition.range = RANGE;
-
-    var parsedJS = `for(${valArr[0].split('(')[1]} ${valArr[1]} in range(${valArr[3]}))`;
+    const usrVar = valArr[1];
+    var parsedJS = `for(var ${usrVar} = 0; ${usrVar} < ${valArr[3]}; ${usrVar}++)`;
     return parsedJS;
 }
 
 
 /**
  * transform setiap menjadi forEach
- * @param {Object} token 
+ * @param {Object} token
  */
 function setiap_handler(token) {
     const val = beautify(token.value, {

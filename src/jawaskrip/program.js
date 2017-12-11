@@ -4,17 +4,18 @@
  * @version 0.0.2
  */
 
-const tokenizer = require("./tokenizer");
+const compiler = require("./compiler");
 const parser = require("./parser");
 const fs = require("fs");
 const childProcess = require('child_process');
 const path = require("path");
+const ncp = require("ncp").ncp;
 const beautify = require('js-beautify').js_beautify;
 
 const tempDir = "/../../temp/";
 
 exports.compile = (_filepath, _callback) => {
-    tokenizer.lex(_filepath, (_token) => {
+    compiler.lex(_filepath, (_token) => {
         parser.parse(_token, (parsed) => {
             _callback(beautify(parsed, {indent_size: 4}));
         });
@@ -22,7 +23,7 @@ exports.compile = (_filepath, _callback) => {
 };
 
 exports.token = (_filepath, _callback) => {
-    tokenizer.lex(_filepath, (_token) => {
+    compiler.lex(_filepath, (_token) => {
         _callback(_token);
     });
 };
@@ -33,7 +34,7 @@ exports.clean = _callback => {
         if(err) throw err;
         if(files.length <= 0) _callback("No file on temp directory");
         files.forEach((_file) => {
-	    if(_file == "temp") return;
+        if(_file == "temp") return;
             fs.unlink(path.join(__dirname, tempDir, _file), _err => {
                 if(_err) throw _err;
                 fileRemoved++;
@@ -58,6 +59,10 @@ exports.run = (parsed, callback) => {
     });
 };
 
+exports.copyExample = (out, callback) => {
+    const exampleFolder = path.join(__dirname, "../../example/");
+    ncp(exampleFolder, out, callback);
+}
 function runScript(_scriptPath, _callback){
     let invoked = false;
     let process = childProcess.fork(_scriptPath);

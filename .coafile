@@ -1,0 +1,14 @@
+[all]
+files = src/jawaskrip/*.js
+max_line_length = 80
+indent_size = 4
+use_spaces = True
+eslint_config = .eslintrc
+
+[all.whitespace]
+bears = SpaceConsistencyBear
+default_actions = *: ApplyPatchAction
+
+[all.eslint]
+bears = ESLintBear
+default_actions = *: ApplyPatchAction
