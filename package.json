@@ -2,6 +2,9 @@
   "name": "jawaskrip",
   "version": "0.0.22",
   "main": "index.js",
+  "engines": {
+    "node": ">=6.12.2"
+  },
   "preferGlobal": true,
   "bin": {
     "jawaskrip": "bin/jawaskrip",
