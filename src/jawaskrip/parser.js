@@ -50,7 +50,7 @@ exports.parse = (_tokens, _callback) => {
 const RANGE = `function range(len){
     return [...Array(len).keys()];
 }`;
-const INPUT = `const readlineSync = require('readline-sync');`
+const INPUT = `const readlineSync = require('${__dirname}/../../node_modules/readline-sync');`
 
 // handler untuk fungsi kustom
 

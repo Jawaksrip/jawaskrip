@@ -1,6 +1,6 @@
 {
   "name": "jawaskrip",
-  "version": "0.0.18",
+  "version": "0.0.22",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
@@ -8,8 +8,7 @@
     "jw": "bin/jawaskrip"
   },
   "scripts": {
-    "test": "bash ./test.sh",
-    "install": "npm link readline-sync"
+    "test": "bash ./test.sh"
   },
   "author": "Indmind",
   "license": "MIT",
