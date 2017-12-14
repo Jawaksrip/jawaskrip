@@ -51,6 +51,7 @@ const RANGE = `function range(len){
     return [...Array(len).keys()];
 }`;
 const INPUT = `const readlineSync = require('${require.resolve("readline-sync")}');`
+
 // handler untuk fungsi kustom
 
 /**
