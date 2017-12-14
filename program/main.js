@@ -31,5 +31,6 @@ async function runJS(_code){
 
 module.exports = {
     compile,
-    run
+    run,
+    runJS
 }
