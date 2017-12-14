@@ -77,7 +77,6 @@ var jawaskrip_code = `
 console.log(await jawaskrip.compile(jawaskrip_code));
 // then
 jawaskrip.compile(jawaskrip_code).then(compiled => console.log(compiled));
-);
 
 ```
 
