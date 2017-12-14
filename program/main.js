@@ -15,6 +15,16 @@ async function compile(_code){
 
 async function run(_code){
     return new Promise(resolve => {
+        compiler.lexString(_code, token => {
+            parser.parse(token, compiled => {
+                program.run(compiled, () => resolve());
+            });
+        });
+    });
+}
+
+async function runJS(_code){
+    return new Promise(resolve => {
         program.run(_code, () => resolve());
     });
 }

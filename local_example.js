@@ -39,11 +39,8 @@ setiap(kumpulanData sebagai data){
     tulis("KET: " + ket);
 }
 `
+// run
+jawaskrip.run(script);
 
-const js = jawaskrip.compile(script);
-
-js.then(compiled => {
-    jawaskrip.run(compiled);
-});
-
-
+// atau compile
+jawaskrip.compile(script).then(compiled => console.log(compiled));
