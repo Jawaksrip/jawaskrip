@@ -30,7 +30,7 @@ bantuan:
 ~$ jw -h
 ```
 
-- Sebagai library ([Contoh](https://runkit.com/indmind/5a32408cc8531200128305e8))
+- Sebagai library ([Contoh](https://runkit.com/indmind/contoh-penggunaan-library-jawaskrip))
 ```js
 const jawaskrip = require("jawaskrip");
 
