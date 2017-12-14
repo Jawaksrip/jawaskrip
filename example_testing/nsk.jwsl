@@ -1,0 +1,37 @@
+var kumpulanData = [];
+var panjangData  = 10;
+var i = 0;
+
+selama(i kurangDari panjangData){
+    tulis("-----------------");
+    tulis("Masukan data " + i);
+    tulis("-----------------");
+    var info = {
+        nama: "Testing_" + i,
+        nim: i * 2 + 7 / 2 + i * (10 * i + - i + i),
+        nh: 80 + i,
+        uts: 100 - i,
+        uas: i * i
+    }
+    kumpulanData.push(info);
+    i++;
+}
+
+setiap(kumpulanData sebagai data){
+    var grade = "E";
+    var ket = "Tidak Lulus";
+    var NA = ((10/100) * data.nh) + ((40/100) * data.uts) + ((50/100) * data.uas);
+    jika(NA lebihDari 84) grade = "A";
+    jika(NA lebihDari 75 dan NA kurangDari 84) grade = "B";
+    jika(NA lebihDari 60 dan NA kurangDari 75) grade = "C";
+    jika(NA lebihDari 45 dan NA kurangDari 60) grade = "D";
+    jika(NA lebihDari 60) ket = "Lulus";
+
+    tulis("-----------------");
+    tulis("Hasil data " + data.nama);
+    tulis("-----------------");
+    tulis("NIM: " + data.nim);
+    tulis("NA: " + NA);
+    tulis("GRADE: " + grade);
+    tulis("KET: " + ket);
+}

@@ -1,0 +1,28 @@
+fungsi segitigaPascal(limit, baris){
+    jika(!baris atau baris.length == 0) kembalikan segitigaPascal(limit, [[1]]);
+
+    var barisBaru = [];
+    var barisTerakhir = baris[baris.length - 1];
+
+    untuk(var i = 1, panjang = barisTerakhir.length; i kurangDari panjang; i++){
+        barisBaru.push(barisTerakhir[i - 1] + barisTerakhir[i]);
+    }
+
+    barisBaru.unshift(1);
+    barisBaru.push(1);
+
+    baris.push(barisBaru);
+
+    jika(limit == baris.length){
+        kembalikan baris;
+    }else{
+        kembalikan segitigaPascal(limit, baris);
+    }
+}
+
+var n = 4;
+var hasil = segitigaPascal(n + 1);
+
+setiap(hasil sebagai baris){
+    tulis(baris.join(''));
+}

@@ -16,8 +16,8 @@ const tempDir = "/../../temp/";
 
 exports.compile = (_filepath, _callback) => {
     compiler.lex(_filepath, _token => {
-        parser.parse(_token, parsed => {
-            _callback(beautify(parsed, {indent_size: 4, end_with_newline: true}));
+        parser.parse(_token, compiled => {
+            _callback(compiled);
         });
     });
 };

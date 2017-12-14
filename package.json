@@ -1,7 +1,7 @@
 {
   "name": "jawaskrip",
-  "version": "0.0.22",
-  "main": "index.js",
+  "version": "0.0.25",
+  "main": "program/main.js",
   "engines": {
     "node": ">=6.12.2"
   },
@@ -11,7 +11,7 @@
     "jw": "bin/jawaskrip"
   },
   "scripts": {
-    "test": "bash ./test.sh"
+    "test": "bash ./program/test.sh"
   },
   "author": "Indmind",
   "license": "MIT",
