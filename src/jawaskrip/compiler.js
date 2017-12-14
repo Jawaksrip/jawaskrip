@@ -244,6 +244,12 @@ exports.lex = (_filepath, _callback) => {
     });
 };
 
+exports.lexString = (_code, _callback) => {
+    const Tokenize = new Tokenizer().tokenize(_code, (res) => {
+        _callback(res);
+    });
+}
+
 // array cleaner
 Array.prototype.clean = function (deleteValue) {
     for (let i = 0; i < this.length; i++) {

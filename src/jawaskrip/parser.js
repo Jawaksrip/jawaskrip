@@ -39,7 +39,7 @@ exports.parse = (_tokens, _callback) => {
                 allResult += addition[a];
                 allProcessed++;
                 if (allProcessed == Object.keys(addition).length)
-                    _callback(allResult + resultJS);
+                _callback(beautify(allResult + resultJS, {end_with_newline: true, indent_size:4}));
             });
         }
     });
@@ -99,7 +99,7 @@ function masukan_handler(token) {
 function impor_handler(token) {
     const parsedJS = token.value
         .replace("impor", "const")
-        .replace("dari", "=");
+        .replaceLast("dari", "=");
     let packageName = (parsedJS.match(/'([^']+)'/) || parsedJS.match(/(?:"[^"]*"|^[^"]*$)/))[0];
     return parsedJS.replaceLast(packageName, `require(${packageName})`);
 }
