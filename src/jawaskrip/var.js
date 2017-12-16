@@ -58,6 +58,8 @@ const constant = {
     T_LTOQ: 48,
     T_ARROW: 49,
     T_NEWLINE: 50,
+    T_PARSEINT: 51,
+    T_STRING: 52,
 
     ERROR_CODE: {
 
@@ -108,7 +110,9 @@ const keyword = {
     CLASS: "class",
     EXTENDS: "extends",
     CONSTRUCT: "constructor",
-    INPUT: "readlineSync.question"
+    INPUT: "readlineSync.question",
+    PARSEINT: "parseInt",
+    STRING: "String"
 };
 
 

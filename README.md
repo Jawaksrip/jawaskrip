@@ -35,48 +35,17 @@ bantuan:
 const jawaskrip = require("jawaskrip");
 
 var jawaskrip_code = `
-    var kumpulanData = [];
-    var panjangData  = masukan("Masukan jumlah data yang kan dimasukan: ");
-    var i = 0;
-
-    selama(i kurangDari panjangData){
-        tulis("-----------------");
-        tulis("Masukan data " + i);
-        tulis("-----------------");
-        var info = {
-            nama: masukan("Masukan Nama: "),
-            nim: masukan("Masukan NIM: "),
-            nh: masukan("Masukan NH: "),
-            uts: masukan("Masukan UTS: "),
-            uas: masukan("Masukan UAS: ")
-        }
-        kumpulanData.push(info);
-        i++;
+    fungsi halo(){
+        tulis("halo dunia");
     }
+    halo();
+    `;
 
-    setiap(kumpulanData sebagai data){
-        var grade = "E";
-        var ket = "Tidak Lulus";
-        var NA = ((10/100) * data.nh) + ((40/100) * data.uts) + ((50/100) * data.uas);
-        jika(NA lebihDari 84) grade = "A";
-        jika(NA lebihDari 75 dan NA kurangDari 84) grade = "B";
-        jika(NA lebihDari 60 dan NA kurangDari 75) grade = "C";
-        jika(NA lebihDari 45 dan NA kurangDari 60) grade = "D";
-        jika(NA lebihDari 60) ket = "Lulus";
-
-        tulis("-----------------");
-        tulis("Hasil data " + data.nama);
-        tulis("-----------------");
-        tulis("NIM: " + data.nim);
-        tulis("NA: " + NA);
-        tulis("GRADE: " + grade);
-        tulis("KET: " + ket);
-    }`;
-
-// await
+// compile
 console.log(await jawaskrip.compile(jawaskrip_code));
-// then
-jawaskrip.compile(jawaskrip_code).then(compiled => console.log(compiled));
+
+// run 
+await jawaskrip.run(jawaskrip_compile);
 
 ```
 
@@ -153,23 +122,8 @@ tulis(3 ditambah 2 dikurangi 12 ditambah 32 dikali 21 dibagi 2);
 
 - masukan
 ```cs
-var b = [];
-ulangi(var a sebanyak 5 kali){
-    b[a] = masukan(`b[${a}] = `)
-}
-
-tulis(b);
-
-var lanjut = benar;
-
-selama(lanjut){
-    tulis("berlanjut...");
-    lanjut = salah;
-    var jawaban = masukan("mau lanjut? (iya/tidak) ");
-    jika(jawaban adalah "iya"){
-        lanjut = benar;
-    }
-}
+var nama = masukan("Masukan namamu: ");
+tulis("halo " + nama);
 ```
 
 - Kelas atau class
@@ -213,6 +167,38 @@ selama(i <= baris){
     i++;
     k = 0;
 }
+```
+
+- uraiAngka atau parseInt
+
+```cs
+// contoh uraiAngka
+
+tulis("tanpa uraiAngka")
+var a = masukan("angka a: "); // misal kita masukan 3
+var b = masukan("angka b: "); // misal kita masukan 2
+
+tulis(a + b) // output akan "32"
+
+tulis("dengan uraiAngka")
+var c = uraiAngka(masukan("angka c: ")); // misal kita masukan 3
+var d = uraiAngka(masukan("angka d: ")); // misal kita masukan 2
+
+tulis(c + d) // output akan 5
+
+```
+
+-- uraiHuruf atau String
+
+```cs
+// contoh uraiHuruf
+
+tulis("tanpa uraiHuruf");
+tulis(2 + 2); // hasil: 4
+
+tulis("dengan uraiHuruf");
+tulis(uraiHuruf(2) + uraiHuruf(2)); // hasil: "22"
+
 ```
 
 ### Tabel Perbedaan

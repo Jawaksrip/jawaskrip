@@ -115,6 +115,8 @@ class Tokenizer {
                 else if (word == "buat") tokens.push(this.toke(constant.T_NEW, keyword.NEW, line));
                 else if (word == "ini") tokens.push(this.toke(constant.T_THIS, keyword.THIS, line));
                 else if (word == "kembalikan") tokens.push(this.toke(constant.T_RETURN, keyword.RETURN, line));
+                else if (word == "uraiAngka") tokens.push(this.toke(constant.T_PARSEINT, keyword.PARSEINT, line));
+                else if (word == "uraiHuruf") tokens.push(this.toke(constant.T_STRING, keyword.STRING, line));
                 else if (word == "jika") tokens.push(this.toke(constant.T_IF, keyword.IF, line));
                 else if (word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, keyword.ELSE, line));
                 else if (word == "selama") tokens.push(this.toke(constant.T_WHILE, keyword.WHILE, line));
@@ -132,7 +134,7 @@ class Tokenizer {
                 else if (word == "dikurangi") tokens.push(this.toke(constant.T_MINUS, symbol.MINUS, line));
                 else if (word == "dikali") tokens.push(this.toke(constant.T_TIMES, symbol.TIMES, line));
                 else if (word == "dibagi") tokens.push(this.toke(constant.T_DIVIDE, symbol.DIVIDE, line));
-                else if (word == "modulus") tokens.push(this.toke(constant.T_MOD, symbol.MOD, line));
+                else if (word == "modulo") tokens.push(this.toke(constant.T_MOD, symbol.MOD, line));
                 else if (word == "kurangdari" || word == "kurangDari") tokens.push(this.toke(constant.T_LESS, symbol.LESS, line));
                 else if (word == "lebihdari" || word == "lebihDari") tokens.push(this.toke(constant.T_GREATER, symbol.GREATER, line));
 
