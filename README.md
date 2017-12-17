@@ -45,7 +45,7 @@ var jawaskrip_code = `
 console.log(await jawaskrip.compile(jawaskrip_code));
 
 // run 
-await jawaskrip.run(jawaskrip_compile);
+await jawaskrip.run(jawaskrip_code);
 
 ```
 
