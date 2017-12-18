@@ -203,22 +203,23 @@ tulis(uraiHuruf(2) + uraiHuruf(2)); // hasil: "22"
 
 ### Tabel Perbedaan
 
-| JawaSkrip        | JavaScript        |
-|------------------|-------------------|
-| jika(){...}      | if(){...}         |
-| jikaTidak(){...} | else if(){...}    |
-| fungsi n(){...}  | function n(){...} |
-| selama(){...}    | while(){...}      |
-| untuk(){...}     | for(){...}        |
-| tidak            | !=                |
-| dan              | &&                |
-| atau             | &#124;&#124;      |
-| tulis()          | console.log()     |
-| kelas{}          | class             |
-| extends          | turunan           |
-| masukan()        | ~~~               |
-| benar            | true              |
-| salah            | false             |
+| JawaSkrip           | JavaScript        |
+|---------------------|-------------------|
+| jika(){...}         | if(){...}         |
+| jikaTidak(){...}    | else if(){...}    |
+| fungsi n(){...}     | function n(){...} |
+| lakukan {} selama ()| do {} while()     |  
+| selama(){...}       | while(){...}      |
+| untuk(){...}        | for(){...}        |
+| tidak               | !=                |
+| dan                 | &&                |
+| atau                | &#124;&#124;      |
+| tulis()             | console.log()     |
+| kelas{}             | class             |
+| extends             | turunan           |
+| masukan()           | ~~~               |
+| benar               | true              |
+| salah               | false             |
 
 Dan lain-lain
 

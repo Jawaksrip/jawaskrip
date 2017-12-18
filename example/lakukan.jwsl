@@ -1,0 +1,6 @@
+var a = 10;
+
+lakukan{
+    a++;
+    tulis(a);
+}selama(a < 100);

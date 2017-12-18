@@ -60,6 +60,7 @@ const constant = {
     T_NEWLINE: 50,
     T_PARSEINT: 51,
     T_STRING: 52,
+    T_DO: 53,
 
     ERROR_CODE: {
 
@@ -112,7 +113,8 @@ const keyword = {
     CONSTRUCT: "constructor",
     INPUT: "readlineSync.question",
     PARSEINT: "parseInt",
-    STRING: "String"
+    STRING: "String",
+    DO: "do"
 };
 
 

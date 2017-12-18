@@ -119,6 +119,7 @@ class Tokenizer {
                 else if (word == "uraiHuruf") tokens.push(this.toke(constant.T_STRING, keyword.STRING, line));
                 else if (word == "jika") tokens.push(this.toke(constant.T_IF, keyword.IF, line));
                 else if (word == "jikaTidak" || word == "jikatidak") tokens.push(this.toke(constant.T_ELSE, keyword.ELSE, line));
+                else if (word == "lakukan") tokens.push(this.toke(constant.T_DO, keyword.DO, line));
                 else if (word == "selama") tokens.push(this.toke(constant.T_WHILE, keyword.WHILE, line));
                 else if (word == "untuk") tokens.push(this.toke(constant.T_FOR, keyword.FOR, line));
                 else if (word == "tidak" || word == "bukan") tokens.push(this.toke(constant.T_NOT, keyword.NOT, line));
