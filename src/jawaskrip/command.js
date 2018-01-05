@@ -6,13 +6,9 @@
 
 const program = require("./program");
 const path = require("path");
-const fs = require('fs');
+const fs = require("fs");
 const app = require("commander");
-const {
-    version,
-    description
-} = require("../../package.json");
-
+const { version, description } = require("../../package.json");
 
 function run(filepath, callback) {
     program.compile(getRealPath(filepath), _compiled => {
@@ -33,11 +29,20 @@ function getRealPath(_path) {
 }
 
 exports.run = _execDone => {
-
     // if the first argumet is file, autorun
-    if (fs.existsSync(path.resolve(process.cwd(), process.argv[2]))) run(process.argv[2], _execDone);
+    if (
+        process.argv[2] &&
+        fs.existsSync(path.resolve(process.cwd(), process.argv[2]))
+    )
+        run(process.argv[2], _execDone);
 
     app.version(version).description(description);
+
+    app
+        .command("bantuan")
+        .alias("help")
+        .description("Tampilkan bantuan")
+        .action(() => app.help());
 
     app
         .command("r <file>")
@@ -49,7 +54,7 @@ exports.run = _execDone => {
         .command("c <file>")
         .alias("compile")
         .description("Compile dan print ke konsole")
-        .action((filepath) => {
+        .action(filepath => {
             program.compile(getRealPath(filepath), _compiled => {
                 console.log(_compiled);
                 _execDone();
@@ -62,17 +67,21 @@ exports.run = _execDone => {
         .description("Compile dan simpan ke file javascript")
         .action((filepath, _output) => {
             program.compile(getRealPath(filepath), _compiled => {
-                fs.writeFile(path.join(process.cwd(), _output), _compiled, err => {
-                    if (err) throw err;
-                    _execDone();
-                });
+                fs.writeFile(
+                    path.join(process.cwd(), _output),
+                    _compiled,
+                    err => {
+                        if (err) throw err;
+                        _execDone();
+                    }
+                );
             });
         });
 
     app
         .command("contoh <output>")
         .description("Membuat folder contoh ke direktori output")
-        .action((dirpath) => {
+        .action(dirpath => {
             program.copyExample(path.join(process.cwd(), dirpath), () => {
                 console.log("Done!");
                 _execDone();
@@ -83,7 +92,7 @@ exports.run = _execDone => {
         .command("t <file>")
         .alias("token")
         .description("Generate token / lex (debug)")
-        .action((filepath) => {
+        .action(filepath => {
             program.token(getRealPath(filepath), _token => {
                 console.log(_token);
                 _execDone();
@@ -94,11 +103,17 @@ exports.run = _execDone => {
         .command("clean")
         .description("clean temp file")
         .action(() => {
-            program.clean((_mess) => {
+            program.clean(_mess => {
                 console.log(_mess);
                 _execDone();
             });
         });
 
     app.parse(process.argv);
+
+    if (app.args.length < 1) {
+        console.log(
+            `versi jawaskrip: ${app.version()}, 'jw -h' untuk bantuan\n`
+        );
+    }
 };

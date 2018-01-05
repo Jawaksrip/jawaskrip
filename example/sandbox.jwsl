@@ -1,0 +1,4 @@
+var a = [3, 3, 4]
+setiap(a sebagai n){
+        tulis(n)
+}

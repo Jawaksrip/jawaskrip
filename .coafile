@@ -12,3 +12,9 @@ default_actions = *: ApplyPatchAction
 [all.eslint]
 bears = ESLintBear
 default_actions = *: ApplyPatchAction
+
+[js]
+files = src/jawaskrip/*.js
+bears = ESLintBear
+eslint_config = .eslintrc
+default_actions = *: ApplyPatchAction

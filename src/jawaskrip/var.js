@@ -29,7 +29,7 @@ const constant = {
     T_OR: 19, // ||
     T_NOT: 20, // !
 
-    T_FUNCTION:21,
+    T_FUNCTION: 21,
     T_VAR: 22,
     T_WORD: 23,
     T_NUM: 24,
@@ -62,9 +62,7 @@ const constant = {
     T_STRING: 52,
     T_DO: 53,
 
-    ERROR_CODE: {
-
-    }
+    ERROR_CODE: {}
 };
 
 const symbol = {
@@ -83,8 +81,8 @@ const symbol = {
     LBRACE: "{", // {
     RBRACE: "}", // }
     IS: "==", // ==
-    COMMENT: "//",
-}
+    COMMENT: "//"
+};
 
 const keyword = {
     IF: "if",
@@ -117,11 +115,7 @@ const keyword = {
     DO: "do"
 };
 
-
-const handler = [
-    "ulangi", "setiap"
-];
-
+const handler = ["ulangi", "setiap"];
 
 module.exports = {
     constant: constant,

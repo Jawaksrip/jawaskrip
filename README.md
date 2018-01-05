@@ -42,10 +42,10 @@ var jawaskrip_code = `
     `;
 
 // compile
-console.log(await jawaskrip.compile(jawaskrip_code));
-
-// run 
-await jawaskrip.run(jawaskrip_code);
+jawaskrip.compile(jawaskrip_code).then(compiled => {
+    const jsCode = compiled;
+    console.log(jsCode);
+});
 
 ```
 
