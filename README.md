@@ -1,8 +1,6 @@
 # JawaSkrip
 
-An Indonesian Version of JavaScript
-
-JawaSkrip adalah versi indonesia dari bahasa pemrograman JavaScript
+Noting.
 
 ## Instalasi
 

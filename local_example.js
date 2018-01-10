@@ -38,7 +38,8 @@ setiap(kumpulanData sebagai data){
     tulis("GRADE: " + grade);
     tulis("KET: " + ket);
 }
-`
+`;
+
 // run
 jawaskrip.run(script);
 

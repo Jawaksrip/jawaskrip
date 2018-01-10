@@ -1,6 +1,5 @@
 /**
  * @author indmind <mail.indmind@gmail.com>
- * @file proses compiling
  * @version 0.0.2
  */
 
@@ -68,7 +67,10 @@ exports.run = (parsed, callback) => {
 };
 
 exports.runLocal = (compiled, callback) => {
-    const compiledPath = global.userFilePath + ".compiled.js";
+    const compiledPath = global.userFilePath.replace(
+        path.extname(global.userFilePath),
+        ".js"
+    );
     fs.writeFile(
         compiledPath,
         beautify(compiled, {
