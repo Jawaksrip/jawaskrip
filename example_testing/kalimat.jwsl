@@ -1,7 +1,0 @@
-var tandaKutip = 'hallo dunia';
-var duaTandaKutip = "hallo dunia";
-var backTick = `hallo dunia`;
-
-tulis(tandaKutip);
-tulis(duaTandaKutip);
-tulis(backTick);

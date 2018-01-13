@@ -1,9 +1,0 @@
-ulangi(var i sebanyak 10 kali) {
-    tulis(i * i);
-}
-
-tulis();
-
-untuk(var i = 1; i <= 10; i++) {
-    tulis(i * i);
-}

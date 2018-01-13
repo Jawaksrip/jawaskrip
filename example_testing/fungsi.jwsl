@@ -1,4 +1,0 @@
-fungsi utama(){
-    tulis("halo dunia");
-}
-utama();

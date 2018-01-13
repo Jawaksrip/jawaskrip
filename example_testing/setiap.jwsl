@@ -1,5 +1,0 @@
-var teman = ["Dinda", "Putri", "Widya", "Salsa"];
-
-setiap(teman sebagai pacar){
-    tulis("Pacarku " + pacar);
-}
