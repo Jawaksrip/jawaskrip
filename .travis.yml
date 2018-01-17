@@ -5,4 +5,4 @@ sudo: required
 install:
   - npm install
 
-after_success: ./test.sh
+after_success: npm run test
