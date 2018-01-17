@@ -46,8 +46,10 @@ setiap(kumpulanData sebagai data){
 }
 `;
 
-// run
-jawaskrip.run(script);
+(async () => {
+    // run
+    await jawaskrip.run(script);
 
-// atau compile
-jawaskrip.compile(script).then(compiled => console.log(compiled));
+    // atau compile
+    jawaskrip.compile(script).then(compiled => console.log(compiled));
+})();
