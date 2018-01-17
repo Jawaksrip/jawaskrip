@@ -1,20 +1,6 @@
 #!/usr/bin/env node
 
-/**
- * @author indmind <mail.indmind@gmail.com>
- * @file Tokenize the script
- * @version 0.0.1
- * 
- */
-
-// start time
-console.time("execution time");
-// newline
-console.log();
-// run
-require('../src/jawaskrip/command').run(() =>{
-    // newline
-    console.log();
-    // stop time
-    console.timeEnd("execution time");
+console.time("\nexecution time");
+require("../src/jawaskrip/command").run(() => {
+    console.timeEnd("\nexecution time");
 });
