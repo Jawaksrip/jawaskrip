@@ -7,8 +7,10 @@ const program = require("./program");
 const { version, description } = require("../../package.json");
 
 function run(filepath, callback) {
+    const original = fs.readFileSync(filepath, "utf8");
+
     program.compile(getRealPath(filepath), _compiled => {
-        program.runLocal(_compiled, callback);
+        program.runLocal(_compiled, original, callback);
     });
 }
 
