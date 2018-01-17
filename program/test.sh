@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ALLFILES=`ls ./example -l --time-style="long-iso" | awk '{print $8}'`
 
 EXCLUDE="test.txt|angka.jws|masukan.jwsl|hujan_salju.jwsl|nsk.jwsl"
