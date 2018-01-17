@@ -1,5 +1,0 @@
-var i = 10;
-selama(i > 0){
-    i--;
-    tulis(i);
-}

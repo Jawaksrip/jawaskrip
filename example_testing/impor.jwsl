@@ -1,5 +1,0 @@
-impor fs dari "fs";
-
-var teks = fs.readFileSync(__dirname + "/test.txt", "UTF-8");
-
-tulis(teks);
