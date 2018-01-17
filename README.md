@@ -32,17 +32,16 @@ bantuan:
 ```js
 const jawaskrip = require("jawaskrip");
 
-var jawaskrip_code = `
+var code = `
     fungsi halo(){
         tulis("halo dunia");
     }
     halo();
-    `;
+`;
 
 // compile
-jawaskrip.compile(jawaskrip_code).then(compiled => {
-    const jsCode = compiled;
-    console.log(jsCode);
+jawaskrip.compile(code).then(compiled => {
+    console.log(compiled);
 });
 
 ```
