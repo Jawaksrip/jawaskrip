@@ -1,16 +1,8 @@
-/**
- * @author indmind <mail.indmind@gmail.com>
- * @file Tokenize the script
- * @version 0.0.2
- */
-
 const fs = require("fs");
 const beautify = require("js-beautify").js_beautify;
+
 const { constant, symbol, handler, keyword } = require("./var");
 
-/**
- * @class Tokenizer - membuat token dari value yang diberikan
- */
 class Tokenizer {
     /**
      *  mapping token yang diberikan
@@ -47,7 +39,9 @@ class Tokenizer {
              */
             const c = _code[i];
             const lastKey = tokens[tokens.length - 1];
+
             let lastTokenIsKeyword = false;
+
             if (lastKey != undefined) {
                 if (
                     Object.keys(keyword).includes(
@@ -75,6 +69,7 @@ class Tokenizer {
             } else if (c.isAlphaNumeric() || c == "_") {
                 //Kata dan Keyword
                 let word = "";
+
                 while (
                     i < _code.length &&
                     (_code[i].isAlphaNumeric() ||
@@ -321,7 +316,9 @@ exports.lex = (_filepath, _callback) => {
     const file = beautify(fs.readFileSync(_filepath, "utf8"), {
         end_with_newline: true
     });
+
     const Tokenize = new Tokenizer();
+
     Tokenize.tokenize(file, res => {
         _callback(res);
     });

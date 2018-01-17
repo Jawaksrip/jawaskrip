@@ -1,9 +1,3 @@
-/**
- * @author indmind <mail.indmind@gmail.com>
- * @file deklarasi variabel
- * @version 0.0.3
- */
-
 const constant = {
     T_END: -1,
     T_PLUS: 0, // +
@@ -60,9 +54,7 @@ const constant = {
     T_NEWLINE: 50,
     T_PARSEINT: 51,
     T_STRING: 52,
-    T_DO: 53,
-
-    ERROR_CODE: {}
+    T_DO: 53
 };
 
 const symbol = {

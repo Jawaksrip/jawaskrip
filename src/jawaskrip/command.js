@@ -1,13 +1,9 @@
-/**
- * @author indmind <mail.indmind@gmail.com>
- * @file Process user input
- * @version 0.0.2
- */
-
-const program = require("./program");
 const path = require("path");
 const fs = require("fs");
 const app = require("commander");
+
+const program = require("./program");
+
 const { version, description } = require("../../package.json");
 
 function run(filepath, callback) {
@@ -25,11 +21,11 @@ function getRealPath(_path) {
         console.log("Invalid file specified");
         process.exit();
     }
+
     return global.userFilePath;
 }
 
 exports.run = _execDone => {
-    // if the first argumet is file, autorun
     if (
         process.argv[2] &&
         fs.existsSync(path.resolve(process.cwd(), process.argv[2]))
@@ -72,6 +68,7 @@ exports.run = _execDone => {
                     _compiled,
                     err => {
                         if (err) throw err;
+
                         _execDone();
                     }
                 );
