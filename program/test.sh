@@ -1,15 +1,13 @@
 #!/bin/bash
 
-DIRS=`ls ./example -l --time-style="long-iso" | awk '{print $8}'`
+ALLFILES=`ls ./example -l --time-style="long-iso" | awk '{print $8}'`
 
-STDINFILE="test.txt|angka.jws|masukan.jwsl|hujan_salju.jwsl|nsk.jwsl"
+EXCLUDE="test.txt|angka.jws|masukan.jwsl|hujan_salju.jwsl|nsk.jwsl"
 
-for EXCLUDE in $STDINFILE; do
-    DIRS=`echo $DIRS | sed -E "s/$STDINFILE//g"`
-done
+FILTEREDFILES=`echo $ALLFILES | sed -E "s/$EXCLUDE//g"`
 
-for DIR in $DIRS; do
-    node ./bin/jawaskrip ./example/$DIR
+for FILE in $FILTEREDFILES; do
+    node ./bin/jawaskrip ./example/$FILE
 done
 
 printf "\nDONE!\n"
