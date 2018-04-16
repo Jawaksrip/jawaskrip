@@ -1,6 +1,11 @@
 # JawaSkrip
-
 Noting.
+
+[![Build Status](https://travis-ci.org/indmind/jawaskrip.svg?branch=master)](https://travis-ci.org/indmind/jawaskrip)
+[![Coverage](https://codecov.io/gh/indmind/jawaskrip/branch/master/graph/badge.svg)](https://codecov.io/gh/indmind/jawaskrip)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/indmind/jawaskrip/blob/master/LICENSE)
+
+[![NPM](https://nodei.co/npm/jawaskrip.png)](https://npmjs.org/package/jawaskrip)
 
 ## Instalasi
 
