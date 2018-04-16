@@ -8,7 +8,7 @@ cache:
     - "$HOME/.cache/pip"
 
 before_install:
-  - pip3 install coala-bears
+  # - pip3 install coala-bears
   - nvm install
   - if [[ `npm -v` != 5.7* ]]; then npm i -g npm@5.7; fi
 
@@ -17,7 +17,7 @@ install:
   - npm ci
 
 script:
-  - npm run coala
+  # - npm run coala
   - npm test
 
 after_success:
