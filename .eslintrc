@@ -1,31 +1,38 @@
 {
     "env": {
         "node": true,
-        "browser": true,
-        "es6": true,
-        "jquery": true
-    },
-    "parserOptions": {
-        "ecmaVersion": 2017,
-        "sourceType": "module"
+        "es6": true
     },
     "plugins": [
-        "prettier"
+        "prettier",
+        "jest",
+        "import"
     ],
     "extends": [
-        "eslint:recommended",
+        "plugin:jest/recommended",
         "prettier"
     ],
+    "parser": "babel-eslint",
     "rules": {
         "prettier/prettier": [
-            "warn",
+            "error",
             {
+                "singleQuote": true,
+                "semi": false,
                 "trailingComma": "none",
                 "bracketSpacing": true,
                 "tabWidth": 4,
                 "arrowParens": "avoid"
             }
         ],
-        "no-console": 0
+        "import/newline-after-import": ["error", {
+            "count": 1
+        }],
+        "padding-line-between-statements": ["error", {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+        }],
+        "no-console": "off"
     }
 }

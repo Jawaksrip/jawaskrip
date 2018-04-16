@@ -1,20 +1,25 @@
 [all]
-files = src/jawaskrip/*.js
-max_line_length = 80
-indent_size = 4
+files = **.js, .eslintrc
+ignore = node_modules/**, docs/**, coverage/**, package-lock.json, .travis.yml
+max_line_length = 100
 use_spaces = True
+
+[js]
+files = src/**/*.js
+bears = ESLintBear
 eslint_config = .eslintrc
+default_actions = *: ApplyPatchAction
+
+[all.json]
+files = *.json
+bears = JSONFormatBear
+indent_size = 4
+default_actions = *: ApplyPatchAction
 
 [all.whitespace]
 bears = SpaceConsistencyBear
 default_actions = *: ApplyPatchAction
 
-[all.eslint]
-bears = ESLintBear
-default_actions = *: ApplyPatchAction
-
-[js]
-files = src/jawaskrip/*.js
-bears = ESLintBear
-eslint_config = .eslintrc
-default_actions = *: ApplyPatchAction
+[all.linelength]
+ignore += package.json
+bears = LineLengthBear

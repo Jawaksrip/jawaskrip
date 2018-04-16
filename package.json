@@ -1,53 +1,63 @@
 {
-  "name": "jawaskrip",
-  "version": "0.3.4",
-  "main": "program/main.js",
-  "engines": {
-    "node": ">=6.12.2"
-  },
-  "preferGlobal": true,
-  "bin": {
-    "jawaskrip": "bin/jawaskrip",
-    "jw": "bin/jawaskrip"
-  },
-  "scripts": {
-    "test": "bash ./program/test.sh"
-  },
-  "author": "Indmind",
-  "license": "MIT",
-  "dependencies": {
-    "commander": "^2.11.0",
-    "js-beautify": "^1.7.4",
-    "ncp": "^2.0.0",
-    "readline-sync": "^1.4.7"
-  },
-  "directories": {
-    "doc": "docs",
-    "example": "example",
-    "lib": "lib"
-  },
-  "devDependencies": {
-    "eslint": "^4.14.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.4.0",
-    "prettier": "^1.9.2"
-  },
-  "description": "an indonesian version of javascript",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Indmind/JawaSkrip.git"
-  },
-  "keywords": [
-    "javacript",
-    "jwsl",
-    "jawascript",
-    "indonesia",
-    "indo",
-    "jawaskrip",
-    "javaskrip"
-  ],
-  "bugs": {
-    "url": "https://github.com/Indmind/JawaSkrip/issues"
-  },
-  "homepage": "https://github.com/Indmind/JawaSkrip#readme"
+    "name": "jawaskrip",
+    "version": "0.3.5",
+    "main": "program/main.js",
+    "engines": {
+        "node": ">=6.12.2"
+    },
+    "preferGlobal": true,
+    "bin": {
+        "jawaskrip": "bin/jawaskrip",
+        "jw": "bin/jawaskrip"
+    },
+    "scripts": {
+        "test": "jest",
+        "coala": "coala",
+        "format": "eslint . --fix"
+    },
+    "jest": {
+        "coverageDirectory": "./coverage/",
+        "collectCoverage": true
+    },
+    "author": "indmind",
+    "license": "MIT",
+    "dependencies": {
+        "commander": "^2.11.0",
+        "js-beautify": "^1.7.4",
+        "ncp": "^2.0.0",
+        "readline-sync": "^1.4.7"
+    },
+    "directories": {
+        "doc": "docs",
+        "example": "example",
+        "lib": "lib"
+    },
+    "devDependencies": {
+        "babel-eslint": "^8.2.3",
+        "eslint": "^4.19.1",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-import": "^2.11.0",
+        "eslint-plugin-jest": "^21.15.0",
+        "eslint-plugin-prettier": "^2.6.0",
+        "jest": "^22.4.3",
+        "prettier": "^1.12.0"
+    },
+    "description": "an indonesian version of javascript",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/indmind/jawaskrip.git"
+    },
+    "keywords": [
+        "javacript",
+        "jwsl",
+        "jawascript",
+        "indonesia",
+        "indo",
+        "jawaskrip",
+        "javaskrip"
+    ],
+    "bugs": {
+        "url": "https://github.com/indmind/jawaskrip/issues"
+    },
+    "homepage": "https://github.com/indmind/jawaskrip#readme"
 }

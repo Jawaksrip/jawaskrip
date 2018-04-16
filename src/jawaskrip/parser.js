@@ -1,6 +1,6 @@
-const beautify = require("js-beautify").js_beautify;
+const beautify = require('js-beautify').js_beautify
 
-const { constant } = require("./var");
+const { constant } = require('./var')
 
 exports.parse = (_tokens, _callback) => {
     const token_handler = {
@@ -8,43 +8,43 @@ exports.parse = (_tokens, _callback) => {
         SETIAP: setiap_handler,
         IMPOR: impor_handler,
         [constant.T_INPUT]: masukan_handler
-    };
+    }
 
-    let resultJS = ``;
-    let keyProcessed = 0;
+    let resultJS = ``
+    let keyProcessed = 0
 
     _tokens.forEach(_token => {
         if (Object.keys(token_handler).includes(_token.type.toString())) {
-            resultJS += token_handler[_token.type](_token);
+            resultJS += token_handler[_token.type](_token)
         } else {
-            resultJS += _token.value + " ";
+            resultJS += _token.value + ' '
         }
 
-        keyProcessed++;
+        keyProcessed++
 
         if (keyProcessed == _tokens.length) {
-            let allResult = "";
-            let allProcessed = 0;
+            let allResult = ''
+            let allProcessed = 0
 
-            if (Object.keys(addition).length <= 0) _callback(resultJS);
+            if (Object.keys(addition).length <= 0) _callback(resultJS)
 
             Object.keys(addition).forEach(a => {
-                allResult += addition[a];
-                allProcessed++;
+                allResult += addition[a]
+                allProcessed++
 
                 if (allProcessed == Object.keys(addition).length)
-                    _callback(allResult + resultJS);
-            });
+                    _callback(allResult + resultJS)
+            })
         }
-    });
-};
+    })
+}
 
-let addition = {};
+let addition = {}
 
 // addition string
 const INPUT = `const readlineSync = require('${require.resolve(
-    "readline-sync"
-)}');`;
+    'readline-sync'
+)}');`
 
 // handler untuk fungsi kustom
 
@@ -57,20 +57,20 @@ const INPUT = `const readlineSync = require('${require.resolve(
 function ulangi_handler(token) {
     let valArr = beautify(token.value, {
         indent_level: 4
-    }).split(" ");
+    }).split(' ')
 
     if (valArr.length < 5) {
-        triggerError("Syntax 'ulangi' error", token.line);
-        process.exit();
+        triggerError("Syntax 'ulangi' error", token.line)
+        process.exit()
     }
 
-    const usrVar = valArr[1];
+    const usrVar = valArr[1]
 
     var parsedJS = `for(var ${usrVar} = 0; ${usrVar} < ${
         valArr[3]
-    }; ${usrVar}++)`;
+    }; ${usrVar}++)`
 
-    return parsedJS;
+    return parsedJS
 }
 
 /**
@@ -80,13 +80,15 @@ function ulangi_handler(token) {
 function setiap_handler(token) {
     const val = beautify(token.value, {
         indent_level: 4
-    }).split(" ");
-    return `for(var ${val[2].slice(0, -1)} of ${val[0].split("(")[1]})`;
+    }).split(' ')
+
+    return `for(var ${val[2].slice(0, -1)} of ${val[0].split('(')[1]})`
 }
 
 function masukan_handler(token) {
-    addition.input = INPUT;
-    return token.value;
+    addition.input = INPUT
+
+    return token.value
 }
 
 /**
@@ -95,27 +97,29 @@ function masukan_handler(token) {
  */
 function impor_handler(token) {
     const parsedJS = token.value
-        .replace("impor", "const")
-        .replaceLast("dari", "=");
-    let packageName = parsedJS.match(/['`"]([^'`"]+)['`"]/)[0];
-    return parsedJS.replaceLast(packageName, `require(${packageName})`);
+        .replace('impor', 'const')
+        .replaceLast('dari', '=')
+    let packageName = parsedJS.match(/['`"]([^'`"]+)['`"]/)[0]
+
+    return parsedJS.replaceLast(packageName, `require(${packageName})`)
 }
 
 function triggerError(mess, line) {
-    throw `Error pada baris ${line}: "${mess}"`;
+    throw `Error pada baris ${line}: "${mess}"`
 }
 
 String.prototype.replaceLast = function(what, replacement) {
-    return this.split(" ")
+    return this.split(' ')
         .reverse()
-        .join(" ")
+        .join(' ')
         .replace(new RegExp(what), replacement)
-        .split(" ")
+        .split(' ')
         .reverse()
-        .join(" ");
-};
+        .join(' ')
+}
 
 String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.split(search).join(replacement);
-};
+    var target = this
+
+    return target.split(search).join(replacement)
+}

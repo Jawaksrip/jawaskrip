@@ -55,63 +55,63 @@ const constant = {
     T_PARSEINT: 51,
     T_STRING: 52,
     T_DO: 53
-};
+}
 
 const symbol = {
     END: -1,
-    PLUS: "+", // +
-    MINUS: "-", // -
-    TIMES: "*", // *
-    DIVIDE: "/", // /
-    MOD: "%", // %
-    LESS: "<", // <
-    GREATER: ">", // >
-    ASSIGN: "=",
-    SCOLON: ";", // ;
-    LPAREN: "(", // (
-    RPAREN: ")", // )
-    LBRACE: "{", // {
-    RBRACE: "}", // }
-    IS: "==", // ==
-    COMMENT: "//"
-};
+    PLUS: '+', // +
+    MINUS: '-', // -
+    TIMES: '*', // *
+    DIVIDE: '/', // /
+    MOD: '%', // %
+    LESS: '<', // <
+    GREATER: '>', // >
+    ASSIGN: '=',
+    SCOLON: ';', // ;
+    LPAREN: '(', // (
+    RPAREN: ')', // )
+    LBRACE: '{', // {
+    RBRACE: '}', // }
+    IS: '==', // ==
+    COMMENT: '//'
+}
 
 const keyword = {
-    IF: "if",
-    ELSE: "else if",
+    IF: 'if',
+    ELSE: 'else if',
 
-    TRUE: "true",
-    FALSE: "false",
-    IS: "==", // ==
-    AND: "&&", // &&
-    OR: "||", // ||
-    NOT: "!=", // !
+    TRUE: 'true',
+    FALSE: 'false',
+    IS: '==', // ==
+    AND: '&&', // &&
+    OR: '||', // ||
+    NOT: '!=', // !
 
-    FUNCTION: "function",
-    NEW: "new",
-    RETURN: "return",
-    THIS: "this",
-    VAR: "var",
-    WORD: "variable",
-    NUM: "number",
+    FUNCTION: 'function',
+    NEW: 'new',
+    RETURN: 'return',
+    THIS: 'this',
+    VAR: 'var',
+    WORD: 'variable',
+    NUM: 'number',
 
-    PRINT: "console.log", // console.log
-    WHILE: "while",
-    FOR: "for",
-    CLASS: "class",
-    EXTENDS: "extends",
-    CONSTRUCT: "constructor",
-    INPUT: "readlineSync.question",
-    PARSEINT: "parseInt",
-    STRING: "String",
-    DO: "do"
-};
+    PRINT: 'console.log', // console.log
+    WHILE: 'while',
+    FOR: 'for',
+    CLASS: 'class',
+    EXTENDS: 'extends',
+    CONSTRUCT: 'constructor',
+    INPUT: 'readlineSync.question',
+    PARSEINT: 'parseInt',
+    STRING: 'String',
+    DO: 'do'
+}
 
-const handler = ["ulangi", "setiap"];
+const handler = ['ulangi', 'setiap']
 
 module.exports = {
     constant: constant,
     symbol: symbol,
     handler: handler,
     keyword: keyword
-};
+}

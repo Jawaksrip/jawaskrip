@@ -1,8 +1,37 @@
 language: node_js
-node_js:
-  - "8"
-sudo: required
-install:
-  - npm install
 
-after_success: npm run test
+node_js:
+  - '8'
+
+cache:
+  directories:
+    - node_modules
+    - "$HOME/.npm"
+    - "$HOME/.cache/pip"
+
+before_install:
+  - pip3 install coala-bears
+  - nvm install
+  - if [[ `npm -v` != 5.7* ]]; then npm i -g npm@5.7; fi
+
+install:
+  - npm install -g codecov
+  - npm ci
+
+script:
+  - npm run coala
+  - npm test
+
+after_success:
+  - codecov
+
+after_failure:
+  - codecov
+
+deploy:
+  provider: npm
+  email: mail.dvync@gmail.com
+  api_key:
+    secure: CC4wwnejXcfW+/ENeHmKYtwbq45g4taBzxuqqZzi2q32pcGHej4SWAXIebU7dD/RkBSfMT+SQsG8mNKwL2lD79Y5PEBUGcpR5J4CA9WATSG5TLU03AK0+qjdbtQ/TecoChkWQLUT0572bjwAIqzTKP171/n/U6zcs+xZ6tbEPAaO/EwsD986oUEvEOeQRwYsVNABieO5KBtBsppsHTzik1d69xPXCTRgG3p417QVzLnGVnwwKIbAWMHuXrITTDZslw3/YdYYQ1Y/RkUfQaz9r+IYG9IsqBkFZT2Y4bgkgPWGdv3hee/QgC+9hPBsl5xxQmnjXaPAtfAP1PlMshvnJ+qIpaKr5/jY4pAyqBQY40gkfBfNAHz2qZ3lkxHBKY658/8MUGPzxrZX7qSfr5P2eggq8pqHbSLPaYTlPhIYSPdHb/4DCGwRmf2iUnA4fNulVJNUQ/mVI/IJPVgNq0uY8YYWHCGooTqXM83toARjjUsMuOMRqgsetPS5wDkrQs8BddxBqr6+s5KJ0iX8Afm8oo0EsSLuRV58QEFKdi9D9eFIH8VpPu7RJPSToLx4tpthEvZpGaoaYS32zoEroBadbK96po8WSQnfyRZCWjHImZX02S9PScOyu3j0kA8ZH9KnNgUe35jx5l/7CSk0TxrxvlDUyKn45KT8JGwEMr0zOV8=
+  on:
+    repo: indmind/jawaskrip

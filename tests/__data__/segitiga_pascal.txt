@@ -1,0 +1,30 @@
+function segitigaPascal(limit, baris) {
+    if (!baris || baris.length == 0) return segitigaPascal(limit, [
+        [1]
+    ]);
+
+    var barisBaru = [];
+    var barisTerakhir = baris[baris.length - 1];
+
+    for (var i = 1, panjang = barisTerakhir.length; i < panjang; i++) {
+        barisBaru.push(barisTerakhir[i - 1] + barisTerakhir[i]);
+    }
+
+    barisBaru.unshift(1);
+    barisBaru.push(1);
+
+    baris.push(barisBaru);
+
+    if (limit == baris.length) {
+        return baris;
+    } else {
+        return segitigaPascal(limit, baris);
+    }
+}
+
+var n = 4;
+var hasil = segitigaPascal(n + 1);
+
+for (var baris of hasil) {
+    console.log(baris.join(''));
+}

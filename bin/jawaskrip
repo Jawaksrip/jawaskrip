@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-console.time("\nexecution time");
-require("../src/jawaskrip/command").run(() => {
-    console.timeEnd("\nexecution time");
-});
+console.time('\nexecution time')
+require('../src/jawaskrip/command').run(() => {
+    console.timeEnd('\nexecution time')
+})

@@ -1,4 +1,4 @@
-const jawaskrip = require("./");
+const jawaskrip = require('./')
 
 const script = `
 var kumpulanData = [];
@@ -25,7 +25,7 @@ selama(i kurangDari panjangData){
 
 setiap(kumpulanData sebagai data){
     var grade = "E";
-    
+
     var ket = "Tidak Lulus";
 
     var NA = ((10/100) * data.nh) + ((40/100) * data.uts) + ((50/100) * data.uas);
@@ -44,12 +44,11 @@ setiap(kumpulanData sebagai data){
     tulis("GRADE: " + grade);
     tulis("KET: " + ket);
 }
-`;
-
-(async () => {
+`
+;(async () => {
     // run
-    await jawaskrip.run(script);
+    await jawaskrip.run(script)
 
     // atau compile
-    jawaskrip.compile(script).then(compiled => console.log(compiled));
-})();
+    jawaskrip.compile(script).then(compiled => console.log(compiled))
+})()

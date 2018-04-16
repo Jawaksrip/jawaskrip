@@ -1,0 +1,29 @@
+var leleku = 10;
+var aku = "bahagia";
+
+console.log("aku " + aku);
+
+while (leleku > 0) {
+    console.log("lelekuku tinggal " + leleku);
+    leleku--;
+}
+
+console.log();
+
+if (leleku < 1) {
+    console.log("Leleku mati semua");
+    aku = "setres";
+}
+
+console.log();
+
+if (aku != "bahagia") {
+    var bwabwa = "bwa";
+
+    for (var bwa = 0; bwa < 5; bwa++) {
+        bwabwa += "bwa";
+    }
+
+    console.log("aku " + aku);
+    console.log(bwabwa);
+}
