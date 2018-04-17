@@ -171,35 +171,26 @@ selama(i <= baris){
 }
 ```
 
-- uraiAngka atau parseInt
+- Angka atau Number
 
 ```cs
-// contoh uraiAngka
+var a = masukan("angka a: "); 
+var b = masukan("angka b: "); 
 
-tulis("tanpa uraiAngka")
-var a = masukan("angka a: "); // misal kita masukan 3
-var b = masukan("angka b: "); // misal kita masukan 2
+tulis(a + b) // "32"
 
-tulis(a + b) // output akan "32"
+var c = Angka(masukan("angka c: "));
+var d = Angka(masukan("angka d: ")); 
 
-tulis("dengan uraiAngka")
-var c = uraiAngka(masukan("angka c: ")); // misal kita masukan 3
-var d = uraiAngka(masukan("angka d: ")); // misal kita masukan 2
-
-tulis(c + d) // output akan 5
-
+tulis(c + d) // 5
 ```
 
--- uraiHuruf atau String
+-- Teks atau String
 
 ```cs
-// contoh uraiHuruf
+tulis(2 + 2); // 4
 
-tulis("tanpa uraiHuruf");
-tulis(2 + 2); // hasil: 4
-
-tulis("dengan uraiHuruf");
-tulis(uraiHuruf(2) + uraiHuruf(2)); // hasil: "22"
+tulis(Teks(2 + 2)); // "22"
 
 ```
 

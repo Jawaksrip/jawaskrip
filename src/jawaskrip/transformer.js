@@ -1,6 +1,6 @@
 const beautify = require('js-beautify').js_beautify
 
-const { constant } = require('./var')
+const { constant } = require('./types')
 
 exports.parse = (_tokens, _callback) => {
     const token_handler = {
@@ -32,8 +32,10 @@ exports.parse = (_tokens, _callback) => {
                 allResult += addition[a]
                 allProcessed++
 
-                if (allProcessed == Object.keys(addition).length)
+                if (allProcessed == Object.keys(addition).length) {
+                    addition = {}
                     _callback(allResult + resultJS)
+                }
             })
         }
     })
@@ -42,9 +44,9 @@ exports.parse = (_tokens, _callback) => {
 let addition = {}
 
 // addition string
-const INPUT = `const readlineSync = require('${require.resolve(
+const INPUT = `const readlineSync = require("${require.resolve(
     'readline-sync'
-)}');`
+)}");`
 
 // handler untuk fungsi kustom
 
@@ -108,18 +110,14 @@ function triggerError(mess, line) {
     throw `Error pada baris ${line}: "${mess}"`
 }
 
-String.prototype.replaceLast = function(what, replacement) {
-    return this.split(' ')
+String.prototype.reverse = function() {
+    return this.split('')
         .reverse()
-        .join(' ')
-        .replace(new RegExp(what), replacement)
-        .split(' ')
-        .reverse()
-        .join(' ')
+        .join('')
 }
 
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this
-
-    return target.split(search).join(replacement)
+String.prototype.replaceLast = function(what, replacement) {
+    return this.reverse()
+        .replace(new RegExp(what.reverse()), replacement.reverse())
+        .reverse()
 }

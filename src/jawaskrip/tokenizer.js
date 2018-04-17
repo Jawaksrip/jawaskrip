@@ -1,7 +1,7 @@
 const fs = require('fs')
 const beautify = require('js-beautify').js_beautify
 
-const { constant, symbol, handler, keyword } = require('./var')
+const { constant, symbol, handler, keyword } = require('./types')
 
 class Tokenizer {
     /**
@@ -84,23 +84,20 @@ class Tokenizer {
                 // cek jika token terakhir bukan keyword
                 if (handler.includes(word) && !lastTokenIsKeyword) {
                     let key = word
-                    let curI = 0
 
-                    while (_code[i] != ')' && curI <= _code.length) {
+                    while (_code[i] != ')' && i < _code.length) {
                         i++
-                        curI++
                         key += _code[i]
                     }
                     tokens.push(this.toke(word.toUpperCase(), key, line))
                 } else if (word == 'impor' && !lastTokenIsKeyword) {
                     let allSyntax = word
-                    let curI = 0
+
                     while (
                         !(_code[i] == ';' || _code[i] == '\n') &&
-                        curI < _code.length
+                        i < _code.length
                     ) {
                         i++
-                        curI++
                         allSyntax += _code[i]
                     }
                     tokens.push(this.toke(word.toUpperCase(), allSyntax, line))
@@ -136,11 +133,11 @@ class Tokenizer {
                     tokens.push(
                         this.toke(constant.T_RETURN, keyword.RETURN, line)
                     )
-                else if (word == 'uraiAngka')
+                else if (word == 'Angka')
                     tokens.push(
-                        this.toke(constant.T_PARSEINT, keyword.PARSEINT, line)
+                        this.toke(constant.T_NUMBER, keyword.NUMBER, line)
                     )
-                else if (word == 'uraiHuruf')
+                else if (word == 'Teks')
                     tokens.push(
                         this.toke(constant.T_STRING, keyword.STRING, line)
                     )
@@ -200,12 +197,10 @@ class Tokenizer {
             } else if (c == '/' && _code[i + 1] == '/') {
                 // comment
                 let comment = ''
-                let curI = 0
 
-                while (_code[i] != '\n' && curI <= _code.length) {
+                while (_code[i] != '\n' && i < _code.length) {
                     comment += _code[i]
                     i++
-                    curI++
                 }
 
                 tokens.push(
@@ -334,18 +329,6 @@ exports.lexString = (_code, _callback) => {
     })
 }
 
-// array cleaner
-Array.prototype.clean = function(deleteValue) {
-    for (let i = 0; i < this.length; i++) {
-        if (this[i] == deleteValue) {
-            this.splice(i, 1)
-            i--
-        }
-    }
-
-    return this
-}
-
 String.prototype.isEmpty = function() {
     return this.length === 0 || !this.trim()
 }
@@ -364,8 +347,4 @@ String.prototype.isAlphaNumeric = function() {
     }
 
     return true
-}
-
-String.prototype.isSpace = function() {
-    return !this || /^ *$/.test(this)
 }

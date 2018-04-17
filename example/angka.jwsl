@@ -1,13 +1,9 @@
-// contoh uraiAngka
+var a = masukan("angka a: "); 
+var b = masukan("angka b: "); 
 
-tulis("tanpa uraiAngka")
-var a = masukan("angka a: "); // misal kita masukan 3
-var b = masukan("angka b: "); // misal kita masukan 2
+tulis(a + b) // "32"
 
-tulis(a + b) // output akan "32"
+var c = Angka(masukan("angka c: "));
+var d = Angka(masukan("angka d: ")); 
 
-tulis("dengan uraiAngka")
-var c = uraiAngka(masukan("angka c: ")); // misal kita masukan 3
-var d = uraiAngka(masukan("angka d: ")); // misal kita masukan 2
-
-tulis(c + d) // output akan 5
+tulis(c + d) // 5

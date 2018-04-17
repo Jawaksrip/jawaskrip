@@ -4,14 +4,14 @@ const path = require('path')
 const ncp = require('ncp').ncp
 const beautify = require('js-beautify').js_beautify
 
-const compiler = require('./compiler')
-const parser = require('./parser')
+const tokenizer = require('./tokenizer')
+const transformer = require('./transformer')
 
 const tempDir = '/../../temp/'
 
 exports.compile = (_filepath, _callback) => {
-    compiler.lex(_filepath, _token => {
-        parser.parse(_token, compiled => {
+    tokenizer.lex(_filepath, _token => {
+        transformer.parse(_token, compiled => {
             _callback(beautify(compiled), {
                 end_with_newline: true
             })
@@ -20,12 +20,13 @@ exports.compile = (_filepath, _callback) => {
 }
 
 exports.token = (_filepath, _callback) => {
-    compiler.lex(_filepath, _token => {
+    tokenizer.lex(_filepath, _token => {
         _callback(_token)
     })
 }
 
 exports.clean = _callback => {
+    checkTempDir()
     let fileRemoved = 0
 
     fs.readdir(path.join(__dirname, tempDir), (err, files) => {
@@ -47,6 +48,7 @@ exports.clean = _callback => {
 }
 
 exports.run = (parsed, callback) => {
+    checkTempDir()
     const tempFile = path.join(__dirname, tempDir, generateName())
 
     fs.writeFile(
@@ -57,13 +59,9 @@ exports.run = (parsed, callback) => {
         err => {
             if (err) throw err
 
-            runScript(tempFile, code => {
-                try {
-                    if (code) throw code
-                } finally {
-                    this.clean()
-                    callback()
-                }
+            runScript(tempFile, () => {
+                this.clean()
+                callback()
             })
         }
     )
@@ -83,19 +81,14 @@ exports.runLocal = (compiled, original, callback) => {
         err => {
             if (err) throw err
 
-            runScript(compiledPath, errCode => {
-                try {
-                    if (errCode) throw errCode
-                } finally {
+            runScript(compiledPath, () => {
+                if (compiledPath === global.userFilePath) {
+                    fs.writeFileSync(global.userFilePath, original)
+                } else {
                     fs.unlinkSync(compiledPath)
-
-                    // restore deleted file if compiled file and original file have same name
-                    if (compiledPath === global.userFilePath) {
-                        fs.writeFileSync(global.userFilePath, original)
-                    }
-
-                    callback()
                 }
+
+                callback()
             })
         }
     )
@@ -130,4 +123,10 @@ function generateName(_length = 10) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))
 
     return text
+}
+
+function checkTempDir() {
+    if (!fs.existsSync(path.join(__dirname, tempDir))) {
+        fs.mkdirSync(path.join(__dirname, tempDir))
+    }
 }

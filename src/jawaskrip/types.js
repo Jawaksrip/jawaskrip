@@ -52,7 +52,7 @@ const constant = {
     T_LTOQ: 48,
     T_ARROW: 49,
     T_NEWLINE: 50,
-    T_PARSEINT: 51,
+    T_NUMBER: 51,
     T_STRING: 52,
     T_DO: 53
 }
@@ -102,7 +102,7 @@ const keyword = {
     EXTENDS: 'extends',
     CONSTRUCT: 'constructor',
     INPUT: 'readlineSync.question',
-    PARSEINT: 'parseInt',
+    NUMBER: 'Number',
     STRING: 'String',
     DO: 'do'
 }

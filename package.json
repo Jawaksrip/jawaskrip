@@ -1,6 +1,6 @@
 {
     "name": "jawaskrip",
-    "version": "0.3.6",
+    "version": "0.3.7",
     "main": "program/main.js",
     "engines": {
         "node": ">=6.12.2"
@@ -11,6 +11,7 @@
         "jw": "bin/jawaskrip"
     },
     "scripts": {
+        "start": "node bin/jawaskrip",
         "test": "jest",
         "coala": "coala",
         "format": "eslint . --fix"

@@ -18,26 +18,146 @@ describe('main test', () => {
         expect(res).toBe('while () {}')
     })
 
+    it('should compile lakukan selama to do while', async () => {
+        const res = await jw.compile('lakukan{}selama(benar)')
+
+        expect(res).toBe('do {} while (true)')
+    })
+
+    it('should compile ulangi', async () => {
+        const res = await jw.compile(
+            'ulangi(var i sebanyak 20 kali){tulis(i);}'
+        )
+
+        expect(res).toBe(
+            'for (var i = 0; i < 20; i++) {\n' + '    console.log(i);\n}'
+        )
+
+        jw
+            .compile('ulangi(var i sebanyak){tulis(i);}')
+            .catch(err =>
+                expect(err).toBe(`Error pada baris 1: "Syntax 'ulangi' error"`)
+            )
+    })
+
     it('should compile jika to if', async () => {
         const res = await jw.compile('jika (benar){}')
 
         expect(res).toBe('if (true) {}')
     })
 
-    // it(
-    //     'should compile impor to require',
-    //     async () => {
-    //         const res = await jw.compile('impor fs dari "fs"')
+    it('should compile jikaTidak to else if', async () => {
+        const res = await jw.compile('jika(benar){}jikaTidak(salah){}')
 
-    //         expect(res).toBe('const fs = require("fs")')
-    //     },
-    //     10000
-    // )
+        expect(res).toBe('if (true) {} else if (false) {}')
+    })
+
+    it('should compile impor to require', async () => {
+        const res = await jw.compile('impor fs dari "fs";')
+
+        expect(res).toBe('const fs = require("fs");')
+    })
 
     it('should compile kelas to class', async () => {
         const res = await jw.compile('kelas Hewan{konstruksi(){}}')
 
         expect(res).toBe(`class Hewan {\n    constructor() {}\n}`)
+    })
+
+    it('should compile turunan to extends', async () => {
+        const res = await jw.compile('kelas Sapi turunan Hewan{konstruksi(){}}')
+
+        expect(res).toBe(`class Sapi extends Hewan {\n    constructor() {}\n}`)
+    })
+
+    it('should compile buat to new', async () => {
+        const res = await jw.compile('const cowy = buat Sapi()')
+
+        expect(res).toBe(`const cowy = new Sapi()`)
+    })
+
+    it('should compile Angka to Number', async () => {
+        const res = await jw.compile('const angka = Angka("123")')
+
+        expect(res).toBe(`const angka = Number("123")`)
+    })
+
+    it('should compile Teks to String', async () => {
+        const res = await jw.compile('const teks = Teks(123)')
+
+        expect(res).toBe(`const teks = String(123)`)
+    })
+
+    it('should compile ini to this', async () => {
+        const res = await jw.compile('ini.roda = 10')
+
+        expect(res).toBe(`this.roda = 10`)
+    })
+
+    it('should compile ditambah to +', async () => {
+        const res = await jw.compile('1 ditambah 1')
+
+        expect(res).toBe(`1 + 1`)
+    })
+
+    it('should compile dikurangi to -', async () => {
+        const res = await jw.compile('1 dikurangi 1')
+
+        expect(res).toBe(`1 - 1`)
+    })
+
+    it('should compile dikali to *', async () => {
+        const res = await jw.compile('1 dikali 1')
+
+        expect(res).toBe(`1 * 1`)
+    })
+
+    it('should compile dibagi to +', async () => {
+        const res = await jw.compile('1 dibagi 1')
+
+        expect(res).toBe(`1 / 1`)
+    })
+
+    it('should compile modulo to %', async () => {
+        const res = await jw.compile('1 modulo 1')
+
+        expect(res).toBe(`1 % 1`)
+    })
+
+    it('should compile dan to &&', async () => {
+        const res = await jw.compile('benar dan salah')
+
+        expect(res).toBe(`true && false`)
+    })
+
+    it('should compile atau to ||', async () => {
+        const res = await jw.compile('benar atau salah')
+
+        expect(res).toBe(`true || false`)
+    })
+
+    it('should compile comment', async () => {
+        const res = await jw.compile('//1 ditambah 1;\nanother()')
+
+        expect(res).toBe('//1 ditambah 1;\nanother()')
+    })
+
+    it('should compile assigment', async () => {
+        const res = await jw.compile(
+            'var j %= i;var d *= b;var n -= u;var z += y;'
+        )
+
+        expect(res).toBe('var j %= i;\nvar d *= b;\nvar n -= u;\nvar z += y;')
+    })
+
+    it('should compile masukan and import readline-sync module', async () => {
+        const res = await jw.compile('const foo = masukan("bar: ")')
+
+        expect(res).toBe(
+            `const readlineSync = require("${require.resolve(
+                'readline-sync'
+            )}");` + '\nconst foo = readlineSync.question("bar: ")'
+        )
     })
 
     it('should compile segitiga pascal', async () => {
