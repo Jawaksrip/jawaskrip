@@ -6,6 +6,7 @@ cache:
     - node_modules
     - "$HOME/.npm"
     - "$HOME/.cache/pip"
+    - "$HOME/.local/bin"
 
 before_install:
   - pip3 install coala-bears
