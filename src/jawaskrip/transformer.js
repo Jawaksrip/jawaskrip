@@ -32,8 +32,10 @@ exports.parse = (_tokens, _callback) => {
                 allResult += addition[a]
                 allProcessed++
 
-                if (allProcessed == Object.keys(addition).length)
+                if (allProcessed == Object.keys(addition).length) {
+                    addition = {}
                     _callback(allResult + resultJS)
+                }
             })
         }
     })
@@ -42,9 +44,9 @@ exports.parse = (_tokens, _callback) => {
 let addition = {}
 
 // addition string
-const INPUT = `const readlineSync = require('${require.resolve(
+const INPUT = `const readlineSync = require("${require.resolve(
     'readline-sync'
-)}');`
+)}");`
 
 // handler untuk fungsi kustom
 

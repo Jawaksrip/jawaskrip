@@ -24,20 +24,26 @@ describe('main test', () => {
         expect(res).toBe('if (true) {}')
     })
 
-    // it(
-    //     'should compile impor to require',
-    //     async () => {
-    //         const res = await jw.compile('impor fs dari "fs"')
+    it('should compile impor to require', async () => {
+        const res = await jw.compile('impor fs dari "fs";')
 
-    //         expect(res).toBe('const fs = require("fs")')
-    //     },
-    //     10000
-    // )
+        expect(res).toBe('const fs = require("fs");')
+    })
 
     it('should compile kelas to class', async () => {
         const res = await jw.compile('kelas Hewan{konstruksi(){}}')
 
         expect(res).toBe(`class Hewan {\n    constructor() {}\n}`)
+    })
+
+    it('should compile masukan and import readline-sync module', async () => {
+        const res = await jw.compile('const foo = masukan("bar: ")')
+
+        expect(res).toBe(
+            `const readlineSync = require("${require.resolve(
+                'readline-sync'
+            )}");` + '\nconst foo = readlineSync.question("bar: ")'
+        )
     })
 
     it('should compile segitiga pascal', async () => {
