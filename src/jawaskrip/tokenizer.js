@@ -84,23 +84,20 @@ class Tokenizer {
                 // cek jika token terakhir bukan keyword
                 if (handler.includes(word) && !lastTokenIsKeyword) {
                     let key = word
-                    let curI = 0
 
-                    while (_code[i] != ')' && curI <= _code.length) {
+                    while (_code[i] != ')' && i < _code.length) {
                         i++
-                        curI++
                         key += _code[i]
                     }
                     tokens.push(this.toke(word.toUpperCase(), key, line))
                 } else if (word == 'impor' && !lastTokenIsKeyword) {
                     let allSyntax = word
-                    let curI = 0
+
                     while (
                         !(_code[i] == ';' || _code[i] == '\n') &&
-                        curI < _code.length
+                        i < _code.length
                     ) {
                         i++
-                        curI++
                         allSyntax += _code[i]
                     }
                     tokens.push(this.toke(word.toUpperCase(), allSyntax, line))
@@ -200,12 +197,10 @@ class Tokenizer {
             } else if (c == '/' && _code[i + 1] == '/') {
                 // comment
                 let comment = ''
-                let curI = 0
 
-                while (_code[i] != '\n' && curI <= _code.length) {
+                while (_code[i] != '\n' && i < _code.length) {
                     comment += _code[i]
                     i++
-                    curI++
                 }
 
                 tokens.push(
