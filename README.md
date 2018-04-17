@@ -209,7 +209,7 @@ tulis(Teks(2 + 2)); // "22"
 | atau                | &#124;&#124;      |
 | tulis()             | console.log()     |
 | kelas{}             | class             |
-| extends             | turunan           |
+| turunan             | extends           |
 | masukan()           | ~~~               |
 | benar               | true              |
 | salah               | false             |
