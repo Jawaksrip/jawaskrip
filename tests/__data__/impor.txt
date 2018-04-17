@@ -1,0 +1,5 @@
+const fs = require("fs");
+
+var teks = fs.readFileSync(__dirname + "/test.txt", "UTF-8");
+
+console.log(teks);

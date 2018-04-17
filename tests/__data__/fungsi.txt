@@ -1,0 +1,4 @@
+function utama() {
+    console.log("halo dunia");
+}
+utama();

@@ -1,6 +1,6 @@
 const beautify = require('js-beautify').js_beautify
 
-const { constant } = require('./var')
+const { constant } = require('./types')
 
 exports.parse = (_tokens, _callback) => {
     const token_handler = {
@@ -108,18 +108,14 @@ function triggerError(mess, line) {
     throw `Error pada baris ${line}: "${mess}"`
 }
 
-String.prototype.replaceLast = function(what, replacement) {
-    return this.split(' ')
+String.prototype.reverse = function() {
+    return this.split('')
         .reverse()
-        .join(' ')
-        .replace(new RegExp(what), replacement)
-        .split(' ')
-        .reverse()
-        .join(' ')
+        .join('')
 }
 
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this
-
-    return target.split(search).join(replacement)
+String.prototype.replaceLast = function(what, replacement) {
+    return this.reverse()
+        .replace(new RegExp(what.reverse()), replacement.reverse())
+        .reverse()
 }

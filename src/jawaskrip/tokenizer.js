@@ -1,7 +1,7 @@
 const fs = require('fs')
 const beautify = require('js-beautify').js_beautify
 
-const { constant, symbol, handler, keyword } = require('./var')
+const { constant, symbol, handler, keyword } = require('./types')
 
 class Tokenizer {
     /**
