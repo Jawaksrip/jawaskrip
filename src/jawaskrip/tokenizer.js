@@ -133,11 +133,11 @@ class Tokenizer {
                     tokens.push(
                         this.toke(constant.T_RETURN, keyword.RETURN, line)
                     )
-                else if (word == 'uraiAngka')
+                else if (word == 'Angka')
                     tokens.push(
-                        this.toke(constant.T_PARSEINT, keyword.PARSEINT, line)
+                        this.toke(constant.T_NUMBER, keyword.NUMBER, line)
                     )
-                else if (word == 'uraiHuruf')
+                else if (word == 'Teks')
                     tokens.push(
                         this.toke(constant.T_STRING, keyword.STRING, line)
                     )
@@ -329,18 +329,6 @@ exports.lexString = (_code, _callback) => {
     })
 }
 
-// array cleaner
-Array.prototype.clean = function(deleteValue) {
-    for (let i = 0; i < this.length; i++) {
-        if (this[i] == deleteValue) {
-            this.splice(i, 1)
-            i--
-        }
-    }
-
-    return this
-}
-
 String.prototype.isEmpty = function() {
     return this.length === 0 || !this.trim()
 }
@@ -359,8 +347,4 @@ String.prototype.isAlphaNumeric = function() {
     }
 
     return true
-}
-
-String.prototype.isSpace = function() {
-    return !this || /^ *$/.test(this)
 }
