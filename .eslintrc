@@ -33,6 +33,6 @@
             "prev": "*",
             "next": "return"
         }],
-        "no-console": "off"
+        "no-console": "warn"
     }
 }

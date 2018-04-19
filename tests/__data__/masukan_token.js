@@ -69,7 +69,7 @@ module.exports = [
     { type: 14, value: 'if', line: 14 },
     { type: 9, value: '(', line: 14 },
     { type: 33, value: 'jawaban', line: 14 },
-    { type: 13, value: '==', line: 14 },
+    { type: 13, value: '===', line: 14 },
     { type: 25, value: '"iya"', line: 14 },
     { type: 10, value: ')', line: 14 },
     { type: 11, value: '{', line: 14 },

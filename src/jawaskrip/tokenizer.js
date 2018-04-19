@@ -101,9 +101,9 @@ class Tokenizer {
                         allSyntax += _code[i]
                     }
                     tokens.push(this.toke(word.toUpperCase(), allSyntax, line))
-                } else if (word == 'adalah')
-                    tokens.push(this.toke(constant.T_IS, keyword.IS, line))
-                else if (word == 'var')
+                } else if (word == 'adalah') {
+                    tokens.push(this.toke(constant.T_IS, symbol.IS, line))
+                } else if (word == 'var')
                     tokens.push(this.toke(constant.T_VAR, keyword.VAR, line))
                 else if (word == 'masukan')
                     tokens.push(
@@ -154,11 +154,11 @@ class Tokenizer {
                 else if (word == 'untuk')
                     tokens.push(this.toke(constant.T_FOR, keyword.FOR, line))
                 else if (word == 'tidak' || word == 'bukan')
-                    tokens.push(this.toke(constant.T_NOT, keyword.NOT, line))
+                    tokens.push(this.toke(constant.T_NOT, symbol.NOT, line))
                 else if (word == 'dan')
-                    tokens.push(this.toke(constant.T_AND, keyword.AND, line))
+                    tokens.push(this.toke(constant.T_AND, symbol.AND, line))
                 else if (word == 'atau')
-                    tokens.push(this.toke(constant.T_OR, keyword.OR, line))
+                    tokens.push(this.toke(constant.T_OR, symbol.OR, line))
                 else if (word == 'tulis' || word == 'tampilkan')
                     tokens.push(
                         this.toke(constant.T_PRINT, keyword.PRINT, line)
@@ -192,6 +192,8 @@ class Tokenizer {
                     tokens.push(
                         this.toke(constant.T_GREATER, symbol.GREATER, line)
                     )
+                else if (word == 'samadengan' || word == 'samaDengan')
+                    tokens.push(this.toke(constant.T_EQUAL, symbol.EQUAL, line))
                 // bukan keyword kemungkinan nama variabel
                 else tokens.push(this.toke(constant.T_VARNAME, word, line))
             } else if (c == '/' && _code[i + 1] == '/') {
@@ -259,7 +261,7 @@ class Tokenizer {
                     )
                     i++
                 } else if (_code[i + 1] == '=') {
-                    tokens.push(this.toke(constant.T_IS, keyword.IS, line))
+                    tokens.push(this.toke(constant.T_IS, symbol.IS, line))
                     i++
                 } else {
                     tokens.push(this.toke(constant.T_ASSIGN, c, line))
@@ -307,7 +309,7 @@ class Tokenizer {
      */
     error(_line, _mess) {
         //console.log(global.userFilePath)
-        throw `Error: ${global.userFilePath} (${_line}):\n${_mess}`
+        throw `Error: (${_line}):\n${_mess}`
     }
 }
 

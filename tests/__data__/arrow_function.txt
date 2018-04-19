@@ -1,0 +1,3 @@
+var makan = (makanan, kecepatan, minuman) => {
+    console.log('makan', makanan, 'dan minum', minuman, 'dengan kecepatan', kecepatan)
+}

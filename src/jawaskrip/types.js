@@ -54,7 +54,8 @@ const constant = {
     T_NEWLINE: 50,
     T_NUMBER: 51,
     T_STRING: 52,
-    T_DO: 53
+    T_DO: 53,
+    T_EQUAL: 54
 }
 
 const symbol = {
@@ -72,8 +73,12 @@ const symbol = {
     RPAREN: ')', // )
     LBRACE: '{', // {
     RBRACE: '}', // }
-    IS: '==', // ==
-    COMMENT: '//'
+    COMMENT: '//',
+    EQUAL: '==',
+    IS: '===', // ==
+    AND: '&&', // &&
+    OR: '||', // ||
+    NOT: '!=' // !
 }
 
 const keyword = {
@@ -82,10 +87,6 @@ const keyword = {
 
     TRUE: 'true',
     FALSE: 'false',
-    IS: '==', // ==
-    AND: '&&', // &&
-    OR: '||', // ||
-    NOT: '!=', // !
 
     FUNCTION: 'function',
     NEW: 'new',
