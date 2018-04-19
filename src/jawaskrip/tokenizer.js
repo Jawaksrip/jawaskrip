@@ -194,6 +194,14 @@ class Tokenizer {
                     )
                 else if (word == 'samadengan' || word == 'samaDengan')
                     tokens.push(this.toke(constant.T_EQUAL, symbol.EQUAL, line))
+                else if (word == 'setop')
+                    tokens.push(
+                        this.toke(constant.T_BREAK, keyword.BREAK, line)
+                    )
+                else if (word == 'lewati')
+                    tokens.push(
+                        this.toke(constant.T_CONTINUE, keyword.CONTINUE, line)
+                    )
                 // bukan keyword kemungkinan nama variabel
                 else tokens.push(this.toke(constant.T_VARNAME, word, line))
             } else if (c == '/' && _code[i + 1] == '/') {
