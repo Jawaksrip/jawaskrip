@@ -150,6 +150,16 @@ describe('main test', () => {
         expect(res).toBe('var j %= i;\nvar d *= b;\nvar n -= u;\nvar z += y;')
     })
 
+    it('should compile arithmatic', async () => {
+        const res = await jw.compile(
+            'var a = j % i;var b = c * b;var n = x - u;var z = p + y;'
+        )
+
+        expect(res).toBe(
+            'var a = j % i;\nvar b = c * b;\nvar n = x - u;\nvar z = p + y;'
+        )
+    })
+
     it('should compile masukan and import readline-sync module', async () => {
         const res = await jw.compile('const foo = masukan("bar: ")')
 
@@ -158,6 +168,29 @@ describe('main test', () => {
                 'readline-sync'
             )}");` + '\nconst foo = readlineSync.question("bar: ")'
         )
+    })
+
+    it('should compile comparison operators', async () => {
+        const equal = await jw.compile('1 samadengan 1')
+        const is = await jw.compile('benar adalah benar')
+        const kurangDari = await jw.compile(
+            '1 kurangdari 2;1 kurangDari 2;1 < 2;'
+        )
+        const lebihDari = await jw.compile('2 lebihdari 1;2 lebihDari 1;2 > 1;')
+
+        expect(equal).toBe('1 == 1')
+        expect(is).toBe('true === true')
+        expect(kurangDari).toBe('1 < 2;\n1 < 2;\n1 < 2;')
+        expect(lebihDari).toBe('2 > 1;\n2 > 1;\n2 > 1;')
+    })
+
+    it('should compile arrow function', async () => {
+        const res = await jw.compile(
+            'var makan = (makanan, kecepatan, minuman) => { ' +
+                "tulis('makan', makanan, 'dan minum', minuman, 'dengan kecepatan', kecepatan) }"
+        )
+
+        expect(res).toBe(readData('arrow_function.txt'))
     })
 
     it('should compile segitiga pascal', async () => {

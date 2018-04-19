@@ -1,5 +1,5 @@
 function segitigaPascal(limit, baris) {
-    if (!baris || baris.length == 0) return segitigaPascal(limit, [
+    if (!baris || baris.length === 0) return segitigaPascal(limit, [
         [1]
     ]);
 
@@ -15,7 +15,7 @@ function segitigaPascal(limit, baris) {
 
     baris.push(barisBaru);
 
-    if (limit == baris.length) {
+    if (limit === baris.length) {
         return baris;
     } else {
         return segitigaPascal(limit, baris);

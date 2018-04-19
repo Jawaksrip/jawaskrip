@@ -14,6 +14,7 @@ function run(filepath, callback) {
     })
 }
 
+/* eslint-disable no-console */
 function getRealPath(_path) {
     if (fs.existsSync(_path)) {
         global.userFilePath = _path
