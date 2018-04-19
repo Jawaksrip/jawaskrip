@@ -206,6 +206,7 @@ tulis(Teks(2 + 2)); // "22"
 | untuk(){...}        | for(){...}        |
 | tidak               | !=                |
 | adalah              | ===               |
+| samaDengan          | ==                |
 | dan                 | &&                |
 | atau                | &#124;&#124;      |
 | lebihDari           | >=                |
