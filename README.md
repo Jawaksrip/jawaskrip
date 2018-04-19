@@ -205,10 +205,15 @@ tulis(Teks(2 + 2)); // "22"
 | selama(){...}       | while(){...}      |
 | untuk(){...}        | for(){...}        |
 | tidak               | !=                |
+| adalah              | ===               |
 | dan                 | &&                |
 | atau                | &#124;&#124;      |
+| lebihDari           | >=                |
+| kurangDari          | <=                |
+| setop               | break             |
+| lewati              | continue          |
 | tulis()             | console.log()     |
-| kelas{}             | class             |
+| kelas{}             | class{}           |
 | turunan             | extends           |
 | masukan()           | ~~~               |
 | benar               | true              |

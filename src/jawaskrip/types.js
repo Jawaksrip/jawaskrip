@@ -55,7 +55,9 @@ const constant = {
     T_NUMBER: 51,
     T_STRING: 52,
     T_DO: 53,
-    T_EQUAL: 54
+    T_EQUAL: 54,
+    T_BREAK: 55,
+    T_CONTINUE: 56
 }
 
 const symbol = {
@@ -105,7 +107,10 @@ const keyword = {
     INPUT: 'readlineSync.question',
     NUMBER: 'Number',
     STRING: 'String',
-    DO: 'do'
+    DO: 'do',
+
+    BREAK: 'break',
+    CONTINUE: 'continue'
 }
 
 const handler = ['ulangi', 'setiap']

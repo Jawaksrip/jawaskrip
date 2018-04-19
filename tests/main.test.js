@@ -193,6 +193,14 @@ describe('main test', () => {
         expect(res).toBe(readData('arrow_function.txt'))
     })
 
+    it('should compile setop and lewati to break and continue', async () => {
+        const res = await jw.compile(
+            'selama (benar){ jika (benar) setop;jika (salah) lewati; }'
+        )
+
+        expect(res).toBe(readData('setop_lewati.txt'))
+    })
+
     it('should compile segitiga pascal', async () => {
         const res = await jw.compile(`
             fungsi segitigaPascal(limit, baris){
