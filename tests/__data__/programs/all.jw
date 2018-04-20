@@ -1,0 +1,85 @@
+impor fs dari 'fs'
+impor jawaskrip dari 'jw'
+
+fungsi hitung(a, b, ...c){
+  var hasil = a ditambah b
+
+  jika (c.length) {
+    hasil += c[0]
+  }
+
+  setiap (c sebagai tambahan) {
+    hasil -= -(tambahan)
+  }
+
+  kembalikan hasil
+}
+
+kelas Hewan {
+  konstruktor () {
+    ini.berbicara = salah
+  }
+}
+
+kelas Sapi turunan Hewan {
+  konstruktor () {
+    super()
+    ini.posisi = 0
+  }
+
+  jalan () {
+    ini.posisi += 100
+    tulis('sapi berjalan,', ini.posisi)
+  }
+}
+
+const sapi = buat Sapi()
+
+sapi.berbicara = benar
+
+sapi.jalan()
+sapi.jalan()
+
+tulis(sapi)
+
+ulangi (var i sebanyak 100 kali) {
+  jika (i lebihDari 50) setop
+  jika (i modulo 2 samaDengan 0) lewati
+
+  sapi.posisi += i dikali 2
+}
+
+tulis('posisi sekarang sapi:', sapi.posisi)
+
+var angka = Angka("1")
+var teks = Teks(angka)
+
+tulis(teks adalah angka)
+tulis(teks samaDengan angka)
+
+tulis(benar dan salah atau salah tidak benar)
+
+var satu = salah
+var dua = "2"
+
+var yangMana = satu atau dua
+let yangItu = satu ? dua : satu
+
+tulis('yang mana:', yangMana)
+tulis('yang itu:', yangItu)
+
+tulis(
+  2 lebihDari 1 dan 1 kurangDari 2 atau 
+  4 samaDengan 2 ditambah 1 dikali 2 dan 
+  4 dibagi 2 samadengan 2
+)
+
+var indeks = 10
+
+lakukan {
+  tulis('putaran ke', indeks, ':', hitung(indeks dikurangi 10, indeks dikali 10, indeks--))
+
+  indeks--
+
+  jika (indeks kurangDari 0) setop
+} selama (benar)

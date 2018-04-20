@@ -1,0 +1,85 @@
+const fs = require('fs')
+const jawaskrip = require('jw')
+
+function hitung(a, b, ...c) {
+    var hasil = a + b
+
+    if (c.length) {
+        hasil += c[0]
+    }
+
+    for (var tambahan of c) {
+        hasil -= -(tambahan)
+    }
+
+    return hasil
+}
+
+class Hewan {
+    constructor() {
+        this.berbicara = false
+    }
+}
+
+class Sapi extends Hewan {
+    constructor() {
+        super()
+        this.posisi = 0
+    }
+
+    jalan() {
+        this.posisi += 100
+        console.log('sapi berjalan,', this.posisi)
+    }
+}
+
+const sapi = new Sapi()
+
+sapi.berbicara = true
+
+sapi.jalan()
+sapi.jalan()
+
+console.log(sapi)
+
+for (var i = 0; i < 100; i++) {
+    if (i > 50) break
+    if (i % 2 == 0) continue
+
+    sapi.posisi += i * 2
+}
+
+console.log('posisi sekarang sapi:', sapi.posisi)
+
+var angka = Number("1")
+var teks = String(angka)
+
+console.log(teks === angka)
+console.log(teks == angka)
+
+console.log(true && false || false != true)
+
+var satu = false
+var dua = "2"
+
+var yangMana = satu || dua
+let yangItu = satu ? dua : satu
+
+console.log('yang mana:', yangMana)
+console.log('yang itu:', yangItu)
+
+console.log(
+    2 > 1 && 1 < 2 ||
+    4 == 2 + 1 * 2 &&
+    4 / 2 == 2
+)
+
+var indeks = 10
+
+do {
+    console.log('putaran ke', indeks, ':', hitung(indeks - 10, indeks * 10, indeks--))
+
+    indeks--
+
+    if (indeks < 0) break
+} while (true)

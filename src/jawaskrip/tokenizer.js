@@ -117,7 +117,7 @@ class Tokenizer {
                     tokens.push(
                         this.toke(constant.T_CLASS, keyword.CLASS, line)
                     )
-                else if (word == 'konstruksi')
+                else if (word == 'konstruksi' || word == 'konstruktor')
                     tokens.push(
                         this.toke(constant.T_CONSTRUCT, keyword.CONSTRUCT, line)
                     )

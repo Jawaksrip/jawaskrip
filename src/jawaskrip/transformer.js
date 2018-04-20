@@ -14,7 +14,7 @@ exports.parse = (_tokens, _callback) => {
     let keyProcessed = 0
 
     _tokens.forEach(_token => {
-        if (Object.keys(token_handler).includes(_token.type.toString())) {
+        if (_token.type.toString() in token_handler) {
             resultJS += token_handler[_token.type](_token)
         } else {
             resultJS += _token.value + ' '
@@ -23,18 +23,19 @@ exports.parse = (_tokens, _callback) => {
         keyProcessed++
 
         if (keyProcessed == _tokens.length) {
-            let allResult = ''
-            let allProcessed = 0
+            let allAddition = ''
+            let processed = 0
+            let additionKey = Object.keys(addition)
 
-            if (Object.keys(addition).length <= 0) _callback(resultJS)
+            if (additionKey.length <= 0) _callback(resultJS)
 
-            Object.keys(addition).forEach(a => {
-                allResult += addition[a]
-                allProcessed++
+            additionKey.forEach(a => {
+                allAddition += addition[a]
+                processed++
 
-                if (allProcessed == Object.keys(addition).length) {
+                if (processed == additionKey.length) {
                     addition = {}
-                    _callback(allResult + resultJS)
+                    _callback(`${allAddition}\n\n${resultJS}`)
                 }
             })
         }
@@ -47,8 +48,6 @@ let addition = {}
 const INPUT = `const readlineSync = require("${require.resolve(
     'readline-sync'
 )}");`
-
-// handler untuk fungsi kustom
 
 /**
  * transform ulangi menjadi for loop
