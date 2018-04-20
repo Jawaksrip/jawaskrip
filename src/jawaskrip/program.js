@@ -47,7 +47,7 @@ exports.clean = _callback => {
     })
 }
 
-exports.run = (parsed, callback) => {
+exports.run = parsed => {
     checkTempDir()
     const tempFile = path.join(__dirname, tempDir, generateName())
 
@@ -61,13 +61,12 @@ exports.run = (parsed, callback) => {
 
             runScript(tempFile, () => {
                 this.clean()
-                callback()
             })
         }
     )
 }
 
-exports.runLocal = (compiled, original, callback) => {
+exports.runLocal = (compiled, original) => {
     const compiledPath = global.userFilePath.replace(
         path.extname(global.userFilePath),
         '.js'
@@ -87,8 +86,6 @@ exports.runLocal = (compiled, original, callback) => {
                 } else {
                     fs.unlinkSync(compiledPath)
                 }
-
-                callback()
             })
         }
     )

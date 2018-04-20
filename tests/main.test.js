@@ -161,12 +161,16 @@ describe('main test', () => {
     })
 
     it('should compile masukan and import readline-sync module', async () => {
-        const res = await jw.compile('const foo = masukan("bar: ")')
+        const res = await jw.compile(
+            'const foo = masukan("bar: ");var bar = masukan("foo: ");'
+        )
 
         expect(res).toBe(
             `const readlineSync = require("${require.resolve(
                 'readline-sync'
-            )}");` + '\nconst foo = readlineSync.question("bar: ")'
+            )}");` +
+                '\n\nconst foo = readlineSync.question("bar: ");\n' +
+                'var bar = readlineSync.question("foo: ");'
         )
     })
 
@@ -190,7 +194,7 @@ describe('main test', () => {
                 "tulis('makan', makanan, 'dan minum', minuman, 'dengan kecepatan', kecepatan) }"
         )
 
-        expect(res).toBe(readData('arrow_function.txt'))
+        expect(res).toBe(readData('results/arrow_function.txt'))
     })
 
     it('should compile setop and lewati to break and continue', async () => {
@@ -198,77 +202,32 @@ describe('main test', () => {
             'selama (benar){ jika (benar) setop;jika (salah) lewati; }'
         )
 
-        expect(res).toBe(readData('setop_lewati.txt'))
+        expect(res).toBe(readData('results/setop_lewati.txt'))
+    })
+
+    it('should compile masukan', async () => {
+        const res = await jw.compile(
+            'selama (benar){ jika (benar) setop;jika (salah) lewati; }'
+        )
+
+        expect(res).toBe(readData('results/setop_lewati.txt'))
     })
 
     it('should compile segitiga pascal', async () => {
-        const res = await jw.compile(`
-            fungsi segitigaPascal(limit, baris){
-                jika(!baris atau baris.length == 0) kembalikan segitigaPascal(limit, [[1]]);
+        const res = await jw.compile(readData('programs/segitiga_pascal.jw'))
 
-                var barisBaru = [];
-                var barisTerakhir = baris[baris.length - 1];
-
-                untuk(var i = 1, panjang = barisTerakhir.length; i kurangDari panjang; i++){
-                    barisBaru.push(barisTerakhir[i - 1] + barisTerakhir[i]);
-                }
-
-                barisBaru.unshift(1);
-                barisBaru.push(1);
-
-                baris.push(barisBaru);
-
-                jika(limit == baris.length){
-                    kembalikan baris;
-                }else{
-                    kembalikan segitigaPascal(limit, baris);
-                }
-            }
-
-            var n = 4;
-            var hasil = segitigaPascal(n + 1);
-
-            setiap(hasil sebagai baris){
-                tulis(baris.join(''));
-            }
-        `)
-
-        expect(res).toBe(readData('segitiga_pascal.txt'))
+        expect(res).toBe(readData('results/segitiga_pascal.txt'))
     })
 
     it('should compile ternak lele', async () => {
-        const res = await jw.compile(`
-            var leleku = 10;
-            var aku = "bahagia";
+        const res = await jw.compile(readData('programs/ternak_lele.jw'))
 
-            tulis("aku " + aku);
+        expect(res).toBe(readData('results/ternak_lele.txt'))
+    })
 
-            selama(leleku lebihDari 0){
-                tulis("lelekuku tinggal " + leleku);
-                leleku--;
-            }
+    it('should compile "all.jw"', async () => {
+        const res = await jw.compile(readData('programs/all.jw'))
 
-            tulis();
-
-            jika(leleku kurangDari 1){
-                tulis("Leleku mati semua");
-                aku = "setres";
-            }
-
-            tulis();
-
-            jika(aku tidak "bahagia"){
-                var bwabwa = "bwa";
-
-                untuk(var bwa = 0;bwa kurangDari 5;bwa++){
-                    bwabwa += "bwa";
-                }
-
-                tulis("aku " + aku);
-                tulis(bwabwa);
-            }
-        `)
-
-        expect(res).toBe(readData('ternak_lele.txt'))
+        expect(res).toBe(readData('results/all.txt'))
     })
 })

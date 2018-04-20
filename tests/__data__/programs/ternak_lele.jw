@@ -1,0 +1,29 @@
+var leleku = 10;
+var aku = "bahagia";
+
+tulis("aku " + aku);
+ 
+selama(leleku lebihDari 0){
+    tulis("lelekuku tinggal " + leleku);
+    leleku--;
+}
+
+tulis();
+
+jika(leleku kurangDari 1){
+    tulis("Leleku mati semua");
+    aku = "setres";
+}
+
+tulis();
+
+jika(aku tidak "bahagia"){
+    var bwabwa = "bwa";
+
+    untuk(var bwa = 0;bwa kurangDari 5;bwa++){
+        bwabwa += "bwa";
+    }
+
+    tulis("aku " + aku);
+    tulis(bwabwa);
+}
