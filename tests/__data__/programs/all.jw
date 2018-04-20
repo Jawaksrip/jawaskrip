@@ -83,5 +83,3 @@ lakukan {
 
   jika (indeks kurangDari 0) setop
 } selama (benar)
-
-tulis(`saya suka ${fungsi () {kembailikan "dinda"}}`)

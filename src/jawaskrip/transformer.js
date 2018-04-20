@@ -14,7 +14,6 @@ exports.parse = (_tokens, _callback) => {
     let keyProcessed = 0
 
     _tokens.forEach(_token => {
-        console.log(_token)
         if (_token.type.toString() in token_handler) {
             resultJS += token_handler[_token.type](_token)
         } else {
