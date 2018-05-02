@@ -2,6 +2,7 @@ language: python
 python: 3.6
 
 cache:
+  yarn: true
   directories:
     - node_modules
     - "$HOME/.npm"
@@ -11,15 +12,14 @@ cache:
 before_install:
   - pip3 install coala-bears
   - nvm install
-  - if [[ `npm -v` != 5.7* ]]; then npm i -g npm@5.7; fi
 
 install:
-  - npm install -g codecov
-  - npm ci
+  - yarn global add codecov
+  - yarn
 
 script:
-  - npm run coala
-  - npm test
+  - yarn coala
+  - yarn test
 
 after_success:
   - codecov

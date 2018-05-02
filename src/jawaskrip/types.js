@@ -116,8 +116,8 @@ const keyword = {
 const handler = ['ulangi', 'setiap']
 
 module.exports = {
-    constant: constant,
-    symbol: symbol,
-    handler: handler,
-    keyword: keyword
+    constant,
+    symbol,
+    handler,
+    keyword
 }
