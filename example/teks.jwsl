@@ -1,0 +1,7 @@
+// contoh uraiHuruf
+
+tulis("tanpa Teks");
+tulis(2 + 2); // hasil: 4
+
+tulis("dengan Tekss");
+tulis(Teks(2) + Teks(2)); // hasil: "22"

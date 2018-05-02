@@ -1,7 +1,0 @@
-// contoh uraiHuruf
-
-tulis("tanpa uraiHuruf");
-tulis(2 + 2); // hasil: 4
-
-tulis("dengan uraiHuruf");
-tulis(uraiHuruf(2) + uraiHuruf(2)); // hasil: "22"
