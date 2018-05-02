@@ -34,6 +34,7 @@ describe('program test', () => {
     })
 
     it('should clean temp directory', () => {
+        program.clean()
         program.clean(res => {
             expect(res).toBe('No file on temp directory')
         })

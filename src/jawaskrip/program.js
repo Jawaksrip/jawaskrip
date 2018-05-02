@@ -32,7 +32,7 @@ exports.clean = _callback => {
     const files = fs.readdirSync(tempPath)
 
     if (files.length <= 0) {
-        return !_callback || _callback('No file on temp directory')
+        return _callback ? _callback('No file on temp directory') : null
     }
 
     let fileRemoved = 0
@@ -42,7 +42,7 @@ exports.clean = _callback => {
         if (fs.existsSync(fileLocation)) fs.unlinkSync(fileLocation)
     }
 
-    return !_callback || _callback('All file cleaned')
+    return _callback ? _callback('All file cleaned') : null
 }
 
 exports.run = parsed => {
