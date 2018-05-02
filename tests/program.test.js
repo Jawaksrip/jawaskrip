@@ -32,4 +32,32 @@ describe('program test', () => {
             expect(result).toEqual(tangga_token)
         })
     })
+
+    it('should clean temp directory', () => {
+        program.clean(res => {
+            expect(res).toBe('No file on temp directory')
+        })
+
+        const tempDir = __dirname + '/../temp/'
+
+        for (let i = 0; i < 10; i++) {
+            fs.writeFileSync(tempDir + 'test' + i, 'test' + i)
+        }
+
+        program.clean(res => {
+            expect(res).toBe('All file cleaned')
+        })
+    })
+
+    it('should run javascript', () => {
+        program.run('console.log("running for testing!")')
+    })
+
+    it('should run javascript locally', () => {
+        const angkaLocation = getExample('halo_dunia.jwsl')
+
+        global.userFilePath = angkaLocation
+
+        program.runLocal(angkaLocation)
+    })
 })

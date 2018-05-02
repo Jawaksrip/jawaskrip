@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const app = require('commander')
+const ON_DEATH = require('death')
 
 const program = require('./program')
 
@@ -104,3 +105,8 @@ app.parse(process.argv)
 if (app.args.length < 1) {
     console.log(`versi jawaskrip: ${app.version()}, 'jw -h' untuk bantuan`)
 }
+
+ON_DEATH(function(signal, err) {
+    console.info('\n\nProcess terminated, recovering...')
+    program.recover(program.getCompiledPath())
+})

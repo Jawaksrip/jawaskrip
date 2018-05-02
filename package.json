@@ -24,6 +24,7 @@
     "license": "MIT",
     "dependencies": {
         "commander": "^2.11.0",
+        "death": "^1.1.0",
         "js-beautify": "^1.7.4",
         "ncp": "^2.0.0",
         "readline-sync": "^1.4.7"
