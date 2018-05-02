@@ -12,7 +12,7 @@
     },
     "scripts": {
         "start": "node bin/jawaskrip",
-        "test": "jest",
+        "test": "jest && ./program/test.sh",
         "coala": "coala",
         "format": "eslint . --fix"
     },

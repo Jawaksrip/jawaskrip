@@ -106,7 +106,10 @@ if (app.args.length < 1) {
     console.log(`versi jawaskrip: ${app.version()}, 'jw -h' untuk bantuan`)
 }
 
-ON_DEATH(function(signal, err) {
+ON_DEATH((signal, err) => {
     console.info('\n\nProcess terminated, recovering...')
-    program.recover(program.getCompiledPath())
+    program.recover(
+        program.getCompiledPath(),
+        fs.readFileSync(global.userFilePath)
+    )
 })

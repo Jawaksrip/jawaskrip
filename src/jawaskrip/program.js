@@ -59,14 +59,14 @@ exports.runLocal = (compiled, original) => {
 
     fs.writeFileSync(compiledPath, compiled)
 
-    runScript(compiledPath, () => this.recover(compiledPath))
+    runScript(compiledPath, () => this.recover(compiledPath, original))
 }
 
 exports.getCompiledPath = () => {
     return global.userFilePath.replace(path.extname(global.userFilePath), '.js')
 }
 
-exports.recover = compiledPath => {
+exports.recover = (compiledPath, original) => {
     if (compiledPath === global.userFilePath) {
         fs.writeFileSync(global.userFilePath, original)
     } else {
