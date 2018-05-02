@@ -12,10 +12,7 @@ cache:
 before_install:
   - pip3 install coala-bears
   - nvm install
-
-install:
   - yarn global add codecov
-  - yarn
 
 script:
   - yarn coala

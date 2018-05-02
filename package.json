@@ -1,6 +1,6 @@
 {
     "name": "jawaskrip",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "main": "program/main.js",
     "engines": {
         "node": ">=6.12.2"
@@ -12,7 +12,7 @@
     },
     "scripts": {
         "start": "node bin/jawaskrip",
-        "test": "jest",
+        "test": "jest && ./program/test.sh",
         "coala": "coala",
         "format": "eslint . --fix"
     },
@@ -24,6 +24,7 @@
     "license": "MIT",
     "dependencies": {
         "commander": "^2.11.0",
+        "death": "^1.1.0",
         "js-beautify": "^1.7.4",
         "ncp": "^2.0.0",
         "readline-sync": "^1.4.7"

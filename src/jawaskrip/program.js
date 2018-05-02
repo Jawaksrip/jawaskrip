@@ -27,68 +27,51 @@ exports.token = (_filepath, _callback) => {
 
 exports.clean = _callback => {
     checkTempDir()
+
+    const tempPath = path.join(__dirname, tempDir)
+    const files = fs.readdirSync(tempPath)
+
+    if (files.length <= 0) {
+        return _callback ? _callback('No file on temp directory') : null
+    }
+
     let fileRemoved = 0
 
-    fs.readdir(path.join(__dirname, tempDir), (err, files) => {
-        if (err) throw err
+    for (let file of files) {
+        const fileLocation = path.join(tempPath, file)
+        if (fs.existsSync(fileLocation)) fs.unlinkSync(fileLocation)
+    }
 
-        if (files.length <= 0) _callback('No file on temp directory')
-
-        files.forEach(_file => {
-            if (_file == 'temp') return
-
-            fs.unlink(path.join(__dirname, tempDir, _file), _err => {
-                if (_err) throw _err
-                fileRemoved++
-            })
-
-            if (fileRemoved == files.length) _callback('All file cleaned')
-        })
-    })
+    return _callback ? _callback('All file cleaned') : null
 }
 
 exports.run = parsed => {
     checkTempDir()
     const tempFile = path.join(__dirname, tempDir, generateName())
 
-    fs.writeFile(
-        tempFile,
-        beautify(parsed, {
-            indent_size: 4
-        }),
-        err => {
-            if (err) throw err
+    fs.writeFileSync(tempFile, parsed)
 
-            runScript(tempFile, () => {
-                this.clean()
-            })
-        }
-    )
+    runScript(tempFile, this.clean)
 }
 
 exports.runLocal = (compiled, original) => {
-    const compiledPath = global.userFilePath.replace(
-        path.extname(global.userFilePath),
-        '.js'
-    )
+    const compiledPath = this.getCompiledPath()
 
-    fs.writeFile(
-        compiledPath,
-        beautify(compiled, {
-            indent_size: 4
-        }),
-        err => {
-            if (err) throw err
+    fs.writeFileSync(compiledPath, compiled)
 
-            runScript(compiledPath, () => {
-                if (compiledPath === global.userFilePath) {
-                    fs.writeFileSync(global.userFilePath, original)
-                } else {
-                    fs.unlinkSync(compiledPath)
-                }
-            })
-        }
-    )
+    runScript(compiledPath, () => this.recover(compiledPath, original))
+}
+
+exports.getCompiledPath = () => {
+    return global.userFilePath.replace(path.extname(global.userFilePath), '.js')
+}
+
+exports.recover = (compiledPath, original) => {
+    if (compiledPath === global.userFilePath) {
+        fs.writeFileSync(global.userFilePath, original)
+    } else {
+        if (fs.existsSync(compiledPath)) fs.unlinkSync(compiledPath)
+    }
 }
 
 exports.copyExample = (out, callback) => {

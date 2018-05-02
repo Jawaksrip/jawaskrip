@@ -24,14 +24,4 @@ async function run(_code) {
     })
 }
 
-async function runJS(_code) {
-    return new Promise(resolve => {
-        program.run(_code, () => resolve())
-    })
-}
-
-module.exports = {
-    compile,
-    run,
-    runJS
-}
+module.exports = { compile, run }
