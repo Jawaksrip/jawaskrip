@@ -10,6 +10,10 @@ const {
 } = require('./utils')
 
 class Tokenizer {
+    constructor() {
+        this.error
+    }
+
     toke(type, value, line) {
         return { type, value, line }
     }
@@ -28,6 +32,8 @@ class Tokenizer {
         )
 
         while (index < code.length) {
+            if (this.error) break
+
             const currentChar = code[index]
             const lastKey = tokens[tokens.length - 1]
 
@@ -391,10 +397,11 @@ class Tokenizer {
                     quote += code[index++]
 
                     if (index >= code.length) {
-                        this.error(
+                        this.throwError(
                             lineNumber,
                             'Tanda Kutip Tidak Terselesaikan'
                         )
+                        break
                     }
                 }
                 tokens.push(
@@ -411,19 +418,22 @@ class Tokenizer {
 
             index++
 
-            if (index == code.length) {
+            if (index == code.length && !this.error) {
                 info(
                     'Tokenizer.tokenize',
                     'done tokenizing, tokens length:',
                     gray(tokens.length)
                 )
-                callback(tokens)
+
+                return callback(tokens, null)
             }
         }
+
+        return callback('', this.error)
     }
-    error(line, mess) {
+    throwError(line, mess) {
         info('Tokenizer.error', 'error:', `${line}):${mess}`)
-        throw `Error: (${line}):\n${mess}`
+        this.error = new Error(`Error: (${line}):\n${mess}`)
     }
 }
 
@@ -439,10 +449,7 @@ exports.lex = (filepath, callback) => {
 
 exports.lexString = (code, callback) => {
     logExec('tokenizer.lexString')
-
-    new Tokenizer().tokenize(code, res => {
-        callback(res)
-    })
+    new Tokenizer().tokenize(code, callback)
 }
 
 String.prototype.isEmpty = function() {

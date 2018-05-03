@@ -142,6 +142,13 @@ describe('main test', () => {
         expect(res).toBe('//1 ditambah 1;\nanother()')
     })
 
+    it('should throw "tanda kutip" error', done => {
+        jw.compile('let foo = "bar').catch(err => {
+            expect(err).toBeInstanceOf(Error)
+            done()
+        })
+    })
+
     it('should compile assigment', async () => {
         const res = await jw.compile(
             'var j %= i;var d *= b;var n -= u;var z += y;'
@@ -181,11 +188,15 @@ describe('main test', () => {
             '1 kurangdari 2;1 kurangDari 2;1 < 2;'
         )
         const lebihDari = await jw.compile('2 lebihdari 1;2 lebihDari 1;2 > 1;')
+        const kurangDariSamadengan = await jw.compile('2 <= 2; 2 <= 1;')
+        const lebihDariSamadengan = await jw.compile('2 >= 2;2 >=1;')
 
         expect(equal).toBe('1 == 1')
         expect(is).toBe('true === true')
         expect(kurangDari).toBe('1 < 2;\n1 < 2;\n1 < 2;')
         expect(lebihDari).toBe('2 > 1;\n2 > 1;\n2 > 1;')
+        expect(kurangDariSamadengan).toBe('2 <= 2;\n2 <= 1;')
+        expect(lebihDariSamadengan).toBe('2 >= 2;\n2 >= 1;')
     })
 
     it('should compile arrow function', async () => {

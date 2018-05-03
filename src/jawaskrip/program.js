@@ -43,8 +43,8 @@ exports.clean = callback => {
     const tempPath = path.join(__dirname, tempDir)
     const files = fs.readdirSync(tempPath)
 
-    info('[clean]temp path:', gray(tempPath))
-    info('[clean]files length:', gray(files.length))
+    info('clean', 'temp path:', gray(tempPath))
+    info('clean', 'files length:', gray(files.length))
 
     if (files.length <= 0) {
         return callback instanceof Function
@@ -54,7 +54,7 @@ exports.clean = callback => {
 
     for (let file of files) {
         const fileLocation = path.join(tempPath, file)
-        info('delete file:', gray(file))
+        info('clean', 'delete file:', gray(file))
         if (fs.existsSync(fileLocation)) fs.unlinkSync(fileLocation)
     }
 
