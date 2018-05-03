@@ -3,41 +3,38 @@ const beautify = require('js-beautify').js_beautify
 
 const { constant, symbol, handler, keyword } = require('./types')
 
+const {
+    info,
+    logExec,
+    chalk: { gray }
+} = require('./utils')
+
 class Tokenizer {
-    /**
-     *  mapping token yang diberikan
-     *  @param {Any} _type - tipe token
-     *  @param {Any} _value - value token
-     *  @param {number} _line - baris token
-     *  @return {Object} - objek hasil mapping token
-     */
-    toke(_type, _value, _line) {
-        return {
-            type: _type,
-            value: _value,
-            line: _line
-        }
+    constructor() {
+        this.error
     }
 
-    /**
-     * membuat token dari value yang diberikan
-     * @param {String} _code - teks code yang aka di tokenize
-     * @return {Function} - callback
-     */
-    tokenize(_code, _callback) {
-        /**
-         * @var tokens {Object} - hasil tokenize
-         * @var line {Number} - jumlah baris code
-         */
-        let tokens = []
-        let line = 1
-        let i = 0
+    toke(type, value, line) {
+        return { type, value, line }
+    }
 
-        while (i < _code.length) {
-            /**
-             * @const {String} c - huruf jaman now
-             */
-            const c = _code[i]
+    tokenize(code, callback) {
+        logExec('tokenizer.Tokenizer.tokenize')
+
+        let tokens = []
+        let index = 0
+        let lineNumber = 1
+
+        info(
+            'Tokenizer.tokenize',
+            'start tokenizing, code length:',
+            gray(code.length)
+        )
+
+        while (index < code.length) {
+            if (this.error) break
+
+            const currentChar = code[index]
             const lastKey = tokens[tokens.length - 1]
 
             let lastTokenIsKeyword = false
@@ -53,290 +50,406 @@ class Tokenizer {
             }
 
             // cek newline
-            if (c == '\n') {
-                tokens.push(this.toke(constant.T_NEWLINE, c, line))
-                line++
-            } else if (c == ' ' || c == String.fromCharCode(13));
-            else if (!c.isEmpty() && !isNaN(c)) {
+            if (currentChar == '\n') {
+                tokens.push(
+                    this.toke(constant.T_NEWLINE, currentChar, lineNumber)
+                )
+                lineNumber++
+            } else if (
+                currentChar == ' ' ||
+                currentChar == String.fromCharCode(13)
+            );
+            else if (!currentChar.isEmpty() && !isNaN(currentChar)) {
                 // Integer
-                let num = ''
-                while (!isNaN(_code[i])) {
-                    num += _code[i]
-                    i++
+                let number = ''
+                while (!isNaN(code[index])) {
+                    number += code[index++]
                 }
-                i--
-                tokens.push(this.toke(constant.T_NUM, num, line))
-            } else if (c.isAlphaNumeric() || c == '_') {
+                index--
+                tokens.push(this.toke(constant.T_NUM, number, lineNumber))
+            } else if (currentChar.isAlphaNumeric() || currentChar == '_') {
                 //Kata dan Keyword
                 let word = ''
 
                 while (
-                    i < _code.length &&
-                    (_code[i].isAlphaNumeric() ||
-                        _code[i] == '' ||
-                        _code[i] == '_')
+                    index < code.length &&
+                    (code[index].isAlphaNumeric() ||
+                        code[index] == '' ||
+                        code[index] == '_')
                 ) {
-                    word += _code[i]
-                    i++
+                    word += code[index++]
                 }
-                i--
+                index--
 
                 // cek jika token terakhir bukan keyword
                 if (handler.includes(word) && !lastTokenIsKeyword) {
                     let key = word
 
-                    while (_code[i] != ')' && i < _code.length) {
-                        i++
-                        key += _code[i]
+                    while (code[index] != ')' && index < code.length) {
+                        key += code[++index]
                     }
-                    tokens.push(this.toke(word.toUpperCase(), key, line))
+
+                    tokens.push(this.toke(word.toUpperCase(), key, lineNumber))
                 } else if (word == 'impor' && !lastTokenIsKeyword) {
-                    let allSyntax = word
+                    let expression = word
 
                     while (
-                        !(_code[i] == ';' || _code[i] == '\n') &&
-                        i < _code.length
+                        !(code[index] == ';' || code[index] == '\n') &&
+                        index < code.length
                     ) {
-                        i++
-                        allSyntax += _code[i]
+                        expression += code[++index]
                     }
-                    tokens.push(this.toke(word.toUpperCase(), allSyntax, line))
+                    tokens.push(
+                        this.toke(word.toUpperCase(), expression, lineNumber)
+                    )
                 } else if (word == 'adalah') {
-                    tokens.push(this.toke(constant.T_IS, symbol.IS, line))
+                    tokens.push(this.toke(constant.T_IS, symbol.IS, lineNumber))
                 } else if (word == 'var')
-                    tokens.push(this.toke(constant.T_VAR, keyword.VAR, line))
+                    tokens.push(
+                        this.toke(constant.T_VAR, keyword.VAR, lineNumber)
+                    )
                 else if (word == 'masukan')
                     tokens.push(
-                        this.toke(constant.T_INPUT, keyword.INPUT, line)
+                        this.toke(constant.T_INPUT, keyword.INPUT, lineNumber)
                     )
                 else if (word == 'fungsi')
                     tokens.push(
-                        this.toke(constant.T_FUNCTION, keyword.FUNCTION, line)
+                        this.toke(
+                            constant.T_FUNCTION,
+                            keyword.FUNCTION,
+                            lineNumber
+                        )
                     )
                 else if (word == 'kelas')
                     tokens.push(
-                        this.toke(constant.T_CLASS, keyword.CLASS, line)
+                        this.toke(constant.T_CLASS, keyword.CLASS, lineNumber)
                     )
                 else if (word == 'konstruksi' || word == 'konstruktor')
                     tokens.push(
-                        this.toke(constant.T_CONSTRUCT, keyword.CONSTRUCT, line)
+                        this.toke(
+                            constant.T_CONSTRUCT,
+                            keyword.CONSTRUCT,
+                            lineNumber
+                        )
                     )
                 else if (word == 'turunan')
                     tokens.push(
-                        this.toke(constant.T_EXTENDS, keyword.EXTENDS, line)
+                        this.toke(
+                            constant.T_EXTENDS,
+                            keyword.EXTENDS,
+                            lineNumber
+                        )
                     )
                 else if (word == 'buat')
-                    tokens.push(this.toke(constant.T_NEW, keyword.NEW, line))
+                    tokens.push(
+                        this.toke(constant.T_NEW, keyword.NEW, lineNumber)
+                    )
                 else if (word == 'ini')
-                    tokens.push(this.toke(constant.T_THIS, keyword.THIS, line))
+                    tokens.push(
+                        this.toke(constant.T_THIS, keyword.THIS, lineNumber)
+                    )
                 else if (word == 'kembalikan')
                     tokens.push(
-                        this.toke(constant.T_RETURN, keyword.RETURN, line)
+                        this.toke(constant.T_RETURN, keyword.RETURN, lineNumber)
                     )
                 else if (word == 'Angka')
                     tokens.push(
-                        this.toke(constant.T_NUMBER, keyword.NUMBER, line)
+                        this.toke(constant.T_NUMBER, keyword.NUMBER, lineNumber)
                     )
                 else if (word == 'Teks')
                     tokens.push(
-                        this.toke(constant.T_STRING, keyword.STRING, line)
+                        this.toke(constant.T_STRING, keyword.STRING, lineNumber)
                     )
                 else if (word == 'jika')
-                    tokens.push(this.toke(constant.T_IF, keyword.IF, line))
+                    tokens.push(
+                        this.toke(constant.T_IF, keyword.IF, lineNumber)
+                    )
                 else if (word == 'jikaTidak' || word == 'jikatidak')
-                    tokens.push(this.toke(constant.T_ELSE, keyword.ELSE, line))
+                    tokens.push(
+                        this.toke(constant.T_ELSE, keyword.ELSE, lineNumber)
+                    )
                 else if (word == 'lakukan')
-                    tokens.push(this.toke(constant.T_DO, keyword.DO, line))
+                    tokens.push(
+                        this.toke(constant.T_DO, keyword.DO, lineNumber)
+                    )
                 else if (word == 'selama')
                     tokens.push(
-                        this.toke(constant.T_WHILE, keyword.WHILE, line)
+                        this.toke(constant.T_WHILE, keyword.WHILE, lineNumber)
                     )
                 else if (word == 'untuk')
-                    tokens.push(this.toke(constant.T_FOR, keyword.FOR, line))
+                    tokens.push(
+                        this.toke(constant.T_FOR, keyword.FOR, lineNumber)
+                    )
                 else if (word == 'tidak' || word == 'bukan')
-                    tokens.push(this.toke(constant.T_NOT, symbol.NOT, line))
+                    tokens.push(
+                        this.toke(constant.T_NOT, symbol.NOT, lineNumber)
+                    )
                 else if (word == 'dan')
-                    tokens.push(this.toke(constant.T_AND, symbol.AND, line))
+                    tokens.push(
+                        this.toke(constant.T_AND, symbol.AND, lineNumber)
+                    )
                 else if (word == 'atau')
-                    tokens.push(this.toke(constant.T_OR, symbol.OR, line))
+                    tokens.push(this.toke(constant.T_OR, symbol.OR, lineNumber))
                 else if (word == 'tulis' || word == 'tampilkan')
                     tokens.push(
-                        this.toke(constant.T_PRINT, keyword.PRINT, line)
+                        this.toke(constant.T_PRINT, keyword.PRINT, lineNumber)
                     )
                 else if (word == 'masukan')
                     tokens.push(
-                        this.toke(constant.T_INPUT, keyword.INPUT, line)
+                        this.toke(constant.T_INPUT, keyword.INPUT, lineNumber)
                     )
                 else if (word == 'benar')
-                    tokens.push(this.toke(constant.T_TRUE, keyword.TRUE, line))
+                    tokens.push(
+                        this.toke(constant.T_TRUE, keyword.TRUE, lineNumber)
+                    )
                 else if (word == 'salah')
                     tokens.push(
-                        this.toke(constant.T_FALSE, keyword.FALSE, line)
+                        this.toke(constant.T_FALSE, keyword.FALSE, lineNumber)
                     )
                 else if (word == 'ditambah')
                     // teks operator
-                    tokens.push(this.toke(constant.T_PLUS, symbol.PLUS, line))
+                    tokens.push(
+                        this.toke(constant.T_PLUS, symbol.PLUS, lineNumber)
+                    )
                 else if (word == 'dikurangi')
-                    tokens.push(this.toke(constant.T_MINUS, symbol.MINUS, line))
+                    tokens.push(
+                        this.toke(constant.T_MINUS, symbol.MINUS, lineNumber)
+                    )
                 else if (word == 'dikali')
-                    tokens.push(this.toke(constant.T_TIMES, symbol.TIMES, line))
+                    tokens.push(
+                        this.toke(constant.T_TIMES, symbol.TIMES, lineNumber)
+                    )
                 else if (word == 'dibagi')
                     tokens.push(
-                        this.toke(constant.T_DIVIDE, symbol.DIVIDE, line)
+                        this.toke(constant.T_DIVIDE, symbol.DIVIDE, lineNumber)
                     )
                 else if (word == 'modulo')
-                    tokens.push(this.toke(constant.T_MOD, symbol.MOD, line))
+                    tokens.push(
+                        this.toke(constant.T_MOD, symbol.MOD, lineNumber)
+                    )
                 else if (word == 'kurangdari' || word == 'kurangDari')
-                    tokens.push(this.toke(constant.T_LESS, symbol.LESS, line))
+                    tokens.push(
+                        this.toke(constant.T_LESS, symbol.LESS, lineNumber)
+                    )
                 else if (word == 'lebihdari' || word == 'lebihDari')
                     tokens.push(
-                        this.toke(constant.T_GREATER, symbol.GREATER, line)
+                        this.toke(
+                            constant.T_GREATER,
+                            symbol.GREATER,
+                            lineNumber
+                        )
                     )
                 else if (word == 'samadengan' || word == 'samaDengan')
-                    tokens.push(this.toke(constant.T_EQUAL, symbol.EQUAL, line))
+                    tokens.push(
+                        this.toke(constant.T_EQUAL, symbol.EQUAL, lineNumber)
+                    )
                 else if (word == 'setop')
                     tokens.push(
-                        this.toke(constant.T_BREAK, keyword.BREAK, line)
+                        this.toke(constant.T_BREAK, keyword.BREAK, lineNumber)
                     )
                 else if (word == 'lewati')
                     tokens.push(
-                        this.toke(constant.T_CONTINUE, keyword.CONTINUE, line)
+                        this.toke(
+                            constant.T_CONTINUE,
+                            keyword.CONTINUE,
+                            lineNumber
+                        )
                     )
                 // bukan keyword kemungkinan nama variabel
-                else tokens.push(this.toke(constant.T_VARNAME, word, line))
-            } else if (c == '/' && _code[i + 1] == '/') {
+                else
+                    tokens.push(this.toke(constant.T_VARNAME, word, lineNumber))
+            } else if (currentChar == '/' && code[index + 1] == '/') {
                 // comment
                 let comment = ''
 
-                while (_code[i] != '\n' && i < _code.length) {
-                    comment += _code[i]
-                    i++
+                while (code[index] != '\n' && index < code.length) {
+                    comment += code[index++]
                 }
 
                 tokens.push(
-                    this.toke(constant.T_COMMENT, `\n${comment}\n`, line)
+                    this.toke(constant.T_COMMENT, `\n${comment}\n`, lineNumber)
                 )
-            } else if (c == '+' || c == '-') {
+            } else if (currentChar == '+' || currentChar == '-') {
                 // postfix or prefix
-                let fix = c
-                if (c == _code[i + 1]) {
-                    fix += _code[i + 1]
-                    tokens.push(this.toke(constant.T_PFIX, fix, line))
-                    i++
-                } else if (_code[i + 1] == '=') {
-                    fix += _code[i + 1]
-                    tokens.push(this.toke(constant.T_ASSIGNMENT, fix, line))
+                let expression = currentChar
+                if (currentChar == code[index + 1]) {
+                    expression += code[index + 1]
+
+                    tokens.push(
+                        this.toke(constant.T_PFIX, expression, lineNumber)
+                    )
+
+                    index++
+                } else if (code[index + 1] == '=') {
+                    expression += code[index + 1]
+                    tokens.push(
+                        this.toke(constant.T_ASSIGNMENT, expression, lineNumber)
+                    )
                 } else {
                     tokens.push(
                         this.toke(
-                            fix == '+' ? constant.T_PLUS : constant.T_MINUS,
-                            fix,
-                            line
+                            expression == '+'
+                                ? constant.T_PLUS
+                                : constant.T_MINUS,
+                            expression,
+                            lineNumber
                         )
                     )
                 }
-            } else if ('*/%'.includes(c)) {
-                let assignment = c
-                if (_code[i + 1] == '=') {
-                    assignment += _code[i + 1]
+            } else if ('*/%'.includes(currentChar)) {
+                let assignment = currentChar
+
+                if (code[index + 1] == '=') {
+                    assignment += code[index + 1]
+
                     tokens.push(
-                        this.toke(constant.T_ASSIGNMENT, assignment, line)
+                        this.toke(constant.T_ASSIGNMENT, assignment, lineNumber)
                     )
-                    i++
+
+                    index++
                 } else {
-                    tokens.push(this.toke(constant.T_ARITHMATIC, c, line))
-                }
-            } else if (c == '<' || c == '>') {
-                if (_code[i + 1] == '=') {
                     tokens.push(
                         this.toke(
-                            c == '>' ? constant.T_GTOQ : constant.T_LTOQ,
-                            c + '=',
-                            line
+                            constant.T_ARITHMATIC,
+                            currentChar,
+                            lineNumber
                         )
                     )
-                    i++
-                } else if (c == '<')
-                    tokens.push(this.toke(constant.T_LESS, c, line))
-                else tokens.push(this.toke(constant.T_GREATER, c, line))
-            } else if (c == '=') {
+                }
+            } else if (currentChar == '<' || currentChar == '>') {
+                if (code[index + 1] == '=') {
+                    tokens.push(
+                        this.toke(
+                            currentChar == '>'
+                                ? constant.T_GTOQ
+                                : constant.T_LTOQ,
+                            currentChar + '=',
+                            lineNumber
+                        )
+                    )
+                    index++
+                } else if (currentChar == '<')
+                    tokens.push(
+                        this.toke(constant.T_LESS, currentChar, lineNumber)
+                    )
+                else
+                    tokens.push(
+                        this.toke(constant.T_GREATER, currentChar, lineNumber)
+                    )
+            } else if (currentChar == '=') {
                 // cek jika = bagian dari pfix
-                if ('-+*/%'.includes(_code[i - 1])) {
-                    i++
-                } else if (_code[i + 1] == '>') {
+                if ('-+*/%'.includes(code[index - 1])) {
+                    index++
+                } else if (code[index + 1] == '>') {
                     tokens.push(
-                        this.toke(constant.T_ARROW, c + _code[i + 1], line)
+                        this.toke(
+                            constant.T_ARROW,
+                            currentChar + code[index + 1],
+                            lineNumber
+                        )
                     )
-                    i++
-                } else if (_code[i + 1] == '=') {
-                    tokens.push(this.toke(constant.T_IS, symbol.IS, line))
-                    i++
+                    index++
+                } else if (code[index + 1] == '=') {
+                    tokens.push(this.toke(constant.T_IS, symbol.IS, lineNumber))
+                    index++
                 } else {
-                    tokens.push(this.toke(constant.T_ASSIGN, c, line))
+                    tokens.push(
+                        this.toke(constant.T_ASSIGN, currentChar, lineNumber)
+                    )
                 }
-            } else if (c == '.')
+            } else if (currentChar == '.')
                 // Penutup
-                tokens.push(this.toke(constant.T_DOT, c, line))
-            else if (c == ',') tokens.push(this.toke(constant.T_COMMA, c, line))
-            else if (c == ':') tokens.push(this.toke(constant.T_COLON, c, line))
-            else if (c == ';')
-                tokens.push(this.toke(constant.T_SCOLON, c, line))
-            else if (c == '(')
-                tokens.push(this.toke(constant.T_LPAREN, c, line))
-            else if (c == ')')
-                tokens.push(this.toke(constant.T_RPAREN, c, line))
-            else if (c == '{')
-                tokens.push(this.toke(constant.T_LBRACE, c, line))
-            else if (c == '}')
-                tokens.push(this.toke(constant.T_RBRACE, c, line))
-            else if (`'"\``.includes(c)) {
+                tokens.push(this.toke(constant.T_DOT, currentChar, lineNumber))
+            else if (currentChar == ',')
+                tokens.push(
+                    this.toke(constant.T_COMMA, currentChar, lineNumber)
+                )
+            else if (currentChar == ':')
+                tokens.push(
+                    this.toke(constant.T_COLON, currentChar, lineNumber)
+                )
+            else if (currentChar == ';')
+                tokens.push(
+                    this.toke(constant.T_SCOLON, currentChar, lineNumber)
+                )
+            else if (currentChar == '(')
+                tokens.push(
+                    this.toke(constant.T_LPAREN, currentChar, lineNumber)
+                )
+            else if (currentChar == ')')
+                tokens.push(
+                    this.toke(constant.T_RPAREN, currentChar, lineNumber)
+                )
+            else if (currentChar == '{')
+                tokens.push(
+                    this.toke(constant.T_LBRACE, currentChar, lineNumber)
+                )
+            else if (currentChar == '}')
+                tokens.push(
+                    this.toke(constant.T_RBRACE, currentChar, lineNumber)
+                )
+            else if (`'"\``.includes(currentChar)) {
                 // String
-                i++
+                index++
                 let quote = ''
-                while (_code[i] != c) {
-                    quote += _code[i]
-                    i++
-                    if (i >= _code.length)
-                        this.error(line, 'Tanda Kutip Tidak Terselesaikan')
+
+                while (code[index] != currentChar) {
+                    quote += code[index++]
+
+                    if (index >= code.length) {
+                        this.throwError(
+                            lineNumber,
+                            'Tanda Kutip Tidak Terselesaikan'
+                        )
+                        break
+                    }
                 }
                 tokens.push(
-                    this.toke(constant.T_QUOTE, `${c}${quote}${c}`, line)
+                    this.toke(
+                        constant.T_QUOTE,
+                        `${currentChar}${quote}${currentChar}`,
+                        lineNumber
+                    )
                 )
-            } else tokens.push(this.toke(constant.T_UNKNOWN, c, line))
-            i++
-            if (i == _code.length) {
-                _callback(tokens)
+            } else
+                tokens.push(
+                    this.toke(constant.T_UNKNOWN, currentChar, lineNumber)
+                )
+
+            index++
+
+            if (index == code.length && !this.error) {
+                info(
+                    'Tokenizer.tokenize',
+                    'done tokenizing, tokens length:',
+                    gray(tokens.length)
+                )
+
+                return callback(tokens, null)
             }
         }
+
+        return callback('', this.error)
     }
-    /**
-     * Fungsi untuk menampilkan error programm
-     * @param {Number} _line - baris terjadinya error
-     * @param {String} _mess - pesan error yang akan di tampilkan
-     * @throws {Error} Program Error
-     */
-    error(_line, _mess) {
-        //console.log(global.userFilePath)
-        throw `Error: (${_line}):\n${_mess}`
+    throwError(line, mess) {
+        info('Tokenizer.error', 'error:', `${line}):${mess}`)
+        this.error = new Error(`Error: (${line}):\n${mess}`)
     }
 }
 
-exports.lex = (_filepath, _callback) => {
-    const file = beautify(fs.readFileSync(_filepath, 'utf8'), {
+exports.lex = (filepath, callback) => {
+    logExec('tokenizer.lex')
+
+    const code = beautify(fs.readFileSync(filepath, 'utf8'), {
         end_with_newline: true
     })
 
-    const Tokenize = new Tokenizer()
-
-    Tokenize.tokenize(file, res => {
-        _callback(res)
-    })
+    this.lexString(code, callback)
 }
 
-exports.lexString = (_code, _callback) => {
-    new Tokenizer().tokenize(_code, res => {
-        _callback(res)
-    })
+exports.lexString = (code, callback) => {
+    logExec('tokenizer.lexString')
+    new Tokenizer().tokenize(code, callback)
 }
 
 String.prototype.isEmpty = function() {
@@ -344,14 +457,12 @@ String.prototype.isEmpty = function() {
 }
 
 String.prototype.isAlphaNumeric = function() {
-    let code, i, len
-    for (i = 0, len = this.length; i < len; i++) {
-        code = this.charCodeAt(i)
-        if (
-            !(code > 64 && code < 91) && // upper alpha (A-Z)
-            !(code > 96 && code < 123)
-        ) {
-            // lower alpha (a-z)
+    let code, index, length
+
+    for (index = 0, length = this.length; index < length; index++) {
+        code = this.charCodeAt(index)
+
+        if (!(code > 64 && code < 91) && !(code > 96 && code < 123)) {
             return false
         }
     }
