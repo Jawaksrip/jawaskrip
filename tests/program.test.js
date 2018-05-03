@@ -1,5 +1,7 @@
 const program = require('../src/jawaskrip/program.js')
 const fs = require('fs')
+const pmock = require('pmock')
+const rimraf = require('rimraf')
 
 const masukan_token = require('./__data__/tokens/masukan_token')
 const tangga_token = require('./__data__/tokens/tangga_token')
@@ -13,6 +15,10 @@ function readData(name) {
 }
 
 describe('program test', () => {
+    beforeEach(() => {
+        this.cwd = pmock.cwd(__dirname)
+    })
+
     it('should compile a file', () => {
         program.compile(getExample('fungsi.jwsl'), result => {
             expect(result).toBe(readData('results/fungsi.txt'))
@@ -60,5 +66,33 @@ describe('program test', () => {
         global.userFilePath = angkaLocation
 
         program.runLocal(angkaLocation)
+    })
+
+    it('should run from given file path', () => {
+        const fileLocation = getExample('pyramid.jwsl')
+
+        program.runFile(fileLocation)
+    })
+
+    it('should run from relative file path', () => {
+        const fileLocation = '../example/pyramid.jwsl'
+
+        program.runFile(fileLocation)
+    })
+
+    it('should create temp dir if not exist', () => {
+        const tempPath = __dirname + '/../temp/'
+
+        rimraf(tempPath, () => {
+            expect(fs.existsSync(tempPath)).toBeFalsy()
+
+            program.checkTempDir()
+
+            expect(fs.existsSync(tempPath)).toBeTruthy()
+        })
+    })
+
+    afterEach(() => {
+        this.cwd.reset()
     })
 })

@@ -1,6 +1,6 @@
 {
     "name": "jawaskrip",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "main": "program/main.js",
     "engines": {
         "node": ">=6.12.2"
@@ -23,6 +23,7 @@
     "author": "indmind",
     "license": "MIT",
     "dependencies": {
+        "chalk": "^2.4.1",
         "commander": "^2.11.0",
         "death": "^1.1.0",
         "js-beautify": "^1.7.4",
@@ -42,7 +43,9 @@
         "eslint-plugin-jest": "^21.15.0",
         "eslint-plugin-prettier": "^2.6.0",
         "jest": "^22.4.3",
-        "prettier": "^1.12.0"
+        "pmock": "^0.2.3",
+        "prettier": "^1.12.0",
+        "rimraf": "^2.6.2"
     },
     "description": "something useless",
     "repository": {

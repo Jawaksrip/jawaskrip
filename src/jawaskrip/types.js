@@ -62,25 +62,25 @@ const constant = {
 
 const symbol = {
     END: -1,
-    PLUS: '+', // +
-    MINUS: '-', // -
-    TIMES: '*', // *
-    DIVIDE: '/', // /
-    MOD: '%', // %
-    LESS: '<', // <
-    GREATER: '>', // >
+    PLUS: '+',
+    MINUS: '-',
+    TIMES: '*',
+    DIVIDE: '/',
+    MOD: '%',
+    LESS: '<',
+    GREATER: '>',
     ASSIGN: '=',
-    SCOLON: ';', // ;
-    LPAREN: '(', // (
-    RPAREN: ')', // )
-    LBRACE: '{', // {
-    RBRACE: '}', // }
+    SCOLON: ';',
+    LPAREN: '(',
+    RPAREN: ')',
+    LBRACE: '{',
+    RBRACE: '}',
     COMMENT: '//',
     EQUAL: '==',
-    IS: '===', // ==
-    AND: '&&', // &&
-    OR: '||', // ||
-    NOT: '!=' // !
+    IS: '===',
+    AND: '&&',
+    OR: '||',
+    NOT: '!='
 }
 
 const keyword = {
@@ -98,7 +98,7 @@ const keyword = {
     WORD: 'variable',
     NUM: 'number',
 
-    PRINT: 'console.log', // console.log
+    PRINT: 'console.log',
     WHILE: 'while',
     FOR: 'for',
     CLASS: 'class',
