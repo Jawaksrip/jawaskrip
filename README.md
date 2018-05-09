@@ -155,23 +155,22 @@ tulis("halo " + nama);
 
 - Kelas atau class
 ```cs
-kelas Manusia{
+kelas Mamalia{
     konstruksi(){
-        ini.tangan = 2;
-        ini.kaki = 2;
-        ini.mata = 2;
+        ini.bertulangBelakang = benar
+        ini.menyusui = benar
     }
 }
 
-kelas Laki turunan Manusia{
+kelas Kucing turunan Mamalia{
     konstruksi(){
         // selalu panggil fungsi super() untuk mengunakan variabel induk
         super();
-        tulis(ini.mata);
+        tulis(ini.menyusui);
     }
 }
 
-var saya = buat Laki();
+var neko = buat Kucing();
 ```
 
 - Pyramid
