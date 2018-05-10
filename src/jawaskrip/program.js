@@ -123,7 +123,13 @@ exports.getRealPath = filePath => {
 exports.getCompiledPath = () => {
     logExec('program.getCompiledPath')
 
-    return global.userFilePath.replace(path.extname(global.userFilePath), '.js')
+    return this.renameToJs(global.userFilePath)
+}
+
+exports.renameToJs = filePath => {
+    logExec('program.renameToJs')
+
+    return filePath.replace(/\.[^\.]+$/, '.js')
 }
 
 exports.recover = (compiledPath, original) => {

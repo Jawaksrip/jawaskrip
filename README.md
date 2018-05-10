@@ -33,7 +33,32 @@ bantuan:
 ~$ jw -h
 ```
 
-- Sebagai library ([Contoh](https://runkit.com/indmind/contoh-penggunaan-library-jawaskrip))
+- DIREKTORI
+
+contoh direktori
+```
+.
+├── lib
+└── src
+    ├── index.jw
+    └── test.jw
+```
+
+`$ jawaskrip d src lib`
+
+script di atas akan mengkompilasi semua file pada folder `src` dan menulis hasil kompilasinya ke folder `lib` dengan nama yang sama dan berekstensi `js`
+
+```
+.
+├── lib
+│   ├── index.js
+│   └── test.js
+└── src
+    ├── index.jw
+    └── test.jw
+```
+
+- API ([Contoh](https://runkit.com/indmind/contoh-penggunaan-library-jawaskrip))
 ```js
 const jawaskrip = require("jawaskrip");
 
