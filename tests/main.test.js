@@ -149,6 +149,12 @@ describe('main test', () => {
         })
     })
 
+    it('should compile tunggu to await', async () => {
+        const res = await jw.compile('const data = tunggu ambilData()')
+
+        expect(res).toBe('const data = await ambilData()')
+    })
+
     it('should compile assigment', async () => {
         const res = await jw.compile(
             'var j %= i;var d *= b;var n -= u;var z += y;'

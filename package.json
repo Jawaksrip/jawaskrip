@@ -1,6 +1,6 @@
 {
     "name": "jawaskrip",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "main": "program/main.js",
     "engines": {
         "node": ">=6.12.2"
