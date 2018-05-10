@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const app = require('commander')
 const ON_DEATH = require('death')
+const chalk = require('chalk')
 
 const program = require('./program')
 
@@ -61,12 +62,48 @@ app
     })
 
 app
+    .command('d <input> <output>')
+    .alias('directory')
+    .description('Compile directory')
+    .action((input, output) => {
+        checkOption()
+        const cwd = process.cwd()
+
+        const inputDir = path.resolve(cwd, input)
+        const outputDir = path.resolve(cwd, output)
+
+        const isDir = fs.statSync(inputDir).isDirectory()
+
+        if (!isDir) {
+            return console.log(
+                `input harus sebuah ${chalk.bold.red('direktori')}`
+            )
+        }
+
+        if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir)
+
+        for (fileName of fs.readdirSync(inputDir)) {
+            const fileDir = path.resolve(inputDir, fileName)
+            const jsName = program.renameToJs(fileName)
+
+            program.compile(fileDir, result => {
+                console.log(
+                    `${chalk.bold(path.join(input, fileName))} ${chalk.blue(
+                        '➜'
+                    )} ${chalk.bold.gray(path.join(output, jsName))}`
+                )
+                fs.writeFileSync(path.join(outputDir, jsName), result)
+            })
+        }
+    })
+
+app
     .command('contoh <output>')
     .description('Membuat folder contoh ke direktori output')
     .action(dirpath => {
         checkOption()
         program.copyExample(path.join(process.cwd(), dirpath), () => {
-            console.log('Done!')
+            console.log(chalk.bold.green('Done!'))
         })
     })
 
@@ -94,7 +131,11 @@ app
 app.parse(process.argv)
 
 if (app.args.length < 1) {
-    console.log(`versi jawaskrip: ${app.version()}, 'jw -h' untuk bantuan`)
+    console.log(
+        `versi jawaskrip: ${chalk.bold.green(app.version())}, ${chalk.bold.gray(
+            'jw -h'
+        )} untuk bantuan`
+    )
 }
 
 ON_DEATH((signal, err) => {
