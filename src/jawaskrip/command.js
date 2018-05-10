@@ -1,8 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 const app = require('commander')
-const ON_DEATH = require('death')
 const chalk = require('chalk')
+const ON_DEATH = require('death')
 
 const program = require('./program')
 

@@ -46,7 +46,7 @@ contoh direktori
 
 `$ jawaskrip d src lib`
 
-script di atas akan mengkompilasi semua file pada folder `src` dan menulis hasil kompilasinya ke folder `lib` dengan nama yang sama dan berekstensi `js`
+perintah di atas akan mengkompilasi semua file pada folder `src` dan menulis hasil kompilasinya ke folder `lib` dengan nama yang sama dan berekstensi `js`
 
 ```
 .
@@ -210,7 +210,7 @@ var d = Angka(masukan("angka d: "));
 tulis(c + d) // 5
 ```
 
--- Teks atau String
+- Teks atau String
 
 ```cs
 tulis(2 + 2); // 4
