@@ -1,4 +1,4 @@
-const program = require('../src/jawaskrip/program.js')
+const program = require('../src/jawaskrip/program')
 const fs = require('fs')
 const pmock = require('pmock')
 const rimraf = require('rimraf')

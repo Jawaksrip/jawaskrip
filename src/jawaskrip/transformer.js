@@ -14,7 +14,7 @@ exports.parse = (tokens, callback) => {
         ULANGI: ulangi_handler,
         SETIAP: setiap_handler,
         IMPOR: impor_handler,
-        [constant.T_INPUT]: masukan_handler
+        [constant.INPUT]: masukan_handler
     }
 
     let transformed = ''
@@ -52,7 +52,7 @@ const INPUT = `const readlineSync = require("${require.resolve(
 )}");`
 
 function ulangi_handler(token) {
-    logExec('transformer.ulangi_handler')
+    logExec('transformer.ulangi_handler', gray(token.line))
 
     let valArr = js_beautify(token.value, {
         indent_level: 4
@@ -78,7 +78,7 @@ function ulangi_handler(token) {
 }
 
 function setiap_handler(token) {
-    logExec('transformer.setiap_handler')
+    logExec('transformer.setiap_handler', gray(token.line))
 
     const parsed = js_beautify(token.value, {
         indent_level: 4
