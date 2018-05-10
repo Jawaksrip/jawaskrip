@@ -1,6 +1,6 @@
 {
     "name": "jawaskrip",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "main": "program/main.js",
     "engines": {
         "node": ">=6.12.2"
@@ -27,8 +27,10 @@
         "commander": "^2.11.0",
         "death": "^1.1.0",
         "js-beautify": "^1.7.4",
+        "mkdirp": "^0.5.1",
         "ncp": "^2.0.0",
-        "readline-sync": "^1.4.7"
+        "readline-sync": "^1.4.7",
+        "recursive-readdir-sync": "^1.0.6"
     },
     "directories": {
         "doc": "docs",

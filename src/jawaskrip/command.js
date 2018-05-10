@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const app = require('commander')
 const chalk = require('chalk')
+const recReadSync = require('recursive-readdir-sync')
+const mkdirp = require('mkdirp')
 const ON_DEATH = require('death')
 
 const program = require('./program')
@@ -82,17 +84,26 @@ app
 
         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir)
 
-        for (fileName of fs.readdirSync(inputDir)) {
-            const fileDir = path.resolve(inputDir, fileName)
-            const jsName = program.renameToJs(fileName)
+        for (let fileDir of recReadSync(inputDir)) {
+            const fileDirJs = program.renameToJs(fileDir)
+            const jsName = path.basename(fileDirJs)
+
+            const jsOutputBase = path
+                .normalize(fileDirJs.replace(cwd, '').replace(input, output))
+                .slice(1)
+
+            const jsOutput = path.resolve(outputDir, '..', jsOutputBase)
 
             program.compile(fileDir, result => {
                 console.log(
-                    `${chalk.bold(path.join(input, fileName))} ${chalk.blue(
-                        '➜'
-                    )} ${chalk.bold.gray(path.join(output, jsName))}`
+                    `${chalk.bold(
+                        fileDir.replace(cwd, '').slice(1)
+                    )} ${chalk.blue('➜')} ${chalk.bold.gray(jsOutputBase)}`
                 )
-                fs.writeFileSync(path.join(outputDir, jsName), result)
+
+                mkdirp.sync(path.dirname(jsOutput))
+
+                fs.writeFileSync(jsOutput, result)
             })
         }
     })
