@@ -46,10 +46,10 @@ describe('main test', () => {
         expect(res).toBe('if (true) {}')
     })
 
-    it('should compile jikaTidak to else if', async () => {
-        const res = await jw.compile('jika(benar){}jikaTidak(salah){}')
+    it('should compile lain to else', async () => {
+        const res = await jw.compile('jika(benar){}lain jika(salah){}lain{}')
 
-        expect(res).toBe('if (true) {} else if (false) {}')
+        expect(res).toBe('if (true) {} else if (false) {} else {}')
     })
 
     it('should compile impor to require', async () => {
