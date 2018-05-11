@@ -224,7 +224,8 @@ tulis(Teks(2 + 2)); // "22"
 | JawaSkrip           | JavaScript        |
 |---------------------|-------------------|
 | jika(){...}         | if(){...}         |
-| jikaTidak(){...}    | else if(){...}    |
+| lain jika(){...}    | else if(){...}    |
+| lain(){...}         | else(){...}       |
 | fungsi n(){...}     | function n(){...} |
 | lakukan {} selama ()| do {} while()     |  
 | selama(){...}       | while(){...}      |
