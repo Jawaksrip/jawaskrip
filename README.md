@@ -225,7 +225,7 @@ tulis(Teks(2 + 2)); // "22"
 |---------------------|-------------------|
 | jika(){...}         | if(){...}         |
 | lain jika(){...}    | else if(){...}    |
-| lain(){...}         | else(){...}       |
+| lain{...}           | else{...}         |
 | fungsi n(){...}     | function n(){...} |
 | lakukan {} selama ()| do {} while()     |  
 | selama(){...}       | while(){...}      |
