@@ -158,7 +158,7 @@ class Tokenizer {
                     )
                 else if (word == 'jika')
                     tokens.push(this.toke(constant.IF, keyword.IF, lineNumber))
-                else if (word == 'jikaTidak' || word == 'jikatidak')
+                else if (word == 'lain')
                     tokens.push(
                         this.toke(constant.ELSE, keyword.ELSE, lineNumber)
                     )

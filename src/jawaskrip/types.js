@@ -86,7 +86,7 @@ const symbol = {
 
 const keyword = {
     IF: 'if',
-    ELSE: 'else if',
+    ELSE: 'else',
 
     TRUE: 'true',
     FALSE: 'false',

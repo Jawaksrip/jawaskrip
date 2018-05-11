@@ -1,0 +1,10 @@
+var umur = 10
+
+jika(umur samadengan 17) {
+  tulis('hmmm... cukup')
+} lain jika(umur kurangdari 17) {
+  tulis('kurang dek...')
+} lain {
+  tulis('yup, boleh...')
+}
+

@@ -20,21 +20,21 @@ describe('program test', () => {
     })
 
     it('should compile a file', () => {
-        program.compile(getExample('fungsi.jwsl'), result => {
+        program.compile(getExample('fungsi.jw'), result => {
             expect(result).toBe(readData('results/fungsi.txt'))
         })
 
-        program.compile(getExample('impor.jwsl'), result => {
+        program.compile(getExample('impor.jw'), result => {
             expect(result).toBe(readData('results/impor.txt'))
         })
     })
 
     it('should get token from file', () => {
-        program.token(getExample('masukan.jwsl'), result => {
+        program.token(getExample('masukan.jw'), result => {
             expect(result).toEqual(masukan_token)
         })
 
-        program.token(getExample('tangga.jwsl'), result => {
+        program.token(getExample('tangga.jw'), result => {
             expect(result).toEqual(tangga_token)
         })
     })
@@ -61,7 +61,7 @@ describe('program test', () => {
     })
 
     it('should run javascript locally', () => {
-        const angkaLocation = getExample('halo_dunia.jwsl')
+        const angkaLocation = getExample('halo_dunia.jw')
 
         global.userFilePath = angkaLocation
 
@@ -69,13 +69,13 @@ describe('program test', () => {
     })
 
     it('should run from given file path', () => {
-        const fileLocation = getExample('pyramid.jwsl')
+        const fileLocation = getExample('pyramid.jw')
 
         program.runFile(fileLocation)
     })
 
     it('should run from relative file path', () => {
-        const fileLocation = '../example/pyramid.jwsl'
+        const fileLocation = '../example/pyramid.jw'
 
         program.runFile(fileLocation)
     })
