@@ -126,20 +126,30 @@ describe('main test', () => {
 
     it('should compile dan to &&', async () => {
         const res = await jw.compile('benar dan salah')
+        const normal = await jw.compile('benar && salah')
 
         expect(res).toBe(`true && false`)
+        expect(normal).toBe(`true && false`)
     })
 
     it('should compile atau to ||', async () => {
         const res = await jw.compile('benar atau salah')
+        const normal = await jw.compile('benar || salah')
 
         expect(res).toBe(`true || false`)
+        expect(normal).toBe(`true || false`)
     })
 
     it('should compile comment', async () => {
         const res = await jw.compile('//1 ditambah 1;\nanother()')
 
         expect(res).toBe('//1 ditambah 1;\nanother()')
+    })
+
+    it('should compile ultiline mcomment', async () => {
+        const res = await jw.compile('/* 1 ditambah 1;\nanother() */')
+
+        expect(res).toBe('/* 1 ditambah 1;\nanother() */')
     })
 
     it('should throw "tanda kutip" error', done => {
