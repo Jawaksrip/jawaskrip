@@ -92,7 +92,7 @@ app
                 .normalize(fileDirJs.replace(cwd, '').replace(input, output))
                 .slice(1)
 
-            const jsOutput = path.resolve(outputDir, '..', jsOutputBase)
+            const jsOutput = path.resolve(cwd, jsOutputBase)
 
             program.compile(fileDir, result => {
                 console.log(
@@ -113,7 +113,7 @@ app
     .description('Membuat folder contoh ke direktori output')
     .action(dirpath => {
         checkOption()
-        program.copyExample(path.join(process.cwd(), dirpath), () => {
+        program.copyExample(path.resolve(process.cwd(), dirpath), () => {
             console.log(chalk.bold.green('Done!'))
         })
     })
