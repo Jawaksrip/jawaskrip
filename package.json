@@ -13,7 +13,7 @@
     "scripts": {
         "start": "node bin/jawaskrip",
         "test": "jest && ./program/test.sh",
-        "coala": "coala",
+        "coala": "coala --non-interactive",
         "format": "eslint . --fix"
     },
     "jest": {
