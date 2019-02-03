@@ -18,7 +18,6 @@ exports.parse = (tokens, callback) => {
     }
 
     let transformed = ''
-    let processedIndex = 0
     let transformTrace = []
 
     for (let token of tokens) {

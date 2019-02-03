@@ -26,14 +26,12 @@ app.version(version).description(description)
 /* eslint-disable no-console */
 app.option('--verbose', 'debug logging')
 
-app
-    .command('bantuan')
+app.command('bantuan')
     .alias('help')
     .description('Tampilkan bantuan')
     .action(() => app.help())
 
-app
-    .command('r <file>')
+app.command('r <file>')
     .alias('run')
     .description("Run file jawaskrip, 'r' adalah perintah default")
     .action(filepath => {
@@ -41,8 +39,7 @@ app
         program.runFile(filepath)
     })
 
-app
-    .command('c <file>')
+app.command('c <file>')
     .alias('compile')
     .description('Compile dan print ke konsole')
     .action(filepath => {
@@ -52,8 +49,7 @@ app
         })
     })
 
-app
-    .command('o <file> <output>')
+app.command('o <file> <output>')
     .alias('output')
     .description('Compile dan simpan ke file javascript')
     .action((filepath, output) => {
@@ -63,8 +59,7 @@ app
         })
     })
 
-app
-    .command('d <input> <output>')
+app.command('d <input> <output>')
     .alias('directory')
     .description('Compile directory')
     .action((input, output) => {
@@ -108,8 +103,7 @@ app
         }
     })
 
-app
-    .command('contoh <output>')
+app.command('contoh <output>')
     .description('Membuat folder contoh ke direktori output')
     .action(dirpath => {
         checkOption()
@@ -118,8 +112,7 @@ app
         })
     })
 
-app
-    .command('t <file>')
+app.command('t <file>')
     .alias('token')
     .description('Generate token / lex (debug)')
     .action(filepath => {
@@ -129,8 +122,7 @@ app
         })
     })
 
-app
-    .command('clean')
+app.command('clean')
     .description('clean temp file')
     .action(() => {
         checkOption()
@@ -149,7 +141,7 @@ if (app.args.length < 1) {
     )
 }
 
-ON_DEATH((signal, err) => {
+ON_DEATH(() => {
     console.info('\n\nProcess terminated, recovering...')
     program.recover(
         program.getCompiledPath(),

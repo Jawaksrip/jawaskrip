@@ -33,7 +33,7 @@ describe('main test', () => {
             'for (var i = 0; i < 20; i++) {\n' + '    console.log(i);\n}'
         )
 
-        jw
+        return jw
             .compile('ulangi(var i sebanyak){tulis(i);}')
             .catch(err =>
                 expect(err).toBe(`Error pada baris 1: "Syntax 'ulangi' error"`)

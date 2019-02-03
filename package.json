@@ -1,6 +1,6 @@
 {
     "name": "jawaskrip",
-    "version": "0.4.8",
+    "version": "0.4.9",
     "main": "program/main.js",
     "engines": {
         "node": ">=6.12.2"
@@ -24,9 +24,9 @@
     "license": "MIT",
     "dependencies": {
         "chalk": "^2.4.1",
-        "commander": "^2.11.0",
+        "commander": "^2.19.0",
         "death": "^1.1.0",
-        "js-beautify": "^1.7.4",
+        "js-beautify": "1.7.5",
         "mkdirp": "^0.5.1",
         "ncp": "^2.0.0",
         "readline-sync": "^1.4.7",
@@ -38,16 +38,16 @@
         "lib": "lib"
     },
     "devDependencies": {
-        "babel-eslint": "^8.2.3",
-        "eslint": "^4.19.1",
-        "eslint-config-prettier": "^2.9.0",
-        "eslint-plugin-import": "^2.11.0",
-        "eslint-plugin-jest": "^21.15.0",
-        "eslint-plugin-prettier": "^2.6.0",
-        "jest": "^23.0.1",
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.13.0",
+        "eslint-config-prettier": "^4.0.0",
+        "eslint-plugin-import": "^2.16.0",
+        "eslint-plugin-jest": "^22.2.2",
+        "eslint-plugin-prettier": "^3.0.1",
+        "jest": "^24.0.0",
         "pmock": "^0.2.3",
-        "prettier": "^1.12.0",
-        "rimraf": "^2.6.2"
+        "prettier": "^1.16.3",
+        "rimraf": "^2.6.3"
     },
     "description": "something useless",
     "repository": {
