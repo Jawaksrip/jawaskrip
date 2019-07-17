@@ -1147,9 +1147,9 @@ eslint-plugin-import@^2.16.0:
     resolve "^1.11.0"
 
 eslint-plugin-jest@^22.2.2:
-  version "22.6.4"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.6.4.tgz#2895b047dd82f90f43a58a25cf136220a21c9104"
-  integrity sha512-36OqnZR/uMCDxXGmTsqU4RwllR0IiB/XF8GW3ODmhsjiITKuI0GpgultWFt193ipN3HARkaIcKowpE6HBvRHNg==
+  version "22.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.10.0.tgz#a22be77f4dc692808b88ead0059620bda299a97d"
+  integrity sha512-iBEWJn60Z5bctcjacymUnOQ3xN3gdvGOy3tDHpalAa99r4+jwH0CvICsIIHBNXNlJxuklkbx+wxr49tXk6M0tg==
 
 eslint-plugin-prettier@^3.0.1:
   version "3.0.1"
