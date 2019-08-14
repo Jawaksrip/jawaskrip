@@ -47,7 +47,7 @@
         "jest": "^24.0.0",
         "pmock": "^0.2.3",
         "prettier": "^1.16.3",
-        "rimraf": "^2.6.3"
+        "rimraf": "^3.0.0"
     },
     "description": "something useless",
     "repository": {
