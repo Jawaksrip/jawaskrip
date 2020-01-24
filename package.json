@@ -27,7 +27,7 @@
         "commander": "^4.0.0",
         "death": "^1.1.0",
         "js-beautify": "1.7.5",
-        "mkdirp": "^0.5.1",
+        "mkdirp": "^1.0.3",
         "ncp": "^2.0.0",
         "readline-sync": "^1.4.7",
         "recursive-readdir-sync": "^1.0.6"
