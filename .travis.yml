@@ -23,7 +23,7 @@ install:
   - yarn
 
 script:
-  - yarn coala
+  # - yarn coala
   - yarn test
 
 after_success:
