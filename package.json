@@ -24,7 +24,7 @@
     "license": "MIT",
     "dependencies": {
         "chalk": "^3.0.0",
-        "commander": "^4.0.0",
+        "commander": "^5.0.0",
         "death": "^1.1.0",
         "js-beautify": "1.10.3",
         "mkdirp": "^1.0.3",
