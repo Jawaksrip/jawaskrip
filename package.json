@@ -23,7 +23,7 @@
     "author": "indmind",
     "license": "MIT",
     "dependencies": {
-        "chalk": "^3.0.0",
+        "chalk": "^4.0.0",
         "commander": "^5.0.0",
         "death": "^1.1.0",
         "js-beautify": "1.10.3",
