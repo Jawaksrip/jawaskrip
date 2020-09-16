@@ -46,7 +46,7 @@
         "eslint-plugin-prettier": "^3.0.1",
         "jest": "^26.0.1",
         "pmock": "^0.2.3",
-        "prettier": "2.1.1",
+        "prettier": "2.1.2",
         "rimraf": "^3.0.0"
     },
     "description": "something useless",
