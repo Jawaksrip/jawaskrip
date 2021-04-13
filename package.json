@@ -26,7 +26,7 @@
         "chalk": "^4.0.0",
         "commander": "^7.0.0",
         "death": "^1.1.0",
-        "js-beautify": "1.13.5",
+        "js-beautify": "1.13.11",
         "mkdirp": "^1.0.3",
         "ncp": "^2.0.0",
         "readline-sync": "^1.4.7",
