@@ -44,7 +44,7 @@
         "eslint-plugin-import": "^2.16.0",
         "eslint-plugin-jest": "^24.0.0",
         "eslint-plugin-prettier": "^3.0.1",
-        "jest": "^26.0.1",
+        "jest": "^27.0.6",
         "pmock": "^0.2.3",
         "prettier": "2.3.1",
         "rimraf": "^3.0.0"
