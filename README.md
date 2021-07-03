@@ -1,5 +1,5 @@
 # JawaSkrip
-Noting.
+DON'T LOOK AT THE CODE, IT'S VERY BAD.
 
 [![Build Status](https://travis-ci.org/indmind/jawaskrip.svg?branch=master)](https://travis-ci.org/indmind/jawaskrip)
 [![Coverage](https://codecov.io/gh/indmind/jawaskrip/branch/master/graph/badge.svg)](https://codecov.io/gh/indmind/jawaskrip)
