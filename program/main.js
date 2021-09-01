@@ -28,4 +28,8 @@ async function run(_code) {
     })
 }
 
-module.exports = { compile, run }
+async function clean() {
+    return program.clean();
+}
+
+module.exports = { compile, run, clean }
