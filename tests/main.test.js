@@ -26,7 +26,7 @@ describe('main test', () => {
 
     it('should compile ulangi', async () => {
         const res = await jw.compile(
-            'ulangi(var i sebanyak 20 kali){tulis(i);}'
+            '       ulangi(var i sebanyak 20 kali){tulis(i);}'
         )
 
         expect(res).toBe(
@@ -191,7 +191,7 @@ describe('main test', () => {
         expect(res).toBe(
             `const readlineSync = require("${require.resolve(
                 'readline-sync'
-            )}");` +
+            ).replace(/\\/g, "\\\\")}");` +
                 '\n\nconst foo = readlineSync.question("bar: ");\n' +
                 'var bar = readlineSync.question("foo: ");'
         )

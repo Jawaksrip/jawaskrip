@@ -7,6 +7,12 @@ describe('api.test', () => {
     })
 
     it('should run jawaskrip code', async () => {
-        jawaskrip.run('tulis("running from api testing")')
+        try {
+            await jawaskrip.run('tulis("running from api testing")')
+        } catch (e) {
+            expect(e).toBe(null)
+        } finally {
+            await jawaskrip.clean();
+        }
     })
 })
