@@ -14,7 +14,8 @@
         "start": "node bin/jawaskrip",
         "test": "jest && ./program/test.sh",
         "coala": "coala --non-interactive",
-        "format": "eslint . --fix"
+        "format": "eslint . --fix",
+        "build-windows": "npx pkg . --targets node16-win-x64 --output ./build/jawaskrip.exe"
     },
     "jest": {
         "coverageDirectory": "./coverage/",
