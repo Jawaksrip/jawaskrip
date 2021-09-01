@@ -48,14 +48,12 @@ let additions = {}
 
 const INPUT = `const readlineSync = require("${require.resolve(
     'readline-sync'
-)}");`
+).replace(/\\/g, "\\\\")}");`
 
 function ulangi_handler(token) {
     logExec('transformer.ulangi_handler', gray(token.line))
 
-    let valArr = js_beautify(token.value, {
-        indent_level: 4
-    }).split(' ')
+    let valArr = js_beautify(token.value).split(' ')
 
     info('ulangi_handler', 'array value:', valArr)
     info('ulangi_handler', 'array length:', valArr.length)
@@ -81,7 +79,7 @@ function setiap_handler(token) {
 
     const parsed = js_beautify(token.value, {
         indent_level: 4
-    }).split(' ')
+    }).trim().split(' ')
 
     info('setiap_handler', 'parsed:', parsed)
 
