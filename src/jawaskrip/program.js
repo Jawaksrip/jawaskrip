@@ -61,14 +61,17 @@ exports.clean = callback => {
     return callback instanceof Function ? callback('All file cleaned') : null
 }
 
-exports.run = script => {
+exports.run = (script, callback) => {
     logExec('program.run')
     this.checkTempDir()
     const tempFile = path.join(__dirname, tempDir, generateRandomName())
     info('run', 'temp file:', tempFile)
     fs.writeFileSync(tempFile, script)
 
-    runScript(tempFile, this.clean)
+    runScript(tempFile, async () => {
+        await this.clean()
+        await callback()
+    })
 }
 
 exports.runLocal = (compiled, original) => {
